@@ -26,7 +26,7 @@ function nav(site, active) {
 }
 
 export function layout({ site, title, description, body, active, ogType = "website" }) {
-  const fullTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.tagline}`;
+  const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`;
   const desc = description || site.description;
   return `<!doctype html>
 <html lang="en">
