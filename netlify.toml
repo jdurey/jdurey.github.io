@@ -1,0 +1,8 @@
+# Netlify deploy. Same two firewall gates as CI: source scan → build → dist scan.
+# A finding fails the build, so nothing leaked ever publishes here either.
+[build]
+  command = "npm install --no-audit --no-fund && node scripts/firewall-scan.mjs content harnesses && node build.mjs && node scripts/firewall-scan.mjs dist"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"

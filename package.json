@@ -1,0 +1,18 @@
+{
+  "name": "jdurey-portfolio",
+  "version": "1.0.0",
+  "description": "Josh Durey — AI Evaluation & Red-Team portfolio. Static, dependency-light, nightly-regenerated.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node build.mjs",
+    "scan": "node scripts/firewall-scan.mjs dist",
+    "scan:src": "node scripts/firewall-scan.mjs content harnesses",
+    "gate": "npm run scan:src && npm run build && npm run scan",
+    "test": "node tests/firewall-scan.test.mjs"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0"
+  }
+}
