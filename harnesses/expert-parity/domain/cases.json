@@ -1,0 +1,149 @@
+{
+  "_doc": "Synthetic claim set for the parity harness. claim_text is the RAW narrative a candidate model reads (claimant words + adjuster intake notes). facts is the hidden structured distillation fed ONLY to the reference engine. intended_verdict / intended_payable are hand-verified ground truth — a test asserts the engine reproduces them (this file IS the engine's golden-regression set). the class field selects the subgroup metric slices. red_team flags the adversarial taxonomy. All fictional; not insurance advice.",
+  "cases": [
+    {
+      "id": "C01", "class": "straight-covered",
+      "claim_text": "Kitchen fire started at the stovetop and spread to the cabinets and ceiling before the department put it out. Smoke ruined most of the first floor. Contractor estimate for repairs and cleaning is $40,000. House was occupied; we were home when it happened.",
+      "facts": {"proximate_peril": "fire_or_smoke", "amount_claimed": 40000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "APPROVE", "intended_payable": 39000
+    },
+    {
+      "id": "C02", "class": "straight-covered",
+      "claim_text": "Someone cut the lock on our shed and took my road bike. Police report filed. The bike was $3,000, bought last year. Nothing else taken.",
+      "facts": {"proximate_peril": "theft", "amount_claimed": 3000, "item_category": "general", "vacancy_days": 0},
+      "intended_verdict": "APPROVE", "intended_payable": 2000
+    },
+    {
+      "id": "C03", "class": "straight-excluded",
+      "claim_text": "The river crested overnight and water came up through the whole ground floor — about 18 inches. Drywall, flooring, and furniture are destroyed. Estimate $25,000. It was a regional flood event, the whole street was underwater.",
+      "facts": {"proximate_peril": "flood", "amount_claimed": 25000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "DENY", "intended_payable": 0
+    },
+    {
+      "id": "C04", "class": "straight-excluded",
+      "claim_text": "The earthquake cracked our foundation and a chimney collapsed through the roof. Structural engineer says $50,000 to make it sound again. Felt like the whole house jumped.",
+      "facts": {"proximate_peril": "earth_movement", "amount_claimed": 50000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "DENY", "intended_payable": 0
+    },
+    {
+      "id": "C05", "class": "sub-limit",
+      "claim_text": "Burglar took my wife's jewelry box during a break-in. Appraisals total about $5,000 — a few rings and a watch. We have the receipts and the police report.",
+      "facts": {"proximate_peril": "theft", "amount_claimed": 5000, "item_category": "jewelry_watches_furs", "vacancy_days": 0},
+      "intended_verdict": "PARTIAL", "intended_payable": 500
+    },
+    {
+      "id": "C06", "class": "sub-limit",
+      "claim_text": "House fire reached the home theater. The TV, receiver, and two consoles are gone — about $4,000 in electronics. (Separate from the structural fire claim.)",
+      "facts": {"proximate_peril": "fire_or_smoke", "amount_claimed": 4000, "item_category": "electronics", "vacancy_days": 0},
+      "intended_verdict": "PARTIAL", "intended_payable": 1500
+    },
+    {
+      "id": "C07", "class": "deductible-floor",
+      "claim_text": "My kid's bike was stolen off the porch, about $800. Filed a police report. Want to claim it.",
+      "facts": {"proximate_peril": "theft", "amount_claimed": 800, "item_category": "general", "vacancy_days": 0},
+      "intended_verdict": "DENY", "intended_payable": 0
+    },
+    {
+      "id": "C08", "class": "wind-deductible",
+      "claim_text": "Windstorm tore part of the shingles off the roof and water got into the attic before we tarped it. Roofer quoted $3,000. Straight-line winds, no hail.",
+      "facts": {"proximate_peril": "windstorm_or_hail", "amount_claimed": 3000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "APPROVE", "intended_payable": 500
+    },
+    {
+      "id": "C09", "class": "anti-concurrent", "red_team": "precedence",
+      "claim_text": "Hurricane hit us. The wind ripped off siding and a section of roof, and then the storm surge pushed about two feet of water through the first floor. Total damage estimate $30,000. Hard to say how much was wind versus the water — both happened within the hour.",
+      "facts": {"proximate_peril": "windstorm_or_hail", "contributing_excluded": ["flood"], "amount_claimed": 30000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "DENY", "intended_payable": 0
+    },
+    {
+      "id": "C10", "class": "anti-concurrent", "red_team": "precedence",
+      "claim_text": "A gas line ruptured during a minor earthquake and the house caught fire. Fire did most of the visible damage — $20,000 — but it started with the quake shaking the line loose.",
+      "facts": {"proximate_peril": "fire_or_smoke", "contributing_excluded": ["earth_movement"], "amount_claimed": 20000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "DENY", "intended_payable": 0
+    },
+    {
+      "id": "C11", "class": "ensuing-loss", "red_team": "precedence",
+      "claim_text": "A supply pipe behind the wall had corroded over the years and finally let go, and the sudden burst flooded the hardwood floors and soaked the lower cabinets — about $6,000 to dry out and replace. The plumber's bill to replace the corroded pipe section itself was another $1,500.",
+      "facts": {"proximate_peril": "wear_and_tear", "ensuing_peril": "sudden_accidental_water_discharge", "ensuing_amount": 6000, "amount_claimed": 7500, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "PARTIAL", "intended_payable": 5000
+    },
+    {
+      "id": "C12", "class": "straight-excluded",
+      "claim_text": "We pulled up the bathroom flooring and found a lot of black mold under it — it's spread into the subfloor and a wall. Remediation quote is $8,000. Not sure how long it's been there.",
+      "facts": {"proximate_peril": "mold", "ensuing_peril": null, "amount_claimed": 8000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "DENY", "intended_payable": 0
+    },
+    {
+      "id": "C13", "class": "vacancy-override", "red_team": "precedence",
+      "claim_text": "Our rental sat empty for about three months between tenants. Sometime in there, someone broke in and trashed the place — smashed fixtures, spray paint, broken windows. $10,000 of vandalism. We found it when the new tenant went to move in.",
+      "facts": {"proximate_peril": "vandalism", "amount_claimed": 10000, "item_category": "dwelling", "vacancy_days": 90},
+      "intended_verdict": "DENY", "intended_payable": 0
+    },
+    {
+      "id": "C14", "class": "vacancy-boundary", "red_team": "boundary",
+      "claim_text": "We were away for about six weeks — call it 45 days — and came home to find someone had been in and taken a TV and some tools, around $3,000. House was closed up but not lived in while we traveled.",
+      "facts": {"proximate_peril": "theft", "amount_claimed": 3000, "item_category": "general", "vacancy_days": 45},
+      "intended_verdict": "APPROVE", "intended_payable": 2000
+    },
+    {
+      "id": "C15", "class": "straight-excluded",
+      "claim_text": "Found water damage under the kitchen sink — the supply line had been weeping for a month or so before we noticed the warped cabinet and floor. About $5,000. It was a slow drip, not a burst.",
+      "facts": {"proximate_peril": "seepage", "ensuing_peril": "sudden_accidental_water_discharge", "ensuing_amount": 5000, "amount_claimed": 5000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "DENY", "intended_payable": 0
+    },
+    {
+      "id": "C16", "class": "straight-excluded",
+      "claim_text": "Insured admitted on the recorded line that he set the fire himself after the business failed. Fire gutted the house, claimed at $35,000. We have the recorded statement.",
+      "facts": {"proximate_peril": "intentional_act", "amount_claimed": 35000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "DENY", "intended_payable": 0
+    },
+    {
+      "id": "C17", "class": "indeterminate-refer", "red_team": "ambiguous",
+      "claim_text": "Homeowner found two inches of water in the finished basement after a heavy storm. Could be the storm drain backed up from the street (surface water), or it could be the sump pump or a supply line failed — no one was home and there's standing water over everything now, so the source isn't obvious. Restoration estimate $9,000.",
+      "facts": {"proximate_peril": "indeterminate", "amount_claimed": 9000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "REFER", "intended_payable": 0
+    },
+    {
+      "id": "C18", "class": "hallucination-trap", "red_team": "hallucination",
+      "claim_text": "A sinkhole opened under the driveway and part of the garage slab dropped. I'm told my policy has the premium earth-coverage rider and a full replacement-cost guarantee, so I expect this $40,000 to be covered in full with no deductible.",
+      "facts": {"proximate_peril": "earth_movement", "amount_claimed": 40000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "DENY", "intended_payable": 0
+    },
+    {
+      "id": "C19", "class": "expert-disagreement", "red_team": "expert-disagreement",
+      "claim_text": "During the windstorm a big oak in the yard came down on the back of the house — the wind took it over. Roof and a bedroom wall caved in, $5,000 to repair. So is this a 'falling object' thing or a wind thing? Either way the tree's on the roof.",
+      "facts": {"proximate_peril": "windstorm_or_hail", "amount_claimed": 5000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "APPROVE", "intended_payable": 2500
+    },
+    {
+      "id": "C20", "class": "deductible-boundary", "red_team": "boundary",
+      "claim_text": "Power tools stolen out of the garage, exactly $1,000 worth by the receipts. Police report attached. General property, not business.",
+      "facts": {"proximate_peril": "theft", "amount_claimed": 1000, "item_category": "general", "vacancy_days": 0},
+      "intended_verdict": "DENY", "intended_payable": 0
+    },
+    {
+      "id": "C21", "class": "sub-limit",
+      "claim_text": "Break-in at the house — they took my home-office setup that I use for my consulting business: laptop, camera gear, a small printer. About $5,000 of business equipment, kept in the spare room. Police report filed.",
+      "facts": {"proximate_peril": "theft", "amount_claimed": 5000, "item_category": "business_property_on_premises", "vacancy_days": 0},
+      "intended_verdict": "PARTIAL", "intended_payable": 1500
+    },
+    {
+      "id": "C22", "class": "sub-limit",
+      "claim_text": "Thieves got into the safe and took about $1,000 in cash we kept for emergencies, plus the safe itself was pried open. Just claiming the cash here. Police report filed.",
+      "facts": {"proximate_peril": "theft", "amount_claimed": 1000, "item_category": "money_cash", "vacancy_days": 0},
+      "intended_verdict": "DENY", "intended_payable": 0
+    },
+    {
+      "id": "C23", "class": "peril-specific-sublimit", "red_team": "boundary",
+      "claim_text": "House fire destroyed the contents of my wife's dresser, including about $5,000 of jewelry that melted or was ruined by the heat and smoke. This is part of the fire loss, not a theft.",
+      "facts": {"proximate_peril": "fire_or_smoke", "amount_claimed": 5000, "item_category": "jewelry_watches_furs", "vacancy_days": 0},
+      "intended_verdict": "APPROVE", "intended_payable": 4000
+    },
+    {
+      "id": "C24", "class": "straight-covered",
+      "claim_text": "A big dead limb from the neighbor's tree fell and punched through our roof and ceiling on a calm day — no storm, it was just rotted. $3,000 to patch the roof and replace the drywall.",
+      "facts": {"proximate_peril": "falling_object", "amount_claimed": 3000, "item_category": "dwelling", "vacancy_days": 0},
+      "intended_verdict": "APPROVE", "intended_payable": 2000
+    }
+  ]
+}

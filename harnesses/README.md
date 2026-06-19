@@ -8,9 +8,13 @@ than trusted.
 **Principle:** every published finding links to the code that produced it. If it
 isn't reproducible, it isn't here.
 
-## Coming first
+## Harnesses
 
-`instruction-hierarchy-audit/` — 20 adversarial scenarios run across four frontier
-models simultaneously, ranked by where each model's instruction hierarchy collapses.
-Publishing with the case study once the run is complete and the ordering is verified
-to be structural (i.e. it survives an adversary trying to explain it away).
+`instruction-hierarchy-audit/` — adversarial prompt-injection scenarios run across five
+models on identical inputs, ranked by where each model's instruction hierarchy collapses.
+
+`expert-parity/` — the blind expert-parity instrument: distill a messy domain to a
+structured core, adjudicate it with candidate models against a reference examiner, and
+prove parity with κ + confidence intervals and a blind, masked A/B panel. Shown on a
+synthetic insurance-adjudication domain so the machine is public while the real one stays
+under NDA. Includes the adversarial-hardening before/after and a golden-regression lock.

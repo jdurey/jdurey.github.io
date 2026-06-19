@@ -1,0 +1,60 @@
+{
+  "_doc": "STRUCTURED CORE — the distillation of policy.raw.md into machine-adjudicable form. This is the 'expert's internalized rulebook': entities, rules, exceptions, and the precedence order that resolves conflicts. The reference examiner (engine.mjs) runs on THIS; candidate models read only policy.raw.md and must reconstruct this reasoning themselves. Synthetic. 'Meridian Mutual' is fictional; nothing here is real insurance or legal advice.",
+  "policy_id": "MM-HO3-SYNTH-v1",
+  "insurer": "Meridian Mutual (fictional)",
+  "form": "Homeowners HO-3 style (synthetic, simplified)",
+  "currency": "USD",
+  "deductibles": {
+    "standard": 1000,
+    "wind_hail": 2500,
+    "_note": "The wind/hail deductible applies to any loss whose proximate covered peril is windstorm or hail. Otherwise the standard deductible applies. Deductible is subtracted from the covered loss amount AFTER sub-limits, never before."
+  },
+  "covered_perils": [
+    "fire_or_smoke",
+    "windstorm_or_hail",
+    "theft",
+    "sudden_accidental_water_discharge",
+    "falling_object",
+    "vandalism"
+  ],
+  "exclusions": [
+    {"id": "flood", "label": "Flood / surface water / storm surge", "ensuing_loss_eligible": false},
+    {"id": "earth_movement", "label": "Earthquake / landslide / sinkhole", "ensuing_loss_eligible": false},
+    {"id": "wear_and_tear", "label": "Wear, tear, deterioration, lack of maintenance, rust, corrosion", "ensuing_loss_eligible": true},
+    {"id": "mold", "label": "Mold, fungus, wet or dry rot", "ensuing_loss_eligible": true},
+    {"id": "intentional_act", "label": "Intentional or fraudulent act by an insured", "ensuing_loss_eligible": false},
+    {"id": "seepage", "label": "Continuous or repeated seepage/leakage over 14+ days", "ensuing_loss_eligible": false},
+    {"id": "vacancy", "label": "Loss while the dwelling was vacant more than 60 consecutive days before the loss", "ensuing_loss_eligible": false}
+  ],
+  "sub_limits": [
+    {"category": "jewelry_watches_furs", "limit": 1500, "perils": "theft only"},
+    {"category": "money_cash", "limit": 200, "perils": "all"},
+    {"category": "firearms", "limit": 2500, "perils": "theft only"},
+    {"category": "electronics", "limit": 2500, "perils": "all"},
+    {"category": "business_property_on_premises", "limit": 2500, "perils": "all"}
+  ],
+  "rules": [
+    {"id": "R1_covered_peril_required", "text": "A loss is payable only if its proximate cause is a covered peril."},
+    {"id": "R2_anti_concurrent_causation", "text": "If an excluded peril contributes to the loss, the loss is excluded EVEN IF a covered peril also contributes (concurrent causation). This is overridden only by R3."},
+    {"id": "R3_ensuing_loss", "text": "If an excluded cause (only one of: wear_and_tear, mold) leads to a SEPARATE ensuing covered peril, the ensuing loss IS covered, but the cost to repair the excluded cause itself is NOT. Flood, earth_movement, intentional_act, seepage, and vacancy are NOT ensuing-loss eligible."},
+    {"id": "R4_sub_limit_cap", "text": "Payable loss for a sub-limited category is capped at its sub-limit before the deductible is applied."},
+    {"id": "R5_deductible", "text": "Subtract the applicable deductible from the covered, sub-limit-capped amount. If the result is <= 0, the claim is payable-but-below-deductible (net pay = 0)."},
+    {"id": "R6_vacancy_override", "text": "If the dwelling was vacant > 60 consecutive days immediately before the loss, deny regardless of peril (except theft is excluded outright when vacant; all other perils denied under vacancy)."},
+    {"id": "R7_burden_of_proof", "text": "When the proximate cause cannot be established from the facts (genuinely ambiguous between a covered and an excluded peril), the examiner does NOT guess: the correct disposition is REFER (escalate for investigation), not APPROVE or DENY."}
+  ],
+  "precedence": [
+    "R6_vacancy_override",
+    "R2_anti_concurrent_causation",
+    "R3_ensuing_loss",
+    "R1_covered_peril_required",
+    "R4_sub_limit_cap",
+    "R5_deductible",
+    "R7_burden_of_proof"
+  ],
+  "verdicts": {
+    "APPROVE": "Covered peril, no controlling exclusion; net payable > 0 after sub-limit and deductible.",
+    "PARTIAL": "Covered but reduced — by a sub-limit, by the deductible, or because only the ensuing portion is covered. Net payable > 0 but less than claimed.",
+    "DENY": "No covered peril, a controlling exclusion applies, vacancy override, or net payable <= 0 after deductible.",
+    "REFER": "Proximate cause genuinely indeterminate from the facts; escalate rather than guess (R7)."
+  }
+}
