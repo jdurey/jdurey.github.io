@@ -17,7 +17,9 @@ const md = new MarkdownIt({ html: true, linkify: true, typographer: true });
 const FIXED_BUILD_DATE = process.env.BUILD_DATE || new Date().toISOString().slice(0, 10);
 
 function fmtDate(d) {
-  const dt = new Date(d + "T00:00:00Z");
+  // YAML parses unquoted ISO dates (date: 2026-06-19) into Date objects; build/env dates arrive as strings.
+  const dt = d instanceof Date ? d : new Date(String(d) + "T00:00:00Z");
+  if (isNaN(dt.getTime())) return String(d);
   return dt.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
 }
 

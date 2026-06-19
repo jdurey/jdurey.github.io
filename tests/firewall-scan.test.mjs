@@ -79,5 +79,18 @@ expect("FP18 target tracker", "Built a target tracker for outreach campaigns.", 
 expect("FP19 alpha-numeric hyphen", "alpha-numeric tokenization in the parser.", false);
 expect("FP20 second brain PKM", "Tiago Forte's second brain method is public PKM.", false);
 
+// ===== MUST BLOCK — leaked credentials (so no one can use Josh's agents from the repo) =====
+expect("openai key", "OPENAI_API_KEY=sk-abcdefghijklmnopqrstuvwxyz0123456789", true);
+expect("anthropic key", "key: sk-ant-api03-AAaa11bbCCdd22eeFFgg33hh", true);
+expect("github token", "token ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", true);
+expect("github pat", "github_pat_11ABCDEFG0aaaaaaaaaaaa_bbbbbbbbbbbbbbbbbbbbbb", true);
+expect("xai key", "XAI_API_KEY=xai-ABCDEFGHIJKLMNOPQRSTUV", true);
+expect("google key", "GEMINI: AIzaSyD-ABCDEFGHIJKLMNOPQRSTUVWXYZ012", true);
+expect("aws key id", "aws AKIAIOSFODNN7EXAMPLE here", true);
+expect("private key header", "-----BEGIN OPENSSH PRIVATE KEY-----", true);
+// ...but ordinary text with these letters must not block
+expect("sk- prose", "the task was sketched out", false);
+expect("token prose", "tokens are for judgment, not plumbing", false);
+
 console.log(`\nfirewall-scan tests: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

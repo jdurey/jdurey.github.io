@@ -48,8 +48,18 @@
     "\\bdrive[_-]watch\\b",
     "\\bdrive\\s+watch\\.(md|json|txt)\\b",
     "\\binbox[_-]digest\\b",
-    "\\binbox\\s+digest\\.(md|json|txt)\\b"
+    "\\binbox\\s+digest\\.(md|json|txt)\\b",
+    "sk-ant-[a-z0-9_-]{20,}",
+    "sk-[a-z0-9]{32,}",
+    "gh[oprsu]_[a-z0-9]{30,}",
+    "github_pat_[a-z0-9_]{30,}",
+    "xai-[a-z0-9]{20,}",
+    "aiza[0-9a-z_-]{30,}",
+    "akia[a-z0-9]{16}\\b",
+    "xox[baprs]-[a-z0-9-]{10,}",
+    "-----begin [a-z0-9 ]*private key-----"
   ],
+  "_doc_secrets": "The hardBlockRegex tail catches API keys / tokens / private keys (OpenAI, Anthropic, GitHub, xAI, Google, AWS, Slack). Patterns are lowercase-form because the scanner matches over canonicalized lowercased text. This is defense-in-depth: nothing in the repo lets anyone use Josh's agents, and a secret accidentally committed later (by him or an agent) aborts the publish before it can leak.",
   "_doc_contextGated": "Short internal acronyms that collide with common words/onomatopoeia/graphics terms. Block ONLY when a QC-domain word appears within `window` chars — catches the internal taxonomy leak without bricking 'FOM bias' / 'DRI driver' / 'arf'.",
   "contextGated": [
     {
