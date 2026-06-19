@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  LaunchAgent for the portfolio nightly engine. Install:
+    cp deploy/com.jdurey.portfolio-nightly.plist ~/Library/LaunchAgents/
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.jdurey.portfolio-nightly.plist
+  Remove:
+    launchctl bootout gui/$(id -u)/com.jdurey.portfolio-nightly
+  Runs as a user LaunchAgent so it can reach the login keychain (gh push auth) and iCloud.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.jdurey.portfolio-nightly</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>--</string>
+    <string>REPLACE_HOME/portfolio/scripts/run-nightly.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>2</integer>
+    <key>Minute</key><integer>30</integer>
+  </dict>
+  <key>RunAtLoad</key>
+  <false/>
+  <key>StandardOutPath</key>
+  <string>REPLACE_HOME/portfolio/runs/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>REPLACE_HOME/portfolio/runs/launchd.err.log</string>
+  <key>ProcessType</key>
+  <string>Background</string>
+</dict>
+</plist>
