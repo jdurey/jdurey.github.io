@@ -20,9 +20,9 @@ I came to evaluation the practical way: by building enough AI systems that I lea
 - **Cheap tier for volume, strong tier for judgment.** Most eval cost is wasted on the wrong tier.
 - **Boring is beautiful.** The least machinery that works, every time.
 
-## What I'm building now
+## Recent work
 
-A four-model instruction-hierarchy collapse audit: 20 adversarial scenarios, all models run simultaneously, ranked by where each one's instruction hierarchy gives way. The harness and the ranked table publish here when the run completes. This site regenerates every night, so the changelog is the real-time record.
+A [five-model, 28-scenario instruction-hierarchy collapse audit](/work/instruction-hierarchy-audit/): does an instruction hidden in the content a model processes override its actual task? The deployed frontier agents held the line; a popular self-hosted model collapsed 1-in-5, and the sophisticated reframes are what broke it. Reproducible harness, honest grader, raw responses published. This site regenerates every night, so the changelog is the real-time record.
 
 ## Working together
 
