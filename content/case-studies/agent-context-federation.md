@@ -1,4 +1,5 @@
 ---
+queued: true
 title: "An operating system for my AI agents"
 slug: agent-context-federation
 date: 2026-06-13
