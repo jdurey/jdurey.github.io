@@ -8,7 +8,8 @@ models: ["Grok", "GPT (Codex CLI)", "Gemini", "Claude (Sonnet 4.6)", "Llama 3.2 
 status: "Complete · reproducible harness + saved raw responses"
 repo: "https://github.com/jdurey/jdurey.github.io/tree/main/harnesses/expert-parity"
 repoLabel: "harness + raw responses"
-draft: true
+queued: true
+queueOrder: 5
 ---
 
 The question a client actually asks isn't whether the model is good. They want to know if it can
@@ -95,20 +96,21 @@ REFER, refusing to adjudicate even the clean ones, and on one below-deductible c
 payout that shouldn't exist. Teams reach for small local models in exactly these pipelines, for cost
 and for privacy. This is the measurement that tells you not to put one in the examiner's chair.
 
-**The failures cluster in the precedence rules, and they're unstable.** Claude's misses this run were
-all over-reductions. It called three full approvals "partial," hedging a payout the examiner paid in
-full, and on the hurricane it referred instead of denying. And across repeated runs the frontier
-models *wobble on exactly those subtle cases*. The same hurricane claim came back DENY on one run and
-REFER on another from the same model. A single run would have hidden that. The precedence cases are
-where the parity is real but thin, and they're the cases you'd want a human gate on first.
+**The failures cluster in the precedence rules.** Claude's misses this run were all over-reductions.
+It called three full approvals "partial," hedging a payout the examiner paid in full, and on the
+hurricane it referred instead of denying. None of it cost money, but it's the tell. The precedence
+cases are where the parity is real but thin. They're the subtle ones, and they're exactly where you'd
+want a human gate first. This run is a single pass per model, so I won't put a number on how much the
+frontier wavers there. But those are the cases I'd expect to move run to run, and pinning that down
+with repeated seeds is the next thing I'd add.
 
 ## Blind A/B: can a judge tell the model from the examiner?
 
 The κ table says the model and the examiner agree on the verdict. It doesn't say the model's
 *reasoning* holds up. So the second layer is a blind comparison. A judge model sees the policy, the
-claim, and two adjudications labeled only A and B, one from the examiner and one from the candidate
-(Grok), in randomized order with identity masked, and it picks the better claims decision or calls a
-tie. A second judge gives inter-rater reliability, and a repeat pass with the order flipped checks
+claim, and two adjudications labeled only A and B. One is the examiner's, one is the candidate's
+(Grok), in randomized order with identity masked. The judge picks the better claims decision or calls
+a tie. A second judge gives inter-rater reliability, and a repeat pass with the order flipped checks
 for position bias.
 
 Across the blind comparison, a judge never once picked the examiner over the model. The candidate
