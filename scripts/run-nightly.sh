@@ -16,6 +16,8 @@ export FORGE_SOURCES="${FORGE_SOURCES:-$HOME/Library/Mobile Documents/com~apple~
 # auto-draft — a draft that trips the firewall will (correctly) block all publishing until cleared.
 export PUBLISH="${PUBLISH:-1}"
 export GEN_ENABLED="${GEN_ENABLED:-0}"
+# Drip pacing: release at most ONE queued piece, no more often than this many days.
+export RELEASE_EVERY_DAYS="${RELEASE_EVERY_DAYS:-3}"
 
 mkdir -p runs
 LOG="runs/nightly-$(date +%Y-%m-%d).log"

@@ -22,6 +22,7 @@ import { existsSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import matter from "gray-matter";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const STATE = path.join(ROOT, ".nightly-state.json");
@@ -29,6 +30,8 @@ const RUNLOG = path.join(ROOT, "RUNLOG.md");
 const RUNS_DIR = path.join(ROOT, "runs");
 const TODAY = process.env.BUILD_DATE || new Date().toISOString().slice(0, 10);
 const NOW = new Date().toISOString();
+// Drip pacing: release AT MOST ONE queued piece, and no more often than this many days.
+const RELEASE_EVERY_DAYS = parseInt(process.env.RELEASE_EVERY_DAYS || "3", 10);
 
 const log = (m) => console.log(`[nightly ${NOW}] ${m}`);
 
@@ -157,6 +160,53 @@ function publish(changedSummary) {
   return { pushed: pushed !== null, reason: pushed === null ? "push failed" : "pushed" };
 }
 
+function daysBetween(a, b) {
+  return Math.round((new Date(b + "T00:00:00Z") - new Date(a + "T00:00:00Z")) / 86400000);
+}
+
+// The drip: promote AT MOST ONE queued piece, and only if RELEASE_EVERY_DAYS have passed
+// since the last release. Queued pieces (frontmatter `queued: true`) are already authored,
+// voice-proofed, and gated — this only controls WHEN they go live, one at a time.
+async function releaseFromQueue(state) {
+  const dir = path.join(ROOT, "content/case-studies");
+  if (!existsSync(dir)) return { released: null, remaining: 0 };
+  const queued = [];
+  for (const f of (await readdir(dir)).filter((f) => f.endsWith(".md"))) {
+    const full = path.join(dir, f);
+    const { data } = matter(await readFile(full, "utf8"));
+    if (data.queued && !data.draft) {
+      queued.push({ file: full, name: f, order: data.queueOrder ?? null, date: data.date ? String(data.date) : "" });
+    }
+  }
+  if (!queued.length) return { released: null, remaining: 0 };
+
+  if (state.lastReleaseDate) {
+    const since = daysBetween(state.lastReleaseDate, TODAY);
+    if (since < RELEASE_EVERY_DAYS) {
+      log(`queue: ${queued.length} waiting; ${RELEASE_EVERY_DAYS - since} day(s) until next release`);
+      return { released: null, remaining: queued.length, waiting: RELEASE_EVERY_DAYS - since };
+    }
+  }
+
+  queued.sort((a, b) => {
+    if (a.order != null && b.order != null) return a.order - b.order;
+    if (a.date && b.date) return a.date < b.date ? -1 : 1;
+    return a.name < b.name ? -1 : 1;
+  });
+  const next = queued[0];
+  const raw = await readFile(next.file, "utf8");
+  const flipped = raw.replace(/^queued:\s*true\s*$/m, "queued: false");
+  if (flipped === raw) {
+    log(`queue: could not flip ${next.name} (no 'queued: true' line found)`);
+    return { released: null, remaining: queued.length };
+  }
+  await writeFile(next.file, flipped);
+  state.lastReleaseDate = TODAY;
+  await writeFile(STATE, JSON.stringify(state, null, 2)); // persist now so an abort can't double-release
+  log(`queue: RELEASED ${next.name} (${queued.length - 1} remaining)`);
+  return { released: next.name, remaining: queued.length - 1 };
+}
+
 async function main() {
   await mkdir(RUNS_DIR, { recursive: true });
   const state = await loadState();
@@ -164,10 +214,11 @@ async function main() {
   log(`discovered ${fresh.length} new/changed artifact(s)`);
 
   const drafts = await generateDrafts(fresh);
+  const release = await releaseFromQueue(state);
 
   // GATE 1 — source must be clean before we build anything
   if (!scan([path.join(ROOT, "content"), path.join(ROOT, "harnesses")])) {
-    await finish(state, fresh, { aborted: "source firewall block", drafts, publishResult: null });
+    await finish(state, fresh, { aborted: "source firewall block", drafts, publishResult: null, release });
     process.exit(1);
   }
 
@@ -175,18 +226,18 @@ async function main() {
 
   // GATE 2 — built output must be clean before it can publish
   if (!scan([path.join(ROOT, "dist")])) {
-    await finish(state, fresh, { aborted: "dist firewall block", drafts, publishResult: null });
+    await finish(state, fresh, { aborted: "dist firewall block", drafts, publishResult: null, release });
     process.exit(1);
   }
 
-  const summary = drafts.length ? `${drafts.length} draft(s), site refresh` : "site refresh";
+  const summary = release.released ? `release ${release.released}` : drafts.length ? `${drafts.length} draft(s), site refresh` : "site refresh";
   const publishResult = publish(summary);
   log(`publish: ${publishResult.reason}`);
 
-  await finish(state, fresh, { aborted: null, drafts, publishResult });
+  await finish(state, fresh, { aborted: null, drafts, publishResult, release });
 }
 
-async function finish(state, fresh, { aborted, drafts, publishResult }) {
+async function finish(state, fresh, { aborted, drafts, publishResult, release = { released: null, remaining: 0 } }) {
   // Only mark artifacts seen if we did NOT abort (so a blocked run re-tries them).
   if (!aborted) {
     for (const a of fresh) state.seen[a.file] = a.mtimeMs;
@@ -198,6 +249,7 @@ async function finish(state, fresh, { aborted, drafts, publishResult }) {
     ``,
     aborted ? `**ABORTED:** ${aborted} — nothing published. Resolve and re-run.` : `**Status:** ${publishResult?.reason || "ok"}`,
     ``,
+    release.released ? `- **Released from queue today:** ${release.released} (${release.remaining} still queued)` : `- Queue: ${release.remaining} waiting${release.waiting ? `, next release in ${release.waiting} day(s)` : ""}`,
     `- New/changed artifacts seen: ${fresh.length}`,
     `- Drafts generated (need review): ${drafts.length}`,
     drafts.length ? `  > Each draft MUST get the voice-profile + ai-proof pass before publishing (hard rule). Then set draft:false.` : ``,

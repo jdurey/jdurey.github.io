@@ -31,7 +31,8 @@ async function loadCaseStudies() {
   for (const f of files) {
     const raw = await readFile(path.join(dir, f), "utf8");
     const { data, content } = matter(raw);
-    if (data.draft) continue;
+    if (data.draft) continue; // not ready / needs review
+    if (data.queued) continue; // ready but held for paced release (the nightly drips one at a time)
     const slug = data.slug || f.replace(/\.md$/, "");
     items.push({
       ...data,
