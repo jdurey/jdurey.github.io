@@ -51,7 +51,6 @@ expect("FN11 spaced codename", "My soft landing job search pipeline.", true);
 expect("FN12 base64 employer", "Note: YWxwaGEgc2Nob29s", true);
 expect("FN16 percent-encoded email", '<a href="mailto:joshua.durey%40%61lpha.school">x</a>', true);
 expect("FN21 spaced federation name", "Part of the AI OS federation layer.", true);
-expect("ARF in QC context", "the ARF flaw class in the feedback ledger", true);
 expect("DRI in QC context", "DRI distractor leakage in the rubric", true);
 
 // ===== MUST NOT BLOCK — legitimate clean-room prose =====
@@ -73,6 +72,11 @@ expect("FP13c significance alpha", "we set the significance alpha = 0.05 thresho
 expect("FP14 FOM acronym", "Retail investors cite FOM as a bias.", false);
 expect("FP15 DRI driver", "Updated the DRI driver on Linux.", false);
 expect("FP15b DRI owner", "each scenario names a DRI owner and rollback step", false);
+// arf/gdf/fom are the feedback-integrity harness's PUBLISHED method taxonomy (reviewed 2026-06-20) —
+// they must publish even in QC context. 'dri' stays gated (above). See denylist _doc_contextGated.
+expect("FP19 ARF published taxonomy", "the ARF flaw class in the feedback ledger", false);
+expect("FP20 GDF published taxonomy", "a GDF ghost-distractor in the rubric feedback", false);
+expect("FP21 FOM published taxonomy", "FOM means the feedback explains a different option", false);
 expect("FP16 fantasy trilogy", "A classic fantasy trilogy structure.", false);
 expect("FP17 forge metaphor", "the CI runner is the forge where prompts are tested", false);
 expect("FP18 target tracker", "Built a target tracker for outreach campaigns.", false);
