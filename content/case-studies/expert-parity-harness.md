@@ -8,7 +8,7 @@ models: ["Grok", "GPT (Codex CLI)", "Gemini", "Claude (Sonnet 4.6)", "Llama 3.2 
 status: "Complete · reproducible harness + saved raw responses"
 repo: "https://github.com/jdurey/jdurey.github.io/tree/main/harnesses/expert-parity"
 repoLabel: "harness + raw responses"
-queued: true
+queued: false
 queueOrder: 5
 ---
 

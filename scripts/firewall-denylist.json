@@ -60,10 +60,10 @@
     "-----begin [a-z0-9 ]*private key-----"
   ],
   "_doc_secrets": "The hardBlockRegex tail catches API keys / tokens / private keys (OpenAI, Anthropic, GitHub, xAI, Google, AWS, Slack). Patterns are lowercase-form because the scanner matches over canonicalized lowercased text. This is defense-in-depth: nothing in the repo lets anyone use Josh's agents, and a secret accidentally committed later (by him or an agent) aborts the publish before it can leak.",
-  "_doc_contextGated": "Short internal acronyms that collide with common words/onomatopoeia/graphics terms. Block ONLY when a QC-domain word appears within `window` chars — catches the internal taxonomy leak without bricking 'FOM bias' / 'DRI driver' / 'arf'.",
+  "_doc_contextGated": "Short internal acronyms that collide with common words. Block ONLY when a QC-domain word appears within `window` chars. NOTE (2026-06-20, reviewed decision per Josh): arf/gdf/fom REMOVED — they are the feedback-integrity harness's own PUBLISHED method taxonomy (answer-reveal / ghost-distractor / feedback-option-mismatch), defined from first principles on synthetic data, and gating them bricked the harness's own writeup. 'dri' STAYS gated: it marks the Alpha SS DRI role and must not leak near QC words.",
   "contextGated": [
     {
-      "words": ["arf", "gdf", "fom", "dri"],
+      "words": ["dri"],
       "near": ["feedback", "distractor", "flaw", "mcq", "rubric", "grading", "grader", "option", "taxonomy", "ledger", "ghost", "reveal"],
       "window": 45
     }
