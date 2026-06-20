@@ -1,0 +1,352 @@
+{
+  "generatedNote": "Per-class graduation scorecard. Pure function of golden/findings.json + results/{screen,solver,semantic}.json. Graduation is per class; a class is READY only if recall==1, the noise tripwire did not fire, and every canary was caught.",
+  "params": {
+    "NOISE_K": 2
+  },
+  "nItems": 14,
+  "classes": {
+    "ARF": {
+      "rungs": [
+        "deterministic screen (lexical)",
+        "blind-solver"
+      ],
+      "golden": [
+        "I02",
+        "I03",
+        "I10"
+      ],
+      "goldenCount": 3,
+      "detected": [
+        "I02",
+        "I10",
+        "I03"
+      ],
+      "truePos": [
+        "I02",
+        "I10",
+        "I03"
+      ],
+      "falsePos": [],
+      "missed": [],
+      "recall": 1,
+      "noiseTripwire": false,
+      "flaggedCount": 3,
+      "noiseLimit": 6,
+      "canaries": [
+        "I02"
+      ],
+      "canariesCaught": [
+        "I02"
+      ],
+      "canaryOK": true,
+      "verdict": "READY — graduate to unsupervised",
+      "caughtBy": {
+        "I02": [
+          "screen"
+        ],
+        "I03": [
+          "solver"
+        ],
+        "I10": [
+          "screen"
+        ]
+      },
+      "semanticProposed": []
+    },
+    "GDF": {
+      "rungs": [
+        "(no objective rung — cheap semantic pass only proposes candidates for human review)"
+      ],
+      "golden": [
+        "I04",
+        "I11"
+      ],
+      "goldenCount": 2,
+      "detected": [],
+      "truePos": [],
+      "falsePos": [],
+      "missed": [
+        "I04",
+        "I11"
+      ],
+      "recall": 0,
+      "noiseTripwire": false,
+      "flaggedCount": 0,
+      "noiseLimit": 4,
+      "canaries": [
+        "I11"
+      ],
+      "canariesCaught": [],
+      "canaryOK": false,
+      "verdict": "HOLD — keep a human on this class",
+      "caughtBy": {
+        "I04": [],
+        "I11": []
+      },
+      "semanticProposed": []
+    },
+    "FOM": {
+      "rungs": [
+        "deterministic screen (identical)"
+      ],
+      "golden": [
+        "I05",
+        "I06",
+        "I13"
+      ],
+      "goldenCount": 3,
+      "detected": [
+        "I05"
+      ],
+      "truePos": [
+        "I05"
+      ],
+      "falsePos": [],
+      "missed": [
+        "I06",
+        "I13"
+      ],
+      "recall": 0.333,
+      "noiseTripwire": false,
+      "flaggedCount": 1,
+      "noiseLimit": 6,
+      "canaries": [
+        "I05"
+      ],
+      "canariesCaught": [
+        "I05"
+      ],
+      "canaryOK": true,
+      "verdict": "HOLD — keep a human on this class",
+      "caughtBy": {
+        "I05": [
+          "screen"
+        ],
+        "I06": [],
+        "I13": []
+      },
+      "semanticProposed": [
+        "I05",
+        "I06",
+        "I13"
+      ]
+    },
+    "LCU": {
+      "rungs": [
+        "deterministic screen (length)"
+      ],
+      "golden": [
+        "I07"
+      ],
+      "goldenCount": 1,
+      "detected": [
+        "I07"
+      ],
+      "truePos": [
+        "I07"
+      ],
+      "falsePos": [],
+      "missed": [],
+      "recall": 1,
+      "noiseTripwire": false,
+      "flaggedCount": 1,
+      "noiseLimit": 2,
+      "canaries": [
+        "I07"
+      ],
+      "canariesCaught": [
+        "I07"
+      ],
+      "canaryOK": true,
+      "verdict": "READY — graduate to unsupervised",
+      "caughtBy": {
+        "I07": [
+          "screen"
+        ]
+      },
+      "semanticProposed": []
+    }
+  },
+  "solverDetail": {
+    "I01": {
+      "solved": false,
+      "answer": "a village could grow",
+      "matched": []
+    },
+    "I02": {
+      "solved": false,
+      "answer": "The Council of Nine",
+      "matched": []
+    },
+    "I03": {
+      "solved": true,
+      "answer": "The Tola came to this place for salt.",
+      "matched": [
+        "salt"
+      ]
+    },
+    "I04": {
+      "solved": false,
+      "answer": "harbor gate keeper",
+      "matched": []
+    },
+    "I05": {
+      "solved": false,
+      "answer": "The Mott",
+      "matched": []
+    },
+    "I06": {
+      "solved": false,
+      "answer": "The wall was built for safety.",
+      "matched": []
+    },
+    "I07": {
+      "solved": false,
+      "answer": "a song",
+      "matched": []
+    },
+    "I08": {
+      "solved": false,
+      "answer": "The scouts went to store up food for a single feast hunt.",
+      "matched": []
+    },
+    "I09": {
+      "solved": false,
+      "answer": "The harbor",
+      "matched": []
+    },
+    "I10": {
+      "solved": false,
+      "answer": "The Suun",
+      "matched": []
+    },
+    "I11": {
+      "solved": false,
+      "answer": "Space Suits",
+      "matched": []
+    },
+    "I12": {
+      "solved": false,
+      "answer": "The Mott",
+      "matched": []
+    },
+    "I13": {
+      "solved": false,
+      "answer": "The harbor fire",
+      "matched": []
+    },
+    "I14": {
+      "solved": false,
+      "answer": "The cliff road was used for trade.",
+      "matched": []
+    }
+  },
+  "semanticCalibration": {
+    "note": "Cheap-model agreement with the golden adjudication. Its positives are candidates, never verdicts; its negatives are never a clean bill of health. The point of these numbers is to justify why.",
+    "model": "Llama 3.2 3B (local, ollama)",
+    "n": 14,
+    "labelCounts": {
+      "ARF": 0,
+      "GDF": 0,
+      "FOM": 14,
+      "CLEAN": 0
+    },
+    "agreement": 0.214,
+    "collapsed": true,
+    "collapsedOnto": "FOM",
+    "wavedThroughRate": 0,
+    "wavedThrough": 0,
+    "defectiveItems": 8,
+    "falseFlagOnCleanRate": 1,
+    "falseFlagged": 6,
+    "cleanItems": 6,
+    "positivePrecision": 0.214,
+    "positives": 14,
+    "rows": [
+      {
+        "item": "I01",
+        "expected": "CLEAN",
+        "semantic": "FOM",
+        "match": false
+      },
+      {
+        "item": "I02",
+        "expected": "ARF",
+        "semantic": "FOM",
+        "match": false
+      },
+      {
+        "item": "I03",
+        "expected": "ARF",
+        "semantic": "FOM",
+        "match": false
+      },
+      {
+        "item": "I04",
+        "expected": "GDF",
+        "semantic": "FOM",
+        "match": false
+      },
+      {
+        "item": "I05",
+        "expected": "FOM",
+        "semantic": "FOM",
+        "match": true
+      },
+      {
+        "item": "I06",
+        "expected": "FOM",
+        "semantic": "FOM",
+        "match": true
+      },
+      {
+        "item": "I07",
+        "expected": "CLEAN",
+        "semantic": "FOM",
+        "match": false
+      },
+      {
+        "item": "I08",
+        "expected": "CLEAN",
+        "semantic": "FOM",
+        "match": false
+      },
+      {
+        "item": "I09",
+        "expected": "CLEAN",
+        "semantic": "FOM",
+        "match": false
+      },
+      {
+        "item": "I10",
+        "expected": "ARF",
+        "semantic": "FOM",
+        "match": false
+      },
+      {
+        "item": "I11",
+        "expected": "GDF",
+        "semantic": "FOM",
+        "match": false
+      },
+      {
+        "item": "I12",
+        "expected": "CLEAN",
+        "semantic": "FOM",
+        "match": false
+      },
+      {
+        "item": "I13",
+        "expected": "FOM",
+        "semantic": "FOM",
+        "match": true
+      },
+      {
+        "item": "I14",
+        "expected": "CLEAN",
+        "semantic": "FOM",
+        "match": false
+      }
+    ]
+  }
+}

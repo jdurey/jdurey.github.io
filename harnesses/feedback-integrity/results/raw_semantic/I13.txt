@@ -1,0 +1,31 @@
+# I13 semantic / ollama:llama3.2:3b
+# class=FOM option=(b) To cook the whole day's catch for the town to share.
+=== PROMPT ===
+You are checking the wrong-answer feedback on ONE K-8 quiz item. Most items are FINE — answer CLEAN unless you can point to a clear, specific problem.
+
+QUESTION: Why did the people of Old Harbor light a fire on the point each night?
+
+THE FOUR CHOICES (correct answer marked):
+  (a) To guide their fishing boats safely back into the harbor.   <-- THIS IS THE CORRECT ANSWER
+  (b) To cook the whole day's catch for the town to share.
+  (c) To frighten away the raiders who came from the sea.
+  (d) To celebrate the very end of the fishing season.
+
+THE FEEDBACK EACH WRONG CHOICE SHOWS:
+  When a student picks (b) "To cook the whole day's catch for the town to share.", they are told:
+     "Scaring raiders away from the coast was the wall guards' job, not a harbor fire."
+  When a student picks (c) "To frighten away the raiders who came from the sea.", they are told:
+     "Raiders were kept off by the tall stone wall, not by a single fire."
+  When a student picks (d) "To celebrate the very end of the fishing season.", they are told:
+     "The fire on the point was lit all year, not only when the season ended."
+
+A good piece of wrong-answer feedback corrects the mistake in ITS OWN choice without giving away the right answer. Find the single WORST problem, if any:
+- CLEAN: every feedback above sensibly corrects its own wrong choice. (This is the usual case.)
+- ARF: one feedback gives away or states the correct answer "To guide their fishing boats safely back into the harbor.". Example: feedback on a wrong choice that says "actually the right answer is X".
+- GDF: one feedback brings up a person/thing/idea that is NOT the question and NOT any of the four choices. Example: feedback that suddenly mentions astronauts on a history question.
+- FOM: one feedback explains a DIFFERENT choice than the one it is attached to. Example: the feedback under choice (b) actually argues against choice (c).
+
+Reply with ONLY a JSON object:
+{"class": "CLEAN" | "ARF" | "GDF" | "FOM", "option": "<offending option id, empty if CLEAN>", "quote": "<verbatim phrase that proves it, empty if CLEAN>"}
+=== RESPONSE ===
+{"class": "FOM", "option": "(b) To cook the whole day's catch for the town to share.", "quote": "The fire on the point was lit all year, not only when the season ended."}

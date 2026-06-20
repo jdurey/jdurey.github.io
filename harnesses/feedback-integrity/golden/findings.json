@@ -1,0 +1,26 @@
+{
+  "_doc": "Golden findings — the human-verified adjudication ground truth for domain/ledger.json. In a real engagement this is what a human reviewer signs off on; in this public demo it fills the human-adjudicator slot exactly the way expert-parity's deterministic engine fills the human-examiner slot, and it is labeled as such. flaw is the single intended defect class per item: ARF (answer-reveal), GDF (ghost-distractor), FOM (feedback-option mismatch), LCU (length-cue / longest-option-is-key), or clean. canary:true marks a planted, known-broken item the instrument MUST catch to graduate its class. note records the authoring intent (e.g. whether the ARF leak is verbatim or paraphrased) so a reviewer can see why each rung should or should not fire. score.mjs reads the key (correct:true) from the ledger and the flaw labels from here; nothing is hand-entered into the metrics.",
+  "classes": {
+    "ARF": "A wrong option's feedback teaches/reveals the correct answer instead of correcting the chosen error.",
+    "GDF": "Feedback names a concept that appears in no option and is not in the stem.",
+    "FOM": "Feedback is attached to one option but explains a different one (identical-to-option text is the extreme, data-defect form).",
+    "LCU": "Structural test-wise cue: the correct option is conspicuously the longest.",
+    "clean": "Wrong-answer feedback teaches against the chosen error without leaking the key, naming a ghost, or mismatching."
+  },
+  "items": {
+    "I01": { "flaw": "clean", "canary": false, "note": "control (Lake Onu): each distractor feedback teaches its own error; key not longest; no key tokens leaked. The arbitrary reason (fish + clean water) is never stated, so a blind solver cannot recover it." },
+    "I02": { "flaw": "ARF", "canary": true, "note": "verbatim leak — option b feedback restates the key word-for-word ('settle disputes ... keep the peace'). Screen (>=2 distinctive key tokens) AND blind-solver both catch. Canary." },
+    "I03": { "flaw": "ARF", "canary": false, "note": "CENTERPIECE: option c feedback names the key's substance ('the valuable salt that could be dug out') in different words than the option, sharing only ONE distinctive key token. The lexical screen (>=2 tokens) MISSES it; the blind-solver reconstructs 'salt' and catches it. This is the false-clean miss the instrument exists to defeat." },
+    "I04": { "flaw": "GDF", "canary": false, "note": "subtle ghost — option c feedback talks about a saltrunner carrying reed-salt, which is on no option and not in the stem. No deterministic screen rule fires; rests on the semantic pass, which may miss it -> drives GDF below graduation." },
+    "I05": { "flaw": "FOM", "canary": true, "note": "extreme/data-defect form — option b feedback is byte-identical to its option text ('Bright amber beads gathered from the river.'). Screen (identical) catches. Canary." },
+    "I06": { "flaw": "FOM", "canary": false, "note": "subtle mismatch — option b (keep sheep from wandering) feedback actually explains option d's error (holding back the floods). Screen misses; semantic unreliable -> drives FOM below graduation." },
+    "I07": { "flaw": "LCU", "canary": true, "note": "the key is far longer than every distractor. Screen (length rule) catches. Its wrong-answer feedback is pure negation, so it carries no answer-reveal leak and the blind-solver does not (and should not) fire on it. Canary." },
+    "I08": { "flaw": "clean", "canary": false, "note": "control (Greywood scouts): distractors padded to comparable length so the fuller correct answer is not the longest; the arbitrary reason (amber-nuts) is never stated." },
+    "I09": { "flaw": "clean", "canary": false, "note": "control (Red Cliffs banner)." },
+    "I10": { "flaw": "ARF", "canary": false, "note": "verbatim leak — option b feedback restates the key ('each household placed a stone ... most stones became the leader'). Screen and solver both catch." },
+    "I11": { "flaw": "GDF", "canary": true, "note": "blatant anachronistic ghost — option c feedback mentions astronauts/space on a Salt Festival item. Even a small semantic model should catch it. Canary for GDF." },
+    "I12": { "flaw": "clean", "canary": false, "note": "control (Mott mountain homes)." },
+    "I13": { "flaw": "FOM", "canary": false, "note": "subtle mismatch — option b (cook the catch) feedback explains option c's error (scaring off raiders). Screen misses." },
+    "I14": { "flaw": "clean", "canary": false, "note": "control (cliff road)." }
+  }
+}

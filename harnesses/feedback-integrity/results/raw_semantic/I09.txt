@@ -1,0 +1,31 @@
+# I09 semantic / ollama:llama3.2:3b
+# class=FOM option=(b) It marked the way to the summer trading market.
+=== PROMPT ===
+You are checking the wrong-answer feedback on ONE K-8 quiz item. Most items are FINE — answer CLEAN unless you can point to a clear, specific problem.
+
+QUESTION: What did the red banner of the Red Cliffs people stand for?
+
+THE FOUR CHOICES (correct answer marked):
+  (a) It honored the iron miners who first dug into the cliffs.   <-- THIS IS THE CORRECT ANSWER
+  (b) It marked the way to the summer trading market.
+  (c) It warned the boats of storms coming off the sea.
+  (d) It showed which family would rule the cliffs that year.
+
+THE FEEDBACK EACH WRONG CHOICE SHOWS:
+  When a student picks (b) "It marked the way to the summer trading market.", they are told:
+     "The market paths were marked with white posts, not with a banner."
+  When a student picks (c) "It warned the boats of storms coming off the sea.", they are told:
+     "Storm warnings were given by ringing the harbor bell, not by a flag."
+  When a student picks (d) "It showed which family would rule the cliffs that year.", they are told:
+     "No single family ruled the cliffs; the people shared the work."
+
+A good piece of wrong-answer feedback corrects the mistake in ITS OWN choice without giving away the right answer. Find the single WORST problem, if any:
+- CLEAN: every feedback above sensibly corrects its own wrong choice. (This is the usual case.)
+- ARF: one feedback gives away or states the correct answer "It honored the iron miners who first dug into the cliffs.". Example: feedback on a wrong choice that says "actually the right answer is X".
+- GDF: one feedback brings up a person/thing/idea that is NOT the question and NOT any of the four choices. Example: feedback that suddenly mentions astronauts on a history question.
+- FOM: one feedback explains a DIFFERENT choice than the one it is attached to. Example: the feedback under choice (b) actually argues against choice (c).
+
+Reply with ONLY a JSON object:
+{"class": "CLEAN" | "ARF" | "GDF" | "FOM", "option": "<offending option id, empty if CLEAN>", "quote": "<verbatim phrase that proves it, empty if CLEAN>"}
+=== RESPONSE ===
+{"class": "FOM", "option": "(b) It marked the way to the summer trading market.", "quote": "The market paths were marked with white posts, not by a banner."}

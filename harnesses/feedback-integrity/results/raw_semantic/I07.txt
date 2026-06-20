@@ -1,0 +1,31 @@
+# I07 semantic / ollama:llama3.2:3b
+# class=FOM option=(b) It was a kind of fishing net.
+=== PROMPT ===
+You are checking the wrong-answer feedback on ONE K-8 quiz item. Most items are FINE — answer CLEAN unless you can point to a clear, specific problem.
+
+QUESTION: What was the Charter of Onu?
+
+THE FOUR CHOICES (correct answer marked):
+  (a) It was the written agreement that set down the laws of the nine villages, named who would sit on the Council, and listed the rights that every family was promised.   <-- THIS IS THE CORRECT ANSWER
+  (b) It was a kind of fishing net.
+  (c) It was a festival held in summer.
+  (d) It was a song about the lake.
+
+THE FEEDBACK EACH WRONG CHOICE SHOWS:
+  When a student picks (b) "It was a kind of fishing net.", they are told:
+     "A fishing net is only a tool, which this clearly is not."
+  When a student picks (c) "It was a festival held in summer.", they are told:
+     "This was not a yearly celebration that people gathered for."
+  When a student picks (d) "It was a song about the lake.", they are told:
+     "This was not a tune that anyone stood up to sing."
+
+A good piece of wrong-answer feedback corrects the mistake in ITS OWN choice without giving away the right answer. Find the single WORST problem, if any:
+- CLEAN: every feedback above sensibly corrects its own wrong choice. (This is the usual case.)
+- ARF: one feedback gives away or states the correct answer "It was the written agreement that set down the laws of the nine villages, named who would sit on the Council, and listed the rights that every family was promised.". Example: feedback on a wrong choice that says "actually the right answer is X".
+- GDF: one feedback brings up a person/thing/idea that is NOT the question and NOT any of the four choices. Example: feedback that suddenly mentions astronauts on a history question.
+- FOM: one feedback explains a DIFFERENT choice than the one it is attached to. Example: the feedback under choice (b) actually argues against choice (c).
+
+Reply with ONLY a JSON object:
+{"class": "CLEAN" | "ARF" | "GDF" | "FOM", "option": "<offending option id, empty if CLEAN>", "quote": "<verbatim phrase that proves it, empty if CLEAN>"}
+=== RESPONSE ===
+{"class": "FOM", "option": "(b) It was a kind of fishing net.", "quote": "A fishing net is only a tool, which this clearly is not."}

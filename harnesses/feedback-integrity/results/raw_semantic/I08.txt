@@ -1,0 +1,31 @@
+# I08 semantic / ollama:llama3.2:3b
+# class=FOM option=(b) To cut down the oldest trees to build new boats.
+=== PROMPT ===
+You are checking the wrong-answer feedback on ONE K-8 quiz item. Most items are FINE — answer CLEAN unless you can point to a clear, specific problem.
+
+QUESTION: Why did the Vale folk send scouts into the Greywood each autumn?
+
+THE FOUR CHOICES (correct answer marked):
+  (a) To gather the ripe amber-nuts before the frost arrived.   <-- THIS IS THE CORRECT ANSWER
+  (b) To cut down the oldest trees to build new boats.
+  (c) To hunt the great elk for a midwinter feast.
+  (d) To meet the traders coming from the Red Cliffs.
+
+THE FEEDBACK EACH WRONG CHOICE SHOWS:
+  When a student picks (b) "To cut down the oldest trees to build new boats.", they are told:
+     "Boat wood was taken from the river groves, not from deep in the Greywood."
+  When a student picks (c) "To hunt the great elk for a midwinter feast.", they are told:
+     "The autumn scouts went to store up food, not for a single feast hunt."
+  When a student picks (d) "To meet the traders coming from the Red Cliffs.", they are told:
+     "Traders were always met at Old Harbor, never deep inside the woods."
+
+A good piece of wrong-answer feedback corrects the mistake in ITS OWN choice without giving away the right answer. Find the single WORST problem, if any:
+- CLEAN: every feedback above sensibly corrects its own wrong choice. (This is the usual case.)
+- ARF: one feedback gives away or states the correct answer "To gather the ripe amber-nuts before the frost arrived.". Example: feedback on a wrong choice that says "actually the right answer is X".
+- GDF: one feedback brings up a person/thing/idea that is NOT the question and NOT any of the four choices. Example: feedback that suddenly mentions astronauts on a history question.
+- FOM: one feedback explains a DIFFERENT choice than the one it is attached to. Example: the feedback under choice (b) actually argues against choice (c).
+
+Reply with ONLY a JSON object:
+{"class": "CLEAN" | "ARF" | "GDF" | "FOM", "option": "<offending option id, empty if CLEAN>", "quote": "<verbatim phrase that proves it, empty if CLEAN>"}
+=== RESPONSE ===
+{"class": "FOM", "option": "(b) To cut down the oldest trees to build new boats.", "quote": "Boat wood was taken from the river groves, not from deep in the Greywood."}

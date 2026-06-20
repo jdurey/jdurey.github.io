@@ -1,0 +1,31 @@
+# I03 semantic / ollama:llama3.2:3b
+# class=FOM option=(b) Because the Flats had the richest soil for tall crops.
+=== PROMPT ===
+You are checking the wrong-answer feedback on ONE K-8 quiz item. Most items are FINE — answer CLEAN unless you can point to a clear, specific problem.
+
+QUESTION: Why did the Tola people move to the edge of the Ashen Flats?
+
+THE FOUR CHOICES (correct answer marked):
+  (a) To dig the rare blue salt buried under the pale ground.   <-- THIS IS THE CORRECT ANSWER
+  (b) Because the Flats had the richest soil for tall crops.
+  (c) Because the Mott chased them there during a long war.
+  (d) Because the Flats were a holy place for their gods.
+
+THE FEEDBACK EACH WRONG CHOICE SHOWS:
+  When a student picks (b) "Because the Flats had the richest soil for tall crops.", they are told:
+     "The Ashen Flats were dry and bare, and almost nothing would grow there."
+  When a student picks (c) "Because the Mott chased them there during a long war.", they are told:
+     "Remember, the Tola came to this dusty place for one reason: the valuable salt that could be dug out from below."
+  When a student picks (d) "Because the Flats were a holy place for their gods.", they are told:
+     "The Tola built no temples on the Flats; their move was about work, not worship."
+
+A good piece of wrong-answer feedback corrects the mistake in ITS OWN choice without giving away the right answer. Find the single WORST problem, if any:
+- CLEAN: every feedback above sensibly corrects its own wrong choice. (This is the usual case.)
+- ARF: one feedback gives away or states the correct answer "To dig the rare blue salt buried under the pale ground.". Example: feedback on a wrong choice that says "actually the right answer is X".
+- GDF: one feedback brings up a person/thing/idea that is NOT the question and NOT any of the four choices. Example: feedback that suddenly mentions astronauts on a history question.
+- FOM: one feedback explains a DIFFERENT choice than the one it is attached to. Example: the feedback under choice (b) actually argues against choice (c).
+
+Reply with ONLY a JSON object:
+{"class": "CLEAN" | "ARF" | "GDF" | "FOM", "option": "<offending option id, empty if CLEAN>", "quote": "<verbatim phrase that proves it, empty if CLEAN>"}
+=== RESPONSE ===
+{"class": "FOM", "option": "(b) Because the Flats had the richest soil for tall crops.", "quote": "The Ashen Flats were dry and bare, and almost nothing would grow there."}

@@ -1,0 +1,31 @@
+# I05 semantic / ollama:llama3.2:3b
+# class=FOM option=(b) Bright amber beads gathered from the river.
+=== PROMPT ===
+You are checking the wrong-answer feedback on ONE K-8 quiz item. Most items are FINE — answer CLEAN unless you can point to a clear, specific problem.
+
+QUESTION: What did the Mott people trade most often at the spring market?
+
+THE FOUR CHOICES (correct answer marked):
+  (a) Soft blackwool sheared from their mountain sheep.   <-- THIS IS THE CORRECT ANSWER
+  (b) Bright amber beads gathered from the river.
+  (c) Heavy iron tools made in the lowland forges.
+  (d) Painted clay pots shaped by the Old Harbor potters.
+
+THE FEEDBACK EACH WRONG CHOICE SHOWS:
+  When a student picks (b) "Bright amber beads gathered from the river.", they are told:
+     "Bright amber beads gathered from the river."
+  When a student picks (c) "Heavy iron tools made in the lowland forges.", they are told:
+     "The lowland forges made iron tools, but the smiths traded those, not the Mott."
+  When a student picks (d) "Painted clay pots shaped by the Old Harbor potters.", they are told:
+     "Clay pots came from the Old Harbor potters, a different people than the Mott."
+
+A good piece of wrong-answer feedback corrects the mistake in ITS OWN choice without giving away the right answer. Find the single WORST problem, if any:
+- CLEAN: every feedback above sensibly corrects its own wrong choice. (This is the usual case.)
+- ARF: one feedback gives away or states the correct answer "Soft blackwool sheared from their mountain sheep.". Example: feedback on a wrong choice that says "actually the right answer is X".
+- GDF: one feedback brings up a person/thing/idea that is NOT the question and NOT any of the four choices. Example: feedback that suddenly mentions astronauts on a history question.
+- FOM: one feedback explains a DIFFERENT choice than the one it is attached to. Example: the feedback under choice (b) actually argues against choice (c).
+
+Reply with ONLY a JSON object:
+{"class": "CLEAN" | "ARF" | "GDF" | "FOM", "option": "<offending option id, empty if CLEAN>", "quote": "<verbatim phrase that proves it, empty if CLEAN>"}
+=== RESPONSE ===
+{"class": "FOM", "option": "(b) Bright amber beads gathered from the river.", "quote": "Clay pots came from the Old Harbor potters, a different people than the Mott."}

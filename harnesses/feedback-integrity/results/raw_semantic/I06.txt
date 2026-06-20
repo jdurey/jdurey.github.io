@@ -1,0 +1,31 @@
+# I06 semantic / ollama:llama3.2:3b
+# class=FOM option=(b) To keep their sheep from wandering off into the valley.
+=== PROMPT ===
+You are checking the wrong-answer feedback on ONE K-8 quiz item. Most items are FINE — answer CLEAN unless you can point to a clear, specific problem.
+
+QUESTION: Why did the Vale folk build a tall stone wall around their town?
+
+THE FOUR CHOICES (correct answer marked):
+  (a) To protect themselves from raiders coming over the hills.   <-- THIS IS THE CORRECT ANSWER
+  (b) To keep their sheep from wandering off into the valley.
+  (c) To show the other towns how wealthy they had become.
+  (d) To hold back the river floods every spring.
+
+THE FEEDBACK EACH WRONG CHOICE SHOWS:
+  When a student picks (b) "To keep their sheep from wandering off into the valley.", they are told:
+     "Holding back the spring floods was the job of the river dam, not a wall."
+  When a student picks (c) "To show the other towns how wealthy they had become.", they are told:
+     "The wall was about safety, not about showing off the town's riches."
+  When a student picks (d) "To hold back the river floods every spring.", they are told:
+     "The spring floods were stopped by a dam downstream, not by the town wall."
+
+A good piece of wrong-answer feedback corrects the mistake in ITS OWN choice without giving away the right answer. Find the single WORST problem, if any:
+- CLEAN: every feedback above sensibly corrects its own wrong choice. (This is the usual case.)
+- ARF: one feedback gives away or states the correct answer "To protect themselves from raiders coming over the hills.". Example: feedback on a wrong choice that says "actually the right answer is X".
+- GDF: one feedback brings up a person/thing/idea that is NOT the question and NOT any of the four choices. Example: feedback that suddenly mentions astronauts on a history question.
+- FOM: one feedback explains a DIFFERENT choice than the one it is attached to. Example: the feedback under choice (b) actually argues against choice (c).
+
+Reply with ONLY a JSON object:
+{"class": "CLEAN" | "ARF" | "GDF" | "FOM", "option": "<offending option id, empty if CLEAN>", "quote": "<verbatim phrase that proves it, empty if CLEAN>"}
+=== RESPONSE ===
+{"class": "FOM", "option": "(b) To keep their sheep from wandering off into the valley.", "quote": "The wall was about safety, not about keeping sheep in."}

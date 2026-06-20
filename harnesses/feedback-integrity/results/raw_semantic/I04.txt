@@ -1,0 +1,31 @@
+# I04 semantic / ollama:llama3.2:3b
+# class=FOM option=(b) To catch enough fish to feed the whole town.
+=== PROMPT ===
+You are checking the wrong-answer feedback on ONE K-8 quiz item. Most items are FINE — answer CLEAN unless you can point to a clear, specific problem.
+
+QUESTION: What was the job of the tollkeeper at Old Harbor?
+
+THE FOUR CHOICES (correct answer marked):
+  (a) To collect a fee from each ship that entered the harbor.   <-- THIS IS THE CORRECT ANSWER
+  (b) To catch enough fish to feed the whole town.
+  (c) To ring the great bell at sunrise each day.
+  (d) To build the new trading boats each season.
+
+THE FEEDBACK EACH WRONG CHOICE SHOWS:
+  When a student picks (b) "To catch enough fish to feed the whole town.", they are told:
+     "Feeding the town was the fishers' work, not the keeper of the gate."
+  When a student picks (c) "To ring the great bell at sunrise each day.", they are told:
+     "Remember, the saltrunner carried heavy sacks of reed-salt up the cliff road."
+  When a student picks (d) "To build the new trading boats each season.", they are told:
+     "Boat-building was done in the yards, a separate trade from the harbor gate."
+
+A good piece of wrong-answer feedback corrects the mistake in ITS OWN choice without giving away the right answer. Find the single WORST problem, if any:
+- CLEAN: every feedback above sensibly corrects its own wrong choice. (This is the usual case.)
+- ARF: one feedback gives away or states the correct answer "To collect a fee from each ship that entered the harbor.". Example: feedback on a wrong choice that says "actually the right answer is X".
+- GDF: one feedback brings up a person/thing/idea that is NOT the question and NOT any of the four choices. Example: feedback that suddenly mentions astronauts on a history question.
+- FOM: one feedback explains a DIFFERENT choice than the one it is attached to. Example: the feedback under choice (b) actually argues against choice (c).
+
+Reply with ONLY a JSON object:
+{"class": "CLEAN" | "ARF" | "GDF" | "FOM", "option": "<offending option id, empty if CLEAN>", "quote": "<verbatim phrase that proves it, empty if CLEAN>"}
+=== RESPONSE ===
+{"class": "FOM", "option": "(b) To catch enough fish to feed the whole town.", "quote": "Feeding the town was the fishers' work, not the keeper of the gate."}
