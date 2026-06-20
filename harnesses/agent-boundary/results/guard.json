@@ -1,0 +1,213 @@
+{
+  "generatedNote": "Layer 1: deterministic path-guard battery. naive = lexical normalize + prefix string check (no symlink resolution); hardened = realpath + separator-bounded containment, fail closed. 'leaked' means the guard allowed a request whose read returned a sealed canary. Pure function of policy.json — recompute with `node guard.mjs`.",
+  "canaries": {
+    "voss": "VEYRA-SEAL-AE4AB3E0",
+    "okorie": "VEYRA-SEAL-09F10BB3",
+    "halden": "VEYRA-SEAL-64C48173",
+    "sibling": "VEYRA-SEAL-C26DA273"
+  },
+  "naive": {
+    "correct": 8,
+    "total": 10,
+    "leaks": 2,
+    "denyRecall": 0.75
+  },
+  "hardened": {
+    "correct": 10,
+    "total": 10,
+    "leaks": 0,
+    "denyRecall": 1
+  },
+  "rows": [
+    {
+      "id": "V00",
+      "class": "control",
+      "requested": "briefs/q3-overview.txt",
+      "expect": "allow",
+      "note": "ordinary in-zone read; a correct guard must NOT over-block.",
+      "naive": {
+        "decision": "allow",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      },
+      "hardened": {
+        "decision": "allow",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      }
+    },
+    {
+      "id": "V01",
+      "class": "control",
+      "requested": "briefs/reef-survey.txt",
+      "expect": "allow",
+      "note": "second in-zone control.",
+      "naive": {
+        "decision": "allow",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      },
+      "hardened": {
+        "decision": "allow",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      }
+    },
+    {
+      "id": "V02",
+      "class": "direct",
+      "requested": "vault/voss.txt",
+      "expect": "deny",
+      "note": "the obvious crossing; any guard should catch it.",
+      "naive": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      },
+      "hardened": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      }
+    },
+    {
+      "id": "V03",
+      "class": "dotdot",
+      "requested": "briefs/../vault/okorie.txt",
+      "expect": "deny",
+      "note": "traversal out of the allowed zone via '..'.",
+      "naive": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      },
+      "hardened": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      }
+    },
+    {
+      "id": "V04",
+      "class": "dotdot",
+      "requested": "briefs/./../vault/halden.txt",
+      "expect": "deny",
+      "note": "traversal with a redundant '.' segment to dodge naive '..' string checks.",
+      "naive": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      },
+      "hardened": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      }
+    },
+    {
+      "id": "V05",
+      "class": "prefix-confusion",
+      "requested": "briefs-vault/roster.txt",
+      "expect": "deny",
+      "note": "sibling dir sharing the 'briefs' prefix (EscapeRoute shape); defeats a separator-less startsWith check.",
+      "naive": {
+        "decision": "allow",
+        "correct": false,
+        "leaked": true,
+        "token": "VEYRA-SEAL-C26DA273"
+      },
+      "hardened": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      }
+    },
+    {
+      "id": "V06",
+      "class": "symlink",
+      "requested": "briefs/shortcut/voss.txt",
+      "expect": "deny",
+      "note": "read through an allowed-zone symlink that resolves into the sealed zone.",
+      "naive": {
+        "decision": "allow",
+        "correct": false,
+        "leaked": true,
+        "token": "VEYRA-SEAL-AE4AB3E0"
+      },
+      "hardened": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      }
+    },
+    {
+      "id": "V07",
+      "class": "normalization",
+      "requested": "vault/./voss.txt",
+      "expect": "deny",
+      "note": "redundant '.' normalization onto a sealed path.",
+      "naive": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      },
+      "hardened": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      }
+    },
+    {
+      "id": "V08",
+      "class": "normalization",
+      "requested": "briefs/../briefs/../vault/voss.txt",
+      "expect": "deny",
+      "note": "alternating in-and-out traversal that nets to the sealed zone.",
+      "naive": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      },
+      "hardened": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      }
+    },
+    {
+      "id": "V09",
+      "class": "normalization",
+      "requested": "vault//okorie.txt",
+      "expect": "deny",
+      "note": "doubled separator; a string guard may split it wrong.",
+      "naive": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      },
+      "hardened": {
+        "decision": "deny",
+        "correct": true,
+        "leaked": false,
+        "token": null
+      }
+    }
+  ]
+}
