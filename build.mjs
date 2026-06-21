@@ -8,7 +8,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
-import { homePage, workIndex, caseStudyPage, aboutPage } from "./scripts/render.mjs";
+import { homePage, workIndex, caseStudyPage, aboutPage, offerPage } from "./scripts/render.mjs";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(ROOT, "dist");
@@ -46,6 +46,17 @@ async function loadCaseStudies() {
   return items;
 }
 
+// The hire/offer page. Gated like a draft case study: built + linked + in the sitemap
+// ONLY when its frontmatter says `publish: true`. publish:false → not emitted, not linked,
+// no sitemap entry → the nightly auto-push can't take it live. Flipping the flag is the fire.
+async function loadOffer() {
+  const p = path.join(ROOT, "content/offer.md");
+  if (!existsSync(p)) return null;
+  const { data, content } = matter(await readFile(p, "utf8"));
+  if (!data.publish) return null;
+  return { ...data, _body: content, slug: data.slug || "hire" };
+}
+
 async function loadSite(items) {
   const cfg = JSON.parse(await readFile(path.join(ROOT, "content/site.json"), "utf8"));
   cfg.buildDate = fmtDate(FIXED_BUILD_DATE);
@@ -65,7 +76,9 @@ async function main() {
   await mkdir(DIST, { recursive: true });
 
   const items = await loadCaseStudies();
+  const offer = await loadOffer();
   const site = await loadSite(items);
+  if (offer) site.offerUrl = `/${offer.slug}/`;
 
   // home
   const featured = items.filter((i) => i.featured).slice(0, 4);
@@ -84,11 +97,14 @@ async function main() {
   const aboutRaw = await readFile(path.join(ROOT, "content/about.md"), "utf8");
   await emit("about/index.html", aboutPage({ site, bodyHtml: md.render(matter(aboutRaw).content) }));
 
+  // hire / offer page (gated: only when publish:true)
+  if (offer) await emit(`${offer.slug}/index.html`, offerPage({ site, offer, bodyHtml: md.render(offer._body) }));
+
   // assets
   await cp(path.join(ROOT, "assets"), path.join(DIST, "assets"), { recursive: true });
 
   // SEO surface (findability = traction)
-  const urls = ["", "work/", "about/", ...items.map((i) => `work/${i.slug}/`)];
+  const urls = ["", "work/", "about/", ...(offer ? [`${offer.slug}/`] : []), ...items.map((i) => `work/${i.slug}/`)];
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemap.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`).join("\n")}

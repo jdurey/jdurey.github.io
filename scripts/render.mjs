@@ -20,7 +20,7 @@ function nav(site, active) {
     <div class="nav-links">
       ${link("/work/", "Work", "work")}
       ${link("/about/", "About", "about")}
-      <a href="${esc(site.links.github)}" rel="me">GitHub</a>
+      ${site.offerUrl ? link(site.offerUrl, "Hire", "hire") + "\n      " : ""}<a href="${esc(site.links.github)}" rel="me">GitHub</a>
     </div>
   </nav>`;
 }
@@ -81,7 +81,7 @@ export function homePage({ site, featured, recent }) {
   <p class="lede">${esc(site.heroLede)}</p>
   <div class="cta">
     <a class="btn btn-primary" href="/work/">See the work</a>
-    <a class="btn" href="mailto:${esc(site.links.email)}">Hire me</a>
+    <a class="btn" href="${site.offerUrl ? esc(site.offerUrl) : "mailto:" + esc(site.links.email)}">Hire me</a>
   </div>
 </section>
 
@@ -163,6 +163,28 @@ export function aboutPage({ site, bodyHtml }) {
 <section class="page-head"><h1>About</h1></section>
 <div class="prose about">${bodyHtml}</div>`;
   return layout({ site, title: "About", description: site.description, body, active: "about" });
+}
+
+export function offerPage({ site, offer, bodyHtml }) {
+  const mailto = `mailto:${esc(site.links.email)}?subject=${encodeURIComponent(offer.ctaSubject || "Eval sprint inquiry")}`;
+  const ctaLabel = esc(offer.ctaLabel || "Book a call");
+  const body = `
+<section class="hero offer-hero">
+  <p class="eyebrow">Fixed-fee eval sprint · for AI-in-education teams</p>
+  <h1>${esc(offer.title)}</h1>
+  <p class="lede">${esc(offer.subtitle || offer.summary)}</p>
+  <div class="cta">
+    <a class="btn btn-primary" href="${mailto}">${ctaLabel}</a>
+    <a class="btn" href="/work/">See the proof</a>
+  </div>
+</section>
+<div class="prose offer-body">
+${bodyHtml}
+  <div class="cta cta-foot">
+    <a class="btn btn-primary" href="${mailto}">${ctaLabel}</a>
+  </div>
+</div>`;
+  return layout({ site, title: offer.title, description: offer.description || offer.summary, body, active: "hire" });
 }
 
 export { esc };
