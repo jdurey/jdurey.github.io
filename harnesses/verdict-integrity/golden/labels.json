@@ -1,0 +1,16 @@
+{
+  "_comment": "By-construction ground truth. I wrote these items, so I know which answers a sound grader must pass. No model ever produced a label. The scorer compares the model's verdicts against these, it never asks a model what the right answer is.",
+  "item_id": "VEND-GOV-1",
+  "labels": {
+    "gold": { "valid": true, "why": "Names a tier (Hearth) and a local service. Verbatim accepted example." },
+    "gibberish": { "valid": false, "why": "Names no tier and describes no service. Off task." },
+    "ndv": { "valid": true, "why": "Names a tier (Crown) and a realm-wide service (minting the coin), which is in the accepted Crown example. Unambiguously valid and already list-aligned." },
+    "ndv2": { "valid": true, "why": "Names a tier (Hearth) and a local service (keeping the wells). A shortened accepted example. Valid." },
+    "noservice": { "valid": false, "why": "Names a tier (Crown) but describes no service. The rubric requires a service, so this must be rejected." }
+  },
+  "invariants": {
+    "controls_must_separate": "A run is only interpretable if the grader can tell the obvious-correct control (gold) from the obvious-wrong control (gibberish). If gold's pass-rate is not at least 50 points above gibberish's, the scorer marks the run inconclusive rather than reporting instability.",
+    "valid_subjects_should_pass": "gold, ndv, and ndv2 are valid by construction. A sound, stable grader passes all three on every repeat. Any pass-rate strictly between 0 and 100 on identical input is verdict nondeterminism, since the input never changed.",
+    "list_alignment_does_not_explain_flips": "ndv's service is drawn from the accepted examples, so if it still flips, the instability cannot be blamed on the answer being absent from the accept-list. Enriching the list cannot fix a verdict that moves on identical, list-aligned input."
+  }
+}

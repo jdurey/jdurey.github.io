@@ -14,7 +14,7 @@ models: ["Claude (Anthropic)", "GPT / Codex (OpenAI)", "Grok (xAI)", "Gemini (Go
 
 More and more, the thing checking AI-written content is another AI. You generate a bank of quiz items with one model, then you point a second model at them and ask "is this good enough to ship?" It's fast and cheap, and it runs at a scale no human reviewer can match. The problem is the failure you can't see. When that judge passes an item that's actually broken, nothing flags it. The verdict comes back clean and the dashboard goes green. A defective item ships to a student. So I built an instrument that measures how often that happens, and what it takes to stop it.
 
-This is a companion to my [feedback-integrity harness](/case-studies/feedback-integrity). That one checks the author, the model writing the content. This one checks the checker, the model grading it. One asks whether the work is sound. The other asks whether you can trust the thing that told you it was sound.
+This is one piece in a series on whether you can trust an AI grader. This one checks the checker, the model grading the work, for bias: how often it waves genuinely broken work through. My [feedback-integrity harness](/case-studies/feedback-integrity) checks the author that writes the content. [Verdict-integrity](/case-studies/verdict-integrity) checks whether the checker even returns the same verdict twice. [Grading against nothing](/case-studies/grading-against-nothing) checks the code that assembles the prompt. One asks whether the work is sound. The others ask whether you can trust the thing that told you it was.
 
 ## The trap in grading a grader
 

@@ -13,6 +13,8 @@ featured: true
 
 A grader's whole job is to compare an answer against the criteria. So I went looking for the case where the criteria quietly disappear and the grader keeps going anyway. In an open-source AI assessment platform used to suggest grades on student work, I found exactly that. There are two. One of them lets a student make the grader assess their answer against nothing, and the human reviewing it gets no signal at all.
 
+This is one piece in a series on whether you can trust an AI grader. This one checks the harness, the code that assembles the grading prompt. My [feedback-integrity harness](/case-studies/feedback-integrity) checks the author that writes the content, [judge-trust](/case-studies/judge-trust) checks the checker that grades it, and [verdict-integrity](/case-studies/verdict-integrity) checks whether that checker returns the same verdict twice.
+
 ## The one that matters
 
 The platform sends the grading prompt to an LLM, and before it does, it checks whether the prompt fits the token budget. When the prompt is too long, it trims to fit. The trimming logic walks a list of features it's allowed to drop and replaces each with the literal string `"omitted"` until the prompt is small enough. For graded feedback, that droppable list is the example solution, the problem statement, and the grading instructions. In plain terms, that's the rubric, the question, and the answer key.

@@ -14,6 +14,8 @@ models: ["Llama 3.2 3B (local, ollama)"]
 
 When you put an AI in charge of writing the feedback a student sees after they miss a question, you've created a grader that grades against its own explanation. And the failures don't look like failures. The grade comes back, the feedback reads fine, and the human reviewing it has no signal that anything went wrong. So I went looking for the cases where the feedback quietly betrays the item, and I built the thing that measures how often it happens.
 
+This is one piece in a series on whether you can trust an AI grader. This one checks the author, the model that writes the content. [Judge-trust](/case-studies/judge-trust) checks the checker that grades it, [verdict-integrity](/case-studies/verdict-integrity) checks whether that checker returns the same verdict twice, and [grading against nothing](/case-studies/grading-against-nothing) checks the code that assembles the prompt.
+
 I can't show you the program that made me build this. It's a real K-8 social studies curriculum, a large bank of AI-authored items, and it's under NDA. So I rebuilt the instrument around items I wrote from scratch, and everything below runs on those. You get the method and the machine. The client keeps the bank.
 
 ## Three ways AI feedback fails

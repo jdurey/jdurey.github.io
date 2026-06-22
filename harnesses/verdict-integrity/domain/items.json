@@ -1,0 +1,19 @@
+{
+  "item": {
+    "id": "VEND-GOV-1",
+    "prompt": "Vendari has three tiers of government: the Hearth (local), the Province (regional), and the Crown (national). Name one tier and describe one service that tier provides to its people.",
+    "accepted_examples": [
+      "The Hearth runs the night-markets and keeps the public wells.",
+      "The Province maintains the canal-roads between towns.",
+      "The Crown commands the border-watch and mints the realm's coin."
+    ],
+    "rubric": "Award a pass if the answer (1) names a valid tier (Hearth, Province, or Crown) and (2) describes one service that tier could plausibly provide at its level: local services for the Hearth, regional services for the Province, realm-wide services for the Crown. The service does NOT have to appear in the accepted examples. Judge a service on whether it is plausible at the named tier. Reject answers that name no tier, describe no service, or pair a service with a tier that could not provide it."
+  },
+  "subjects": [
+    { "id": "gold", "role": "control-pass", "valid": true, "answer": "The Hearth runs the night-markets and keeps the public wells.", "note": "Verbatim accepted example. A sound grader passes it every time." },
+    { "id": "gibberish", "role": "control-fail", "valid": false, "answer": "My favorite color is blue and I have a dog named Pim.", "note": "Off task: no tier, no service. A sound grader fails it every time." },
+    { "id": "ndv", "role": "nondeterminism", "valid": true, "answer": "The Crown mints the realm's coin.", "note": "Valid. The service (minting the coin) appears in the accepted Crown example, so this answer is already list-aligned. Identical input each repeat. Watch the verdict flip." },
+    { "id": "ndv2", "role": "nondeterminism", "valid": true, "answer": "The Hearth keeps the wells.", "note": "Valid. A shortened form of the accepted Hearth example. Second valid answer, to show the flip is systemic, not a one-off." },
+    { "id": "noservice", "role": "false-pass", "valid": false, "answer": "I would choose the Crown.", "note": "Invalid: names a tier but describes no service. The rubric says reject. Watch it pass anyway, and flip." }
+  ]
+}
