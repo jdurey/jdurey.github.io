@@ -27,3 +27,8 @@ LOG="runs/nightly-$(date +%Y-%m-%d).log"
   node scripts/nightly.mjs
   echo "=== exit $? ==="
 } >>"$LOG" 2>&1
+
+# Fire-marker for the loops-health control plane: ISO8601 CONTENT (mtime-independent), stamped after
+# each nightly cycle so the fleet scan can verify a REAL fire (not files-in-place). Mirrors the
+# landing-engine / queue / bus-watch marker discipline. Never breaks the nightly run.
+date -u +%Y-%m-%dT%H:%M:%SZ > "$HOME/.alphaos/portfolio-nightly-last-run" 2>/dev/null || true
