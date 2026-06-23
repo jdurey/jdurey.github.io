@@ -2,7 +2,7 @@
 title: "Curriculum & grader-integrity benchmarks"
 subtitle: "A fixed-fee eval sprint for teams shipping AI to real students."
 slug: hire
-publish: false
+publish: true
 summary: "I run your live AI-tutoring, AI-lesson, or AI-grading product through runnable adversarial harnesses and hand you the ship-blockers before your district pilot does. Fixed fee. The harnesses are public, so you can watch them work before you pay."
 description: "Fixed-fee AI-evaluation sprints for edtech: curriculum, grader, and judge integrity. Runnable harnesses, a regression suite you keep. $25k to $150k."
 ctaLabel: "Book a 20-minute scope call"
