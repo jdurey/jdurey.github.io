@@ -19,15 +19,27 @@ function nav(site, active) {
     <a class="brand" href="/">${esc(site.name)}<span class="brand-dot">.</span></a>
     <div class="nav-links">
       ${link("/work/", "Work", "work")}
+      ${link("/skills/", "Skills", "skills")}
       ${link("/about/", "About", "about")}
       ${site.offerUrl ? link(site.offerUrl, "Hire", "hire") + "\n      " : ""}<a href="${esc(site.links.github)}" rel="me">GitHub</a>
     </div>
   </nav>`;
 }
 
-export function layout({ site, title, description, body, active, ogType = "website" }) {
+// JSON-LD blocks. NOTE (per GEO harden, 2026-06-24): structured data is crawl HYGIENE — it aids
+// entity disambiguation, not a citation "lift" (Ahrefs causal study: no uplift; AI systems parse
+// visible HTML). Ship once, keep NAP consistent, do NOT churn it on a loop. See Sync/Landing/geo/PLAN.md.
+function jsonLdScripts(blocks = []) {
+  return blocks
+    .filter(Boolean)
+    .map((b) => `<script type="application/ld+json">${JSON.stringify(b).replace(/</g, "\\u003c")}</script>`)
+    .join("\n");
+}
+
+export function layout({ site, title, description, body, active, ogType = "website", jsonLd = [] }) {
   const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`;
   const desc = description || site.description;
+  const ld = jsonLdScripts([...(site.ld || []), ...jsonLd]);
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -43,6 +55,7 @@ export function layout({ site, title, description, body, active, ogType = "websi
 <link rel="canonical" href="${esc(site.url)}">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/favicon.svg">
+${ld}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -134,6 +147,34 @@ ${sections}`;
   return layout({ site, title: "Work", description: "Reproducible LLM evals, red-team audits, and systems.", body, active: "work" });
 }
 
+function skillCard(s) {
+  const t = TYPE_LABEL[s.type] || s.type || "Skill";
+  return `<a class="card" href="${esc(s.repo)}">
+    <div class="card-meta"><span class="tag tag-${esc(s.type)}">${esc(t)}</span><span class="chip">GitHub →</span></div>
+    <h3>${esc(s.name)}</h3>
+    <p>${esc(s.summary)}</p>
+  </a>`;
+}
+
+export function skillsIndex({ site, skills }) {
+  const install = `curl -fsSL ${skills.repo.replace(/\/$/, "")}/tarball/main | tar -xz &amp;&amp; mv ${esc(skills.repoSlug)}-*/&lt;skill&gt; . &amp;&amp; rm -rf ${esc(skills.repoSlug)}-*`;
+  const body = `
+<section class="page-head">
+  <h1>Skills</h1>
+  <p class="lede">${esc(skills.intro)}</p>
+</section>
+<section class="work-group">
+  <div class="cards">${skills.items.map(skillCard).join("\n")}</div>
+</section>
+<section class="thesis">
+  <h2>Install any of these</h2>
+  <p class="muted">A skill is just a <code>SKILL.md</code>, which is YAML frontmatter plus markdown, so it works with any agent that loads skills. Run this from your agent's skills directory and swap in the skill name:</p>
+  <pre><code>${install}</code></pre>
+  <p><a class="more" href="${esc(skills.repo)}">All skills on GitHub →</a></p>
+</section>`;
+  return layout({ site, title: "Skills", description: "Open-source skills for AI coding agents, built by Josh Durey.", body, active: "skills" });
+}
+
 export function caseStudyPage({ site, cs, bodyHtml }) {
   const meta = [
     cs.models?.length ? `<div><dt>Models</dt><dd>${cs.models.map((m) => esc(m)).join(", ")}</dd></div>` : "",
@@ -155,7 +196,24 @@ ${bodyHtml}
   </div>
   <div class="case-foot"><a href="/work/">← All work</a></div>
 </article>`;
-  return layout({ site, title: cs.title, description: cs.summary, body, active: "work", ogType: "article" });
+  const base = site.url.replace(/\/$/, "");
+  const article = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "@id": `${base}${cs.url}#article`,
+    headline: cs.title,
+    name: cs.title,
+    description: cs.summary,
+    url: `${base}${cs.url}`,
+    ...(cs.date ? { datePublished: String(cs.date).slice(0, 10) } : {}),
+    author: { "@id": `${base}/#person` },
+    publisher: { "@id": `${base}/#person` },
+    mainEntityOfPage: `${base}${cs.url}`,
+    ...(cs.repo ? { isBasedOn: cs.repo, codeRepository: cs.repo } : {}),
+    ...(cs.models?.length ? { keywords: cs.models.join(", ") } : {}),
+    about: "AI evaluation",
+  };
+  return layout({ site, title: cs.title, description: cs.summary, body, active: "work", ogType: "article", jsonLd: [article] });
 }
 
 export function aboutPage({ site, bodyHtml }) {

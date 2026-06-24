@@ -8,7 +8,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
-import { homePage, workIndex, caseStudyPage, aboutPage, offerPage } from "./scripts/render.mjs";
+import { homePage, workIndex, caseStudyPage, aboutPage, offerPage, skillsIndex } from "./scripts/render.mjs";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(ROOT, "dist");
@@ -62,7 +62,56 @@ async function loadSite(items) {
   cfg.buildDate = fmtDate(FIXED_BUILD_DATE);
   // thesisHtml / heroLede may contain inline markdown emphasis
   cfg.thesisHtml = md.renderInline(cfg.thesis || "");
+  cfg.ld = siteJsonLd(cfg);
   return cfg;
+}
+
+// Site-wide JSON-LD: a Person entity (for name/topic disambiguation across AI engines) + a WebSite.
+// sameAs = AUTHORITATIVE external profiles only. Per GEO harden (2026-06-24): X is intentionally
+// OMITTED until the eval-specialist handle is confirmed — linking a wrong/teacher-positioned handle
+// poisons entity resolution. linkedin auto-included once site.json.links.linkedin is populated.
+function siteJsonLd(cfg) {
+  const base = cfg.url.replace(/\/$/, "");
+  const same = [
+    cfg.links?.github,
+    cfg.links?.huggingface,
+    cfg.links?.linkedin,
+    cfg.links?.scholar,
+    cfg.links?.orcid,
+    cfg.links?.wikidata,
+    cfg.links?.twitter, // stays empty until the eval handle is confirmed (harden gate)
+  ].filter(Boolean);
+  const person = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${base}/#person`,
+    name: cfg.name,
+    url: base + "/",
+    jobTitle: "AI Evaluation & Red-Team Specialist",
+    description: cfg.description,
+    knowsAbout: [
+      "AI evaluation",
+      "LLM quality assurance",
+      "Red-teaming language models",
+      "LLM-as-a-judge auditing",
+      "Adversarial evaluation",
+      "Reproducible cross-model audits",
+      "AI in education",
+    ],
+    ...(cfg.links?.email ? { email: `mailto:${cfg.links.email}` } : {}),
+    ...(same.length ? { sameAs: same } : {}),
+  };
+  const website = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${base}/#website`,
+    url: base + "/",
+    name: cfg.name,
+    description: cfg.description,
+    publisher: { "@id": `${base}/#person` },
+    about: { "@id": `${base}/#person` },
+  };
+  return [person, website];
 }
 
 async function emit(rel, html) {
@@ -93,6 +142,10 @@ async function main() {
     await emit(`work/${cs.slug}/index.html`, caseStudyPage({ site, cs, bodyHtml }));
   }
 
+  // skills index (links out to the public skills repo; each skill's source lives on GitHub)
+  const skills = JSON.parse(await readFile(path.join(ROOT, "content/skills.json"), "utf8"));
+  await emit("skills/index.html", skillsIndex({ site, skills }));
+
   // about
   const aboutRaw = await readFile(path.join(ROOT, "content/about.md"), "utf8");
   await emit("about/index.html", aboutPage({ site, bodyHtml: md.render(matter(aboutRaw).content) }));
@@ -104,13 +157,30 @@ async function main() {
   await cp(path.join(ROOT, "assets"), path.join(DIST, "assets"), { recursive: true });
 
   // SEO surface (findability = traction)
-  const urls = ["", "work/", "about/", ...(offer ? [`${offer.slug}/`] : []), ...items.map((i) => `work/${i.slug}/`)];
+  const urls = ["", "work/", "skills/", "about/", ...(offer ? [`${offer.slug}/`] : []), ...items.map((i) => `work/${i.slug}/`)];
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemap.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`).join("\n")}
 </urlset>`;
   await emit("sitemap.xml", sitemap);
-  await emit("robots.txt", `User-agent: *\nAllow: /\nSitemap: ${site.url.replace(/\/$/, "")}/sitemap.xml\n`);
+  // robots: explicitly welcome the AI retrieval + training crawlers (the retrieval-inclusion gate).
+  // Allowlisting only helps if access would otherwise be ambiguous — harmless and best-practice here.
+  const aiCrawlers = [
+    "OAI-SearchBot", "ChatGPT-User", "GPTBot",       // OpenAI (search surface + user-fetch + training)
+    "Google-Extended", "Googlebot",                   // Google AI / Gemini grounding + index
+    "ClaudeBot", "Claude-User", "anthropic-ai",       // Anthropic / Claude
+    "PerplexityBot", "Perplexity-User",               // Perplexity
+    "Bingbot",                                         // Bing (secondary ChatGPT proxy)
+    "Applebot-Extended",                               // Apple Intelligence
+    "CCBot",                                           // Common Crawl (feeds many training sets)
+  ];
+  const robots = [
+    ...aiCrawlers.map((ua) => `User-agent: ${ua}\nAllow: /`),
+    `User-agent: *\nAllow: /`,
+    `Sitemap: ${site.url.replace(/\/$/, "")}/sitemap.xml`,
+    ``,
+  ].join("\n");
+  await emit("robots.txt", robots);
 
   // GitHub Pages: don't run Jekyll over our output
   await emit(".nojekyll", "");
