@@ -4,7 +4,7 @@ subtitle: "A fixed-fee eval sprint for teams shipping AI to real students."
 slug: hire
 publish: true
 summary: "I run your live AI-tutoring, AI-lesson, or AI-grading product through runnable adversarial harnesses and hand you the ship-blockers before your district pilot does. Fixed fee. The harnesses are public, so you can watch them work before you pay."
-description: "Fixed-fee AI-evaluation sprints for edtech: curriculum, grader, and judge integrity. Runnable harnesses, a regression suite you keep. $25k to $150k."
+description: "Fixed-fee AI-evaluation sprints for edtech: curriculum, grader, and judge integrity. Runnable harnesses and a regression suite you keep."
 ctaLabel: "Book a 20-minute scope call"
 ctaSubject: "Eval sprint: scope one failure class against our live product"
 ---
@@ -50,4 +50,4 @@ I build the instruments that measure AI behavior, and I know the domain they're 
 
 ## Next step
 
-A 20-minute call to scope one failure class against your live product. If it's useful, the triage tier starts the same week.
+A 20-minute call to scope one failure class against your live product. If it's a fit, work starts the same week.
