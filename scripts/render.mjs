@@ -64,7 +64,7 @@ ${ld}
 ${body}
 </main>
 <footer class="site-footer">
-  <div>${esc(site.name)} · AI Evaluation &amp; Red-Team</div>
+  <div>${esc(site.name)} · Education AI Evaluation</div>
   <div class="foot-links">
     <a href="mailto:${esc(site.links.email)}">Email</a>
     <a href="${esc(site.links.github)}">GitHub</a>
@@ -89,7 +89,7 @@ function card(cs) {
 export function homePage({ site, featured, recent }) {
   const body = `
 <section class="hero">
-  <p class="eyebrow">AI Evaluation · LLM Quality · Red-Team</p>
+  <p class="eyebrow">Education · AI Evaluation · Learning Quality</p>
   <h1>${esc(site.heroHeadline)}</h1>
   <p class="lede">${esc(site.heroLede)}</p>
   <div class="cta">
@@ -141,10 +141,10 @@ export function workIndex({ site, items }) {
   const body = `
 <section class="page-head">
   <h1>Work</h1>
-  <p class="lede">Reproducible evals, red-team audits, and the systems behind them. Every case study links to runnable code.</p>
+  <p class="lede">AI evaluation and measurement harnesses for education. Every case study links to runnable code and a result you can act on.</p>
 </section>
 ${sections}`;
-  return layout({ site, title: "Work", description: "Reproducible LLM evals, red-team audits, and systems.", body, active: "work" });
+  return layout({ site, title: "Work", description: "AI evaluation and measurement harnesses for education. Reproducible case studies with runnable code.", body, active: "work" });
 }
 
 function skillCard(s) {
