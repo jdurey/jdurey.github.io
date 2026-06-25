@@ -1,5 +1,5 @@
 ---
-queued: true
+queued: false
 queueOrder: 2
 title: "A voice assistant that runs offline by default"
 slug: local-voice-assistant
