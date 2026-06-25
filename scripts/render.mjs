@@ -91,16 +91,11 @@ export function homePage({ site, featured, recent }) {
 <section class="hero">
   <p class="eyebrow">Education · AI Evaluation · Learning Quality</p>
   <h1>${esc(site.heroHeadline)}</h1>
-  ${site.heroLede ? `<p class="lede">${esc(site.heroLede)}</p>` : ""}
+  <p class="lede">${site.thesisHtml}</p>
   <div class="cta">
     <a class="btn btn-primary" href="/work/">See the work</a>
     <a class="btn" href="${site.offerUrl ? esc(site.offerUrl) : "mailto:" + esc(site.links.email)}">Hire me</a>
   </div>
-</section>
-
-<section class="thesis">
-  <h2>The bet I'm making</h2>
-  <p>${site.thesisHtml}</p>
 </section>
 
 <section class="featured">
