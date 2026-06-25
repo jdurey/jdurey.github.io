@@ -2,9 +2,9 @@
 title: About
 ---
 
-I taught grades 3–6 and certified secondary social studies before I ever touched an AI system. That background is the point.
+I was in the classroom for more than 20 years before I ever touched an AI system. That background is the point.
 
-When I moved into AI-education work, I spent years doing K-8 curriculum and assessment QC at scale — writing items, auditing rubrics, watching where the model's confidence and the student's reality came apart. I know what a broken feedback loop looks like before it shows up in a pilot. I know what a grader that passes the wrong thing costs.
+When I moved into AI-education work, I started doing K-8 curriculum and assessment QC — writing items, auditing rubrics, watching where the model's confidence and the student's reality came apart. I know what a broken feedback loop looks like before it shows up in a pilot. I know what a grader that passes the wrong thing costs.
 
 That's the intersection I work from: domain depth in K-12 education plus the ability to build rigorous, reproducible measurement harnesses. Most eval engineers have never run a classroom. Most educators can't build a fail-closed multi-model instrument. The failures that sink AI education products live in that gap.
 
