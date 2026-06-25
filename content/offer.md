@@ -40,19 +40,11 @@ I run your live product through a set of runnable, multi-model adversarial harne
 
 ## Pricing
 
-Fixed fee. There's no hourly meter, no open-ended retainer, and no discovery-call tax.
-
-| Tier | Scope | Price | Timeline |
-|---|---|---|---|
-| **Triage** | 20 examples, one failure class, written findings | **$25k** | 1 week |
-| **Diagnostic sprint** | Full taxonomy + κ + answer-leak + the harness | **$75k** | 3 weeks |
-| **Benchmark build** | Golden set + rubric + multi-model run + a regression harness your team owns | **$150k** | 6 weeks |
-
-Payment is **50 / 25 / 25**. Half on deposit, a quarter at midpoint, a quarter on delivery. A CEO can approve the triage tier on a credit card, and the benchmark build is a standard SOW under a one-page MSA.
+Fixed fee. No hourly meter, no open-ended retainer, no discovery-call tax. Scope and price are set on the call — email to start that conversation.
 
 ## Why me
 
-I build the instruments that measure AI behavior, and I know the domain they're measured in. I did **K-8 curriculum and assessment QC at an AI-education company under NDA**, and I taught grades 3-6 and certified secondary social studies before that. Most eval engineers have never run a classroom. Most educators can't build a fail-closed multi-model harness. The work above is the overlap.
+I build the instruments that measure AI behavior, and I know the domain they're measured in. I did **K-8 curriculum and assessment QC at an AI-education company under NDA**, and I was in the classroom for more than 20 years before that. Most eval engineers have never run a classroom. Most educators can't build a fail-closed multi-model harness. The work above is the overlap.
 
 *The harnesses are method-from-synthetic and fully my own. No prior employer's content is used or required.*
 

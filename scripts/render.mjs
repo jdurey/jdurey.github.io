@@ -44,7 +44,7 @@ export function layout({ site, title, description, body, active, ogType = "websi
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(fullTitle)}</title>
 <meta name="description" content="${esc(desc)}">
 <meta name="author" content="${esc(site.name)}">
@@ -72,13 +72,14 @@ ${body}
   </div>
   <div class="foot-meta">Built ${esc(site.buildDate)} · regenerated nightly · <a href="${esc(site.links.repo)}">source</a></div>
 </footer>
+<script type="module" src="/assets/site.js"></script>
 </body>
 </html>`;
 }
 
-function card(cs) {
+function card(cs, index = 0) {
   const t = TYPE_LABEL[cs.type] || cs.type || "";
-  return `<a class="card" href="${esc(cs.url)}">
+  return `<a class="card" href="${esc(cs.url)}" data-card-type="${esc(cs.type)}" style="--i:${index}">
     <div class="card-meta"><span class="tag tag-${esc(cs.type)}">${esc(t)}</span><time>${esc(cs.dateLabel)}</time></div>
     <h3>${esc(cs.title)}</h3>
     <p>${esc(cs.summary)}</p>
@@ -89,19 +90,41 @@ function card(cs) {
 export function homePage({ site, featured, recent }) {
   const body = `
 <section class="hero">
-  <p class="eyebrow">Education · AI Evaluation · Learning Quality</p>
-  <h1>${esc(site.heroHeadline)}</h1>
-  <p class="lede">${site.thesisHtml}</p>
-  <div class="cta">
-    <a class="btn btn-primary" href="/work/">See the work</a>
-    <a class="btn" href="${site.offerUrl ? esc(site.offerUrl) : "mailto:" + esc(site.links.email)}">Hire me</a>
+  <div class="hero-copy">
+    <p class="eyebrow">Education · AI Evaluation · Learning Quality</p>
+    <h1>${esc(site.heroHeadline)}</h1>
+    <p class="lede">${site.thesisHtml}</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="/work/">See the work</a>
+      <a class="btn" href="${site.offerUrl ? esc(site.offerUrl) : "mailto:" + esc(site.links.email)}">Hire me</a>
+    </div>
+  </div>
+  <div class="hero-instrument" aria-hidden="true">
+    <div class="instrument-head">
+      <span>eval run</span>
+      <span>fail-closed</span>
+    </div>
+    <div class="instrument-scan">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="instrument-matrix">
+      <span class="hot"></span><span></span><span></span><span class="cool"></span>
+      <span></span><span class="risk"></span><span></span><span></span>
+      <span></span><span></span><span class="hot"></span><span></span>
+    </div>
+    <div class="instrument-readout">
+      <span>rubric leak</span>
+      <strong>0.13</strong>
+      <span>judge pass</span>
+      <strong>blocked</strong>
+    </div>
   </div>
 </section>
 
 <section class="featured">
   <div class="section-head"><h2>Selected work</h2><a class="more" href="/work/">All work →</a></div>
   <div class="cards">
-    ${featured.map(card).join("\n")}
+    ${featured.map((cs, i) => card(cs, i)).join("\n")}
   </div>
 </section>
 
@@ -124,12 +147,16 @@ export function workIndex({ site, items }) {
   const groups = {};
   for (const it of items) (groups[it.type] ||= []).push(it);
   const order = ["eval", "red-team", "systems", "method"];
+  const filterControls = `<div class="work-filters" role="toolbar" aria-label="Filter work">
+    <button type="button" data-filter="all" aria-pressed="true">All</button>
+    ${order.map((k) => `<button type="button" data-filter="${esc(k)}" aria-pressed="false">${esc(TYPE_LABEL[k] || k)}</button>`).join("\n    ")}
+  </div>`;
   const sections = order
     .filter((k) => groups[k]?.length)
     .map(
-      (k) => `<section class="work-group">
+      (k) => `<section class="work-group" data-work-group="${esc(k)}">
       <h2>${esc(TYPE_LABEL[k] || k)}</h2>
-      <div class="cards">${groups[k].map(card).join("\n")}</div>
+      <div class="cards">${groups[k].map((it, i) => card(it, i)).join("\n")}</div>
     </section>`
     )
     .join("\n");
@@ -138,13 +165,14 @@ export function workIndex({ site, items }) {
   <h1>Work</h1>
   <p class="lede">AI evaluation and measurement harnesses for education. Every case study links to runnable code and a result you can act on.</p>
 </section>
+${filterControls}
 ${sections}`;
   return layout({ site, title: "Work", description: "AI evaluation and measurement harnesses for education. Reproducible case studies with runnable code.", body, active: "work" });
 }
 
-function skillCard(s) {
+function skillCard(s, index = 0) {
   const t = TYPE_LABEL[s.type] || s.type || "Skill";
-  return `<a class="card" href="${esc(s.repo)}">
+  return `<a class="card" href="${esc(s.repo)}" data-card-type="${esc(s.type)}" style="--i:${index}">
     <div class="card-meta"><span class="tag tag-${esc(s.type)}">${esc(t)}</span><span class="chip">GitHub →</span></div>
     <h3>${esc(s.name)}</h3>
     <p>${esc(s.summary)}</p>
@@ -159,7 +187,7 @@ export function skillsIndex({ site, skills }) {
   <p class="lede">${esc(skills.intro)}</p>
 </section>
 <section class="work-group">
-  <div class="cards">${skills.items.map(skillCard).join("\n")}</div>
+  <div class="cards">${skills.items.map((s, i) => skillCard(s, i)).join("\n")}</div>
 </section>
 <section class="thesis">
   <h2>Install any of these</h2>
