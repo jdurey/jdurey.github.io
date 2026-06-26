@@ -36,10 +36,18 @@ function jsonLdScripts(blocks = []) {
     .join("\n");
 }
 
-export function layout({ site, title, description, body, active, ogType = "website", jsonLd = [] }) {
+function absoluteSiteUrl(site, path = "/") {
+  const base = String(site.url || "").replace(/\/$/, "");
+  if (!path) return base || "/";
+  if (/^https?:\/\//.test(path)) return path;
+  return `${base}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+export function layout({ site, title, description, body, active, ogType = "website", jsonLd = [], canonicalPath = "/" }) {
   const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`;
   const desc = description || site.description;
   const ld = jsonLdScripts([...(site.ld || []), ...jsonLd]);
+  const canonicalUrl = absoluteSiteUrl(site, canonicalPath);
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -52,7 +60,7 @@ export function layout({ site, title, description, body, active, ogType = "websi
 <meta property="og:title" content="${esc(fullTitle)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta name="twitter:card" content="summary">
-<link rel="canonical" href="${esc(site.url)}">
+<link rel="canonical" href="${esc(canonicalUrl)}">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/favicon.svg">
 ${ld}
@@ -140,7 +148,7 @@ export function homePage({ site, featured, recent }) {
       .join("\n")}
   </ul>
 </section>`;
-  return layout({ site, title: "", description: site.description, body, active: "home" });
+  return layout({ site, title: "", description: site.description, body, active: "home", canonicalPath: "/" });
 }
 
 export function workIndex({ site, items }) {
@@ -167,7 +175,7 @@ export function workIndex({ site, items }) {
 </section>
 ${filterControls}
 ${sections}`;
-  return layout({ site, title: "Work", description: "AI evaluation and measurement harnesses for education. Reproducible case studies with runnable code.", body, active: "work" });
+  return layout({ site, title: "Work", description: "AI evaluation and measurement harnesses for education. Reproducible case studies with runnable code.", body, active: "work", canonicalPath: "/work/" });
 }
 
 function skillCard(s, index = 0) {
@@ -195,7 +203,7 @@ export function skillsIndex({ site, skills }) {
   <pre><code>${install}</code></pre>
   <p><a class="more" href="${esc(skills.repo)}">All skills on GitHub →</a></p>
 </section>`;
-  return layout({ site, title: "Skills", description: "Open-source skills for AI coding agents, built by Josh Durey.", body, active: "skills" });
+  return layout({ site, title: "Skills", description: "Open-source skills for AI coding agents, built by Josh Durey.", body, active: "skills", canonicalPath: "/skills/" });
 }
 
 export function caseStudyPage({ site, cs, bodyHtml }) {
@@ -236,14 +244,14 @@ ${bodyHtml}
     ...(cs.models?.length ? { keywords: cs.models.join(", ") } : {}),
     about: "AI evaluation",
   };
-  return layout({ site, title: cs.title, description: cs.summary, body, active: "work", ogType: "article", jsonLd: [article] });
+  return layout({ site, title: cs.title, description: cs.summary, body, active: "work", ogType: "article", jsonLd: [article], canonicalPath: cs.url });
 }
 
 export function aboutPage({ site, bodyHtml }) {
   const body = `
 <section class="page-head"><h1>About</h1></section>
 <div class="prose about">${bodyHtml}</div>`;
-  return layout({ site, title: "About", description: site.description, body, active: "about" });
+  return layout({ site, title: "About", description: site.description, body, active: "about", canonicalPath: "/about/" });
 }
 
 export function offerPage({ site, offer, bodyHtml }) {
@@ -265,7 +273,7 @@ ${bodyHtml}
     <a class="btn btn-primary" href="${mailto}">${ctaLabel}</a>
   </div>
 </div>`;
-  return layout({ site, title: offer.title, description: offer.description || offer.summary, body, active: "hire" });
+  return layout({ site, title: offer.title, description: offer.description || offer.summary, body, active: "hire", canonicalPath: site.offerUrl || "/hire/" });
 }
 
 export { esc };
