@@ -5,7 +5,7 @@ date: 2026-06-24
 type: method
 summary: "A AI Evaluation Engineer role at Distyl AI maps cleanly onto evaluation work I've already published. This page links the role's core skills to runnable, public harnesses — starting with Blind expert-parity: can a model adjudicate like a credentialed examiner, and can you prove it?."
 status: "Job-targeted showcase · maps a live role to real, runnable proof · auto-generated, 24h-veto reviewed"
-draft: true
+draft: false
 featured: false
 showcase: true
 job_company: "Distyl AI"
