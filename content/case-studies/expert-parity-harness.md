@@ -50,7 +50,7 @@ a deductible, and four rules that only a careful reader applies correctly:
   only partway, and only for two of the exclusions.
 - **The vacancy override.** A covered peril in a house that sat empty too long is denied anyway.
 - **Refer, don't guess.** When the cause genuinely can't be determined, the right answer is to
-  escalate, not to pick a verdict.
+  escalate rather than guess at a verdict.
 
 The first step is **distillation**. The raw policy prose becomes a structured core: entities, rules,
 and an explicit precedence order. The reference examiner reasons from that core. The candidate
@@ -60,7 +60,7 @@ reconstruct the whole adjudication themselves, exactly like a human reading a fi
 ## The verdict card
 
 I ran 24 synthetic claims across five models on identical inputs. Clean approvals, clean denials,
-sub-limit and deductible math, and a red-team battery: the precedence traps, a hallucinated-coverage
+sub-limit and deductible math, and a stress-test battery: the precedence traps, a hallucinated-coverage
 trap, a genuinely ambiguous case, and policy-boundary edges. Each model returns a constrained
 verdict (`APPROVE / PARTIAL / DENY / REFER`), a dollar figure, the controlling clause, and its
 reasoning. The constraint is what makes the grade honest, because the verdict is a closed set and
@@ -79,8 +79,7 @@ the one that costs a real insurer money, because the model approved something th
 
 Bootstrap 95% CIs (seeded, 2,000 resamples): Claude `[0.53, 0.94]`, Llama `[-0.01, 0.16]`. The
 three perfect scores have a degenerate interval, because every resample of a perfect run is
-perfect. That's exactly why I'm telling you the sample is 24 and calling this a probe, not a
-benchmark.
+perfect. That's exactly why I'm telling you the sample is 24. Call it a probe. A tight industry benchmark needs far more cases.
 
 ## What actually shows up
 
@@ -119,18 +118,18 @@ took **29 wins, 19 ties, and 0 losses, non-inferior 100% of the time.** The two 
 bias is low. One honest wrinkle. The model's rationales were also longer and more fluent than the
 examiner's terse, templated ones, and fluent prose flatters a blind reviewer. So I read this as the
 model never being judged the worse adjudicator. I don't read it as the model out-reasoning the
-examiner. The zero losses is the number doing the work here, not the wins.
+examiner. The zero losses is the number doing the work here. The win count is secondary.
 
 ## Hardening: the examiner had to earn the trust too
 
 The reference examiner started naive. Identify the covered peril, apply the sub-limit and the
 deductible, done. That first draft silently mis-adjudicated the cases that need the precedence rules.
-Run through the adversarial battery, the naive examiner got **4 cases wrong in the direction that
+Run through the stress-test battery, the naive examiner got **4 cases wrong in the direction that
 leaks money**. It paid the flood-in-a-hurricane claim, paid the earthquake-fire claim, paid the
 vacant-house claim, and guessed a verdict on the unknowable one instead of referring it. The hardened
 examiner gets all of them right.
 
-| Adversarial battery (10 cases) | Wrong | Money-leak exploits |
+| Stress-test battery (10 cases) | Wrong | Money-leak exploits |
 |---|---|---|
 | Naive examiner | 5 / 10 | 4 |
 | Hardened examiner | 0 / 10 | 0 |
@@ -141,11 +140,10 @@ between a script that happened to work once and an instrument you can stake a de
 
 ## Honest limitations
 
-- **The examiner is simulated**, not human, in this demo. I said it up top and I'll say it again. The
+- **The examiner is simulated** in this demo — a deterministic rules engine, and that distinction matters. I said it up top and I'll say it again. The
   κ is parity with a deterministic reference standard. The value of the real engagement is putting a
   credentialed human in that seat, which this rig is built to do.
-- **24 claims is a probe.** It's built to find *where* a model breaks, which precedence class, not to
-  publish a tight industry number. The CIs are wide on purpose, and reported, not buried.
+- **24 claims is a probe.** It's built to find *where* a model breaks, which precedence class. A tight industry number needs far more cases. The CIs are wide on purpose, and reported, not buried.
 - **The candidates are agent CLIs**, with their own system prompts, not bare API calls. That's the
   shipping surface, which I'd argue is the more honest thing to measure. But it isn't a controlled
   base-model comparison, and I won't dress it up as one.

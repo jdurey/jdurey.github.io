@@ -3,8 +3,8 @@ title: "Measuring feedback integrity: a blind-solver that catches AI explanation
 slug: feedback-integrity
 date: 2026-06-20
 type: eval
-summary: "When an AI writes the wrong-answer feedback for a quiz item, it tends to fail in three quiet ways. It teaches the key instead of the error, it invents a concept that isn't on the screen, or it explains a different option than the one it's attached to. A top-to-bottom read misses all three. So I built a measurement instrument that catches them, with a blind-solver at the center that turns 'is this feedback bad?' into 'can a student exploit it?' Then I gave it a golden set and a graduation test, so the human running it can measure when it's safe to stop checking by hand."
-status: "Synthetic demo of a method used on a real K-8 curriculum program under NDA · runnable harness + saved raw responses"
+summary: "When an AI writes explanatory feedback for a wrong answer, it tends to fail in three quiet ways. It teaches the right answer instead of diagnosing the error, it invents a concept not present in the original content, or it attaches to the wrong option entirely. A top-to-bottom read misses all three. So I built a measurement instrument that catches them, with a blind-solver at the center that turns 'is this feedback bad?' into 'can a reader exploit it?' Then I gave it a golden set and a graduation test, so the human running it can measure when it's safe to stop checking by hand."
+status: "Synthetic demo of a method used on a real content-quality engagement under NDA · runnable harness + saved raw responses"
 draft: false
 featured: true
 repo: "https://github.com/jdurey/jdurey.github.io/tree/main/harnesses/feedback-integrity"
@@ -12,11 +12,11 @@ repoLabel: "harness + raw responses"
 models: ["Llama 3.2 3B (local, ollama)"]
 ---
 
-When you put an AI in charge of writing the feedback a student sees after they miss a question, you've created a grader that grades against its own explanation. And the failures don't look like failures. The grade comes back, the feedback reads fine, and the human reviewing it has no signal that anything went wrong. So I went looking for the cases where the feedback quietly betrays the item, and I built the thing that measures how often it happens.
+When you put an AI in charge of writing explanatory feedback on a wrong answer, you've created a system that grades against its own output. The failures don't look like failures. A verdict comes back, the feedback reads fine, and the human reviewing it has no signal that anything went wrong. So I went looking for the cases where AI-written feedback quietly betrays the content it's supposed to explain, and I built the instrument that measures how often it happens. The proof-of-concept domain is K-8 curriculum, where I first encountered this in a real program, but the failure modes and the method apply to any AI-authored explanatory content: knowledge-base articles, compliance guidance, learning materials, support deflection copy.
 
 This is one piece in a series on whether you can trust an AI grader. This one checks the author, the model that writes the content. [Judge-trust](/case-studies/judge-trust) checks the checker that grades it, [verdict-integrity](/case-studies/verdict-integrity) checks whether that checker returns the same verdict twice, and [grading against nothing](/case-studies/grading-against-nothing) checks the code that assembles the prompt.
 
-I can't show you the program that made me build this. It's a real K-8 social studies curriculum, a large bank of AI-authored items, and it's under NDA. So I rebuilt the instrument around items I wrote from scratch, and everything below runs on those. You get the method and the machine. The client keeps the bank.
+I can't show you the program that made me build this. It's a real K-8 social studies curriculum, a large bank of AI-authored items, and it's under NDA. I rebuilt the instrument around synthetic items I wrote from scratch, and everything below runs on those. You get the method and the machine. The client keeps the bank.
 
 ## Three ways AI feedback fails
 
@@ -26,7 +26,7 @@ The feedback that matters is the wrong-answer feedback. A student picks a distra
 
 **Ghost-distractor (GDF).** The feedback names a concept that appears in no option and isn't in the question. An item about the job of a town crier has a wrong option, and its feedback says *"Remember, the blacksmith shaped metal tools."* There's no blacksmith anywhere on the screen. The student reads a correction about something they were never asked. It teaches nothing because it answers a question that isn't there.
 
-**Feedback-option mismatch (FOM).** The feedback is attached to one option but explains a different one. A student picks "they traded furs," and the feedback explains why growing tobacco was the wrong choice. The most extreme version is feedback that's byte-for-byte identical to the option text, which is a data defect, not a teaching one. Either way, the student gets a correction that doesn't match what they actually did.
+**Feedback-option mismatch (FOM).** The feedback is attached to one option but explains a different one. A student picks "they traded furs," and the feedback explains why growing tobacco was the wrong choice. The most extreme version is feedback that's byte-for-byte identical to the option text — a data defect rather than a pedagogical one. Either way, the student gets a correction that doesn't match what they actually did.
 
 None of these are exotic. They're the ordinary failure modes of asking a model to write four explanations at once and trusting that each one lands on its own option.
 
@@ -40,7 +40,7 @@ I learned this the hard way. The first automated pass I pointed at the bank was 
 
 The hard question is "is this feedback bad?" That's a judgment call, and judgment calls don't run at volume and they don't audit. So I converted it into a question with an objective answer: *can a student exploit it?*
 
-The blind-solver does exactly that. For each item, I hide the key, strip out the stem, and hand a model nothing but the three wrong options' feedback. Then I ask it to name the correct answer. If it can, the feedback leaked. On the rivers item, the solver reads *"they needed water for crops and a way to travel."* It names the river option right away, with no stem and no key in front of it. That's not my opinion that the feedback is bad. That's a measurement that a student with the same feedback could pass without knowing the material.
+The blind-solver does exactly that. For each item, I hide the key, strip out the stem, and hand a model nothing but the three wrong options' feedback. Then I ask it to name the correct answer. If it can, the feedback leaked. On the rivers item, the solver reads *"they needed water for crops and a way to travel."* It names the river option right away, with no stem and no key in front of it. A student with that same feedback could pass without knowing the material. The blind-solver produced that number, not my opinion.
 
 The same idea has a sibling. There's a test-wise giveaway where the longest option is always the key. That tell has an exact signature, so the deterministic screen catches it by measuring the option lengths, with no model in the loop at all. I tried a model-based version too. I handed a solver only the lengths and asked which was correct. On a small local model it sat at chance, reading position more than shape. The lesson held. A structural cue belongs to the exact rule, and the model earns its keep on the semantic leak that no rule can see.
 
@@ -50,7 +50,7 @@ The blind-solver runs on a cheap local model in bulk, so testing the whole bank 
 
 The blind-solver is the center, but it sits inside a pipeline that spends the expensive model only where it has to.
 
-1. **Deterministic screen.** A plain script flags the obvious tells: feedback that's identical to its option, a key that's always the longest, distractor feedback that reuses the key's distinctive words. This costs nothing and it's exact. But every flag it produces is a candidate, not a verdict.
+1. **Deterministic screen.** A plain script flags the obvious tells: feedback that's identical to its option, a key that's always the longest, distractor feedback that reuses the key's distinctive words. This costs nothing and it's exact. Every flag it produces is a candidate that still needs adjudication.
 2. **Blind-solver.** The exploitability test above. This is what catches the horizontal failures the screen and a naive read both miss.
 3. **Semantic pass.** A cheap model reviews the candidates and proposes a class and a verbatim quote as evidence for each. Cheap models propose. They never adjudicate.
 4. **Adjudication.** A strong model, or a human, makes the actual call on every candidate, citing the specific phrase and the key language it echoes. "It sounds like the key" is not evidence. The exact shared words are.
@@ -59,11 +59,11 @@ The ordering is the point. The free rungs do the filtering, the cheap rung does 
 
 ## Measuring when to stop checking by hand
 
-A first-pass tool that runs forever isn't automation. It's permanent supervision with extra steps. The goal was always to move the human from *in* the loop, hand-checking everything, to *on* the loop, auditing samples. So the instrument scores itself.
+A first-pass tool that runs forever is permanent supervision with extra steps. The goal was always to move the human from *in* the loop, hand-checking everything, to *on* the loop, auditing samples. So the instrument scores itself.
 
-Every run scores itself against a golden set of human-verified findings, and it reports four things per defect class. First is recall, which asks whether it caught the findings it should have. Then a noise tripwire, which fires when the tool flags far more than the golden count. A canary check confirms it caught the known-broken items I plant to test it. And the last output is the one that matters, a plain verdict on whether that class is ready to run without a human. Graduation is per class, not an average. An easy class catching everything can't be allowed to hide a class that collapsed. So answer-reveal can graduate to unsupervised while option-mismatch is still under review, and the human keeps checking only the class that hasn't earned its trust yet.
+Every run scores itself against a golden set of human-verified findings, and it reports four things per defect class. First is recall, which asks whether it caught the findings it should have. Then a noise tripwire, which fires when the tool flags far more than the golden count. A canary check confirms it caught the known-broken items I plant to test it. And the last output is the one that matters, a plain verdict on whether that class is ready to run without a human. Graduation is evaluated per class — never collapsed to a single average. An easy class catching everything can't be allowed to hide a class that collapsed. So answer-reveal can graduate to unsupervised while option-mismatch is still under review, and the human keeps checking only the class that hasn't earned its trust yet.
 
-That's the design I'm proudest of. The human-verify step exists to make itself unnecessary. And the deepest version of it isn't detection at all. It's feeding every confirmed failure back into the authoring prompt, so the next grade's bank is written without the defect in the first place. The cheapest bug to catch is the one that never gets written.
+That's the design I'm proudest of. The human-verify step exists to make itself unnecessary. The deepest version feeds every confirmed failure back into the authoring prompt, so the next bank gets written without the defect in the first place. The cheapest bug to catch is the one that never gets written.
 
 ## What the harness measures, on synthetic items
 
@@ -89,7 +89,7 @@ The harness lives in the [companion repo](https://github.com/jdurey/jdurey.githu
 - **The numbers from the real bank stay under NDA.** What's public is the method, the synthetic items, and the machine. I won't quote the real catch rates or counts, because those belong to the program.
 - **The blind-solver measures exploitability, not intent.** It tells you a student *could* pass on the feedback alone. It doesn't tell you a student *did*. That's the right thing to measure for an integrity gate, but I won't dress it up as a usage statistic.
 - **The cheap rungs produce candidates, full stop.** Every verdict in a graduated class is still backed by the golden set and the canaries. If those drift out of date, the graduation claim drifts with them, and the honest move is to re-score before trusting the verdict again.
-- **The public demo's cheap rung is deliberately weak.** It runs a 3B local model, and in the run above that model collapsed onto one label and false-flagged every clean item. That's the point. The instrument is built so the cheap pass can fail that badly and the graduation verdict still holds. The verdict leans on the trusted exact rungs and the blind-solver, never on the cheap model's say-so. On a real bank the cheap rung is a stronger small model, and even then it only proposes.
+- **The public demo's cheap rung is deliberately weak.** It runs a 3B local model, and in the run above that model collapsed onto one label and false-flagged every clean item. That's the point. The instrument is built so the cheap pass can fail that badly and the graduation verdict still holds. The verdict rests on the trusted exact rungs and the blind-solver. The cheap model's say-so is not part of that foundation. On a real bank the cheap rung is a stronger small model, and even then it only proposes.
 - **A clean run is a claim that has to survive its own zero.** The whole reason this exists is that a confident zero was wrong once. So a zero from this instrument means "the golden set says zero and the canaries were caught," not "nothing's there."
 
 The point was never that AI writes bad feedback. Sometimes it writes good feedback. The point is that "good" and "bad" here can be measured, and you can build the rig that produces the number. It comes with a golden set, a canary battery, and a per-class verdict on whether it's earned the right to run without you. It runs on your bank, against your standard, and it tells you the one thing a reviewer reading top to bottom never can. The feedback that looks fine is the feedback most worth checking.
