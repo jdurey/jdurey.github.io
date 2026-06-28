@@ -6,6 +6,7 @@ const esc = (s = "") =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 const TYPE_LABEL = {
+  enablement: "AI Enablement & Workflow",
   eval: "Eval",
   "red-team": "Red-Team",
   systems: "Systems",
@@ -154,7 +155,7 @@ export function homePage({ site, featured, recent }) {
 export function workIndex({ site, items }) {
   const groups = {};
   for (const it of items) (groups[it.type] ||= []).push(it);
-  const order = ["eval", "red-team", "systems", "method"];
+  const order = ["enablement", "eval", "red-team", "systems", "method"];
   const filterControls = `<div class="work-filters" role="toolbar" aria-label="Filter work">
     <button type="button" data-filter="all" aria-pressed="true">All</button>
     ${order.map((k) => `<button type="button" data-filter="${esc(k)}" aria-pressed="false">${esc(TYPE_LABEL[k] || k)}</button>`).join("\n    ")}
