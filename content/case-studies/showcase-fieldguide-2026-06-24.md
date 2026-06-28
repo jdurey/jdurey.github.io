@@ -5,7 +5,7 @@ date: 2026-06-24
 type: method
 summary: "A AI Engineer, Quality (Evals) role at Fieldguide maps cleanly onto evaluation work I've already published. This page links the role's core skills to runnable, public harnesses — starting with Can you trust the model that grades your content? Measuring when an AI judge waves through broken work."
 status: "Job-targeted showcase · maps a live role to real, runnable proof · auto-generated, 24h-veto reviewed"
-draft: true
+draft: false
 featured: false
 showcase: true
 job_company: "Fieldguide"
