@@ -106,6 +106,7 @@ export function homePage({ site, featured, recent }) {
     <div class="cta">
       <a class="btn btn-primary" href="/work/">See the work</a>
       <a class="btn" href="${site.offerUrl ? esc(site.offerUrl) : "mailto:" + esc(site.links.email)}">Hire me</a>
+      ${site.links.cal ? `<a class="btn" href="${esc(site.links.cal)}" target="_blank" rel="noopener">Book a call</a>` : ""}
     </div>
   </div>
   <div class="hero-instrument" aria-hidden="true">
