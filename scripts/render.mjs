@@ -257,6 +257,11 @@ export function aboutPage({ site, bodyHtml }) {
 
 export function offerPage({ site, offer, bodyHtml }) {
   const mailto = `mailto:${esc(site.links.email)}?subject=${encodeURIComponent(offer.ctaSubject || "Eval sprint inquiry")}`;
+  // Booking CTA: a Cal.com link when configured (handles cross-timezone scheduling from Seoul),
+  // else fall back to email so nothing ships broken before the handle exists. Mirrors the
+  // populate-to-activate idiom used for linkedin/twitter in site.json.
+  const bookHref = site.links.cal ? esc(site.links.cal) : mailto;
+  const bookAttrs = site.links.cal ? ` target="_blank" rel="noopener"` : "";
   const ctaLabel = esc(offer.ctaLabel || "Book a call");
   const body = `
 <section class="hero offer-hero">
@@ -264,14 +269,14 @@ export function offerPage({ site, offer, bodyHtml }) {
   <h1>${esc(offer.title)}</h1>
   <p class="lede">${esc(offer.subtitle || offer.summary)}</p>
   <div class="cta">
-    <a class="btn btn-primary" href="${mailto}">${ctaLabel}</a>
+    <a class="btn btn-primary" href="${bookHref}"${bookAttrs}>${ctaLabel}</a>
     <a class="btn" href="/work/">See the proof</a>
   </div>
 </section>
 <div class="prose offer-body">
 ${bodyHtml}
   <div class="cta cta-foot">
-    <a class="btn btn-primary" href="${mailto}">${ctaLabel}</a>
+    <a class="btn btn-primary" href="${bookHref}"${bookAttrs}>${ctaLabel}</a>
   </div>
 </div>`;
   return layout({ site, title: offer.title, description: offer.description || offer.summary, body, active: "hire", canonicalPath: site.offerUrl || "/hire/" });
