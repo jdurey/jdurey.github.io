@@ -6,7 +6,7 @@ type: red-team
 summary: "This site publishes itself unattended, so its clean-room firewall is the only thing between a leak and the open internet. I had two other model families try to break it. They found 14 ways past it in one pass."
 status: "Complete · 65 regression tests"
 featured: true
-queued: true
+queued: false
 queueOrder: 3
 ---
 
