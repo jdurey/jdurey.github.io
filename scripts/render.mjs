@@ -7,8 +7,8 @@ const esc = (s = "") =>
 
 const TYPE_LABEL = {
   enablement: "AI Enablement & Workflow",
-  eval: "Eval",
-  "red-team": "Red-Team",
+  eval: "LLM QC",
+  "red-team": "Stress-Testing",
   systems: "Systems",
   method: "Method",
 };
@@ -73,7 +73,7 @@ ${ld}
 ${body}
 </main>
 <footer class="site-footer">
-  <div>${esc(site.name)} · Education AI Evaluation</div>
+  <div>${esc(site.name)} · Applied AI Enablement</div>
   <div class="foot-links">
     <a href="mailto:${esc(site.links.email)}">Email</a>
     <a href="${esc(site.links.github)}">GitHub</a>
@@ -100,7 +100,7 @@ export function homePage({ site, featured, recent }) {
   const body = `
 <section class="hero">
   <div class="hero-copy">
-    <p class="eyebrow">Education · AI Evaluation · Learning Quality</p>
+    <p class="eyebrow">Applied AI · Agentic Workflows · LLM QC</p>
     <h1>${esc(site.heroHeadline)}</h1>
     <p class="lede">${site.thesisHtml}</p>
     <div class="cta">
@@ -173,11 +173,11 @@ export function workIndex({ site, items }) {
   const body = `
 <section class="page-head">
   <h1>Work</h1>
-  <p class="lede">AI evaluation and measurement harnesses for education. Every case study links to runnable code and a result you can act on.</p>
+  <p class="lede">Runnable proof of AI work that holds up: workflow audits, agentic systems, and the LLM quality control behind them. Every case study links to code and a result you can act on.</p>
 </section>
 ${filterControls}
 ${sections}`;
-  return layout({ site, title: "Work", description: "AI evaluation and measurement harnesses for education. Reproducible case studies with runnable code.", body, active: "work", canonicalPath: "/work/" });
+  return layout({ site, title: "Work", description: "Applied AI enablement work: workflow audits, agentic systems, and LLM quality control. Reproducible case studies with runnable code.", body, active: "work", canonicalPath: "/work/" });
 }
 
 function skillCard(s, index = 0) {
@@ -244,7 +244,7 @@ ${bodyHtml}
     mainEntityOfPage: `${base}${cs.url}`,
     ...(cs.repo ? { isBasedOn: cs.repo, codeRepository: cs.repo } : {}),
     ...(cs.models?.length ? { keywords: cs.models.join(", ") } : {}),
-    about: "AI evaluation",
+    about: "Applied AI enablement",
   };
   return layout({ site, title: cs.title, description: cs.summary, body, active: "work", ogType: "article", jsonLd: [article], canonicalPath: cs.url });
 }
@@ -266,7 +266,7 @@ export function offerPage({ site, offer, bodyHtml }) {
   const ctaLabel = esc(offer.ctaLabel || "Book a call");
   const body = `
 <section class="hero offer-hero">
-  <p class="eyebrow">Fixed-fee eval sprint · for AI-in-education teams</p>
+  <p class="eyebrow">Fixed-scope engagement · for teams putting AI into production</p>
   <h1>${esc(offer.title)}</h1>
   <p class="lede">${esc(offer.subtitle || offer.summary)}</p>
   <div class="cta">

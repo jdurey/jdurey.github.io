@@ -2,28 +2,27 @@
 title: About
 ---
 
-I was in the classroom for more than 20 years before I ever touched an AI system. That background is the point.
+I build AI systems for teams that have to trust the output, and I check that the output is actually trustworthy. Those two halves rarely live in the same person, and the gap between them is where most AI adoption stalls.
 
-When I moved into AI-education work, I started doing K-8 curriculum and assessment QC — writing items, auditing rubrics, watching where the model's confidence and the student's reality came apart. I know what a broken feedback loop looks like before it shows up in a pilot. I know what a grader that passes the wrong thing costs.
+Before any of this, I spent more than twenty years in K-12 education, the last stretch as a vice-principal. When I moved into AI work, I did K-8 curriculum and assessment QC at an AI-education company: writing items, auditing rubrics, watching where a model's confidence and a real person's reality came apart. That is where I learned what a broken workflow looks like before it shows up in front of a customer, and what shipping the wrong answer costs.
 
-That's the intersection I work from: domain depth in K-12 education plus the ability to build rigorous, reproducible measurement harnesses. Most eval engineers have never run a classroom. Most educators can't build a fail-closed multi-model instrument. The failures that sink AI education products live in that gap.
+So the work I do now is horizontal. The domain was education. The skill is getting AI to do real work and proving it holds up.
 
 ## What I do
 
-- **Feedback and grader integrity.** Harnesses that catch answer-leak, feedback-option mismatch, and judge false-pass — the failure modes that don't show up in accuracy dashboards but do show up in district pilots. Here's [the instrument](/work/feedback-integrity/).
-- **Judge-trust calibration.** Making LLM-as-judge false-passes reproducible and measurable, so a team can act on them before they ship. Here's [the published proof of concept](/work/judge-trust/).
-- **Expert-parity testing.** Does the model match credentialed human judgment? Reported as κ-agreement and a blind non-inferiority test, not a vibe. Here's [the method](/work/expert-parity-harness/).
-- **Eval of the eval.** Calibrating gate-based evaluation so it actually discriminates instead of flattering the team that wrote it. Here's [one calibration run](/work/golden-set-calibration/).
+- **Workflow audits.** I find the steps in a team's workflow actually worth handing to AI, ranked by payoff and risk, so effort goes where it pays. Here's [how I run one](/work/ai-workflow-audit/).
+- **Agentic systems.** I build workflows that check their own output before a human sees it. Here's [one that reviews itself](/work/agentic-workflow-demo/).
+- **LLM quality control.** Runnable harnesses that catch the failures an accuracy dashboard misses, including a judge that waves through broken work. Here's [the QC framework](/work/llm-qc-rubric/) and [the judge-trust proof of concept](/work/judge-trust/).
 
 ## How I work
 
 - I instrument, I don't assert. A guardrail you haven't watched fail closed is a guess.
 - If it isn't reproducible, it didn't happen. Every result links to runnable code.
-- The domain matters. Education failures look different from generic LLM failures, and finding them takes someone who knows both.
+- Adoption is the goal. A clever system nobody trusts enough to use still isn't finished.
 
 ## Working together
 
-I'm open to remote roles in AI evaluation for education — full-time, fractional, or focused consulting. If you're shipping an AI tutoring, curriculum, or assessment product and you want to know it actually works before your pilot does, that's my lane.
+I'm open to remote roles in applied AI enablement, full-time, fractional, or focused consulting. If you're putting AI into a real workflow and you need to know it works before a customer does, that's my lane.
 
 - **Email:** [josh.durey@gmail.com](mailto:josh.durey@gmail.com)
 - **GitHub:** [github.com/jdurey](https://github.com/jdurey)
