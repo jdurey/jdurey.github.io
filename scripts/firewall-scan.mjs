@@ -28,6 +28,7 @@ const TEXT_EXT = new Set([
   ".ts", ".tsx", ".jsx", ".css", ".xml", ".yml", ".yaml", ".py", ".sh", ".svg", ".csv", ".toml",
 ]);
 const SKIP_DIRS = new Set(["node_modules", ".git", ".github", "dist"]); // dist scanned explicitly
+const SKIP_FILES = new Set(["firewall-scan.mjs", "firewall-denylist.json", "firewall-denylist.public.json"]);
 const CONTEXT_WINDOW = 48;
 
 // ---- canonicalization ------------------------------------------------------
@@ -119,6 +120,22 @@ function collapse(s) {
 }
 function loadDenylist() {
   const raw = JSON.parse(readDenylistFile(DENYLIST_PATH));
+  // Defense-in-depth: merge a PRIVATE denylist (personal names, internal codenames) kept
+  // OUTSIDE any public repo and pointed to by FIREWALL_DENYLIST_EXTRA. Public repos ship only
+  // generic secret/path patterns + already-public product names; the sensitive roster never
+  // gets committed. Absent env / missing file => public-safe rules only (e.g. in CI).
+  const extra = process.env.FIREWALL_DENYLIST_EXTRA;
+  if (extra && existsSync(extra)) {
+    try {
+      const ex = JSON.parse(readFileSync(extra, "utf8"));
+      for (const k of ["hardBlock", "hardBlockRegex", "contextWords", "contextAllow", "contextGated"]) {
+        if (Array.isArray(ex[k])) raw[k] = [...(raw[k] || []), ...ex[k]];
+      }
+    } catch (e) {
+      console.error(`firewall-scan: could not read FIREWALL_DENYLIST_EXTRA (${extra}): ${e.message}`);
+      process.exit(2);
+    }
+  }
   return {
     hardBlock: (raw.hardBlock || []).map((s) => s.toLowerCase()),
     hardBlockCollapsed: (raw.hardBlock || []).map(collapse),
@@ -256,6 +273,8 @@ async function* walk(target) {
       yield* walk(path.join(target, entry));
     }
   } else if (s.isFile()) {
+    const base = path.basename(target);
+    if (SKIP_FILES.has(base) || base.endsWith(".test.mjs")) return;
     if (TEXT_EXT.has(path.extname(target).toLowerCase())) yield target;
   }
 }

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(git rev-parse --show-toplevel)"
+FILES="$(git diff --cached --name-only --diff-filter=ACM)"
+[ -z "$FILES" ] && exit 0
+printf '%s\n' "$FILES" | tr '\n' '\0' | xargs -0 node "$ROOT/scripts/firewall-scan.mjs"

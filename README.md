@@ -13,7 +13,7 @@ content/            source of truth
 harnesses/          runnable eval/red-team code referenced by case studies
 scripts/
   render.mjs            HTML templates
-  firewall-scan.mjs     CLEAN-ROOM GATE — aborts on any Alpha/NDA marker
+  firewall-scan.mjs     CLEAN-ROOM GATE — aborts on any employer/NDA marker
   firewall-denylist.json the denylist (edit deliberately)
   nightly.mjs           the unattended engine (discover → gate → build → gate → publish)
 build.mjs           static site generator → dist/

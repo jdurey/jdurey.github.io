@@ -7,7 +7,7 @@ Independence is at the VENDOR/TRAINING level (Anthropic / OpenAI / xAI / Google)
 different prompts — that is what makes "verifier independence" real rather than cosmetic, and
 it is the methodological basis of the cross-family K-of-N result.
 
-Invocation patterns mirror _OS/scripts/dispatch.sh (the project's canonical CLI fan-out).
+Invocation patterns mirror an internal CLI fan-out helper.
 """
 import json
 import os

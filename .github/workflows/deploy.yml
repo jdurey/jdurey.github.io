@@ -26,7 +26,7 @@ jobs:
       - run: npm install --no-audit --no-fund
       # GATE 1 — source must be clean. Fails the job (no deploy) on any finding.
       - name: Firewall scan (source)
-        run: node scripts/firewall-scan.mjs content harnesses
+        run: node scripts/firewall-scan.mjs .
       - name: Build
         run: node build.mjs
       # GATE 2 — built output must be clean before it can ship.

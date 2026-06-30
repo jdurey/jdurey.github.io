@@ -29,7 +29,7 @@ function nav(site, active) {
 
 // JSON-LD blocks. NOTE (per GEO harden, 2026-06-24): structured data is crawl HYGIENE — it aids
 // entity disambiguation, not a citation "lift" (Ahrefs causal study: no uplift; AI systems parse
-// visible HTML). Ship once, keep NAP consistent, do NOT churn it on a loop. See Sync/Landing/geo/PLAN.md.
+// visible HTML). Ship once, keep NAP consistent, do NOT churn it on a loop. See the internal geo plan.
 function jsonLdScripts(blocks = []) {
   return blocks
     .filter(Boolean)
