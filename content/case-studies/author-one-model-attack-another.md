@@ -6,7 +6,7 @@ type: method
 summary: "A rule I follow on any code where a quiet failure is expensive: don't trust your own review, and don't trust a same-family review either. One model writes it, a different family tries to break it, empirically."
 status: "Standing practice"
 featured: true
-queued: true
+queued: false
 queueOrder: 4
 ---
 
