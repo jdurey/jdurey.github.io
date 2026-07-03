@@ -6,7 +6,7 @@ type: eval
 summary: "Most teams treat an AI grader like a function: same answer in, same grade out. I built a tiny instrument that checks, by submitting one fixed answer to a grader many times and counting how often the verdict flips. On a fictional item, a correct answer whose service was even on the accepted-examples list got graded pass 19 times and fail 11 on byte-identical input. The obvious-right and obvious-wrong controls stayed flat the whole time. An answer that named no service at all passed almost half the time. Single-shot QC can't see this, because the instability only shows up when you repeat the call."
 status: "Synthetic demo of a method from real AI-grading QC under NDA · runnable harness + saved verdicts"
 draft: false
-queued: true
+queued: false
 queueOrder: 5
 featured: true
 repo: "https://github.com/jdurey/jdurey.github.io/tree/main/harnesses/verdict-integrity"
