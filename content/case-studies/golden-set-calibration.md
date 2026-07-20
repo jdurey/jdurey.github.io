@@ -5,7 +5,7 @@ date: 2026-06-16
 type: eval
 summary: "Building a self-hardening gate to separate load-bearing eval designs from decorative ones, and the surprise that the gate out-discriminated the thing generating the candidates."
 models: ["Claude Haiku (generation)", "Claude Sonnet (gate)"]
-status: "Complete"
+status: "Complete · run in a private working repo — figures quoted from the saved run; harness not yet public"
 featured: true
 ---
 

@@ -89,7 +89,7 @@ ${body}
 function card(cs, index = 0) {
   const t = TYPE_LABEL[cs.type] || cs.type || "";
   return `<a class="card" href="${esc(cs.url)}" data-card-type="${esc(cs.type)}" style="--i:${index}">
-    <div class="card-meta"><span class="tag tag-${esc(cs.type)}">${esc(t)}</span><time>${esc(cs.dateLabel)}</time></div>
+    <div class="card-meta"><span class="tag tag-${esc(cs.type)}">${esc(t)}</span><time>${esc(cs.dateLabel)}</time>${cs.repo ? `<span class="chip">receipts</span>` : ""}</div>
     <h3>${esc(cs.title)}</h3>
     <p>${esc(cs.summary)}</p>
     ${cs.models?.length ? `<div class="models">${cs.models.map((m) => `<span class="chip">${esc(m)}</span>`).join("")}</div>` : ""}
@@ -211,7 +211,7 @@ export function skillsIndex({ site, skills }) {
 export function caseStudyPage({ site, cs, bodyHtml }) {
   const meta = [
     cs.models?.length ? `<div><dt>Models</dt><dd>${cs.models.map((m) => esc(m)).join(", ")}</dd></div>` : "",
-    cs.repo ? `<div><dt>Code</dt><dd><a href="${esc(cs.repo)}">${esc(cs.repoLabel || "harness")}</a></dd></div>` : "",
+    cs.repo ? `<div><dt>Receipts</dt><dd><a href="${esc(cs.repo)}">${esc(cs.repoLabel || "harness")}</a></dd></div>` : "",
     cs.status ? `<div><dt>Status</dt><dd>${esc(cs.status)}</dd></div>` : "",
   ]
     .filter(Boolean)

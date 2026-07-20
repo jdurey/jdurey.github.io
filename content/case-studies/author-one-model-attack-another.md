@@ -8,6 +8,8 @@ status: "Standing practice"
 featured: true
 queued: false
 queueOrder: 4
+repo: "https://github.com/jdurey/skills/tree/main/adversarial-harden"
+repoLabel: "the practice, packaged as a skill"
 ---
 
 Here's a rule I follow on any code where being wrong is expensive. A detector, a parser, an auth check, a firewall, anything where a quiet failure costs you something real. I don't trust my own review of it. And I don't trust a review from the same model that wrote it either, because a same-family reviewer shares the author's blind spots. It reads what the author meant.

@@ -8,6 +8,8 @@ status: "Complete · 65 regression tests"
 featured: true
 queued: false
 queueOrder: 3
+repo: "https://github.com/jdurey/jdurey.github.io/blob/main/tests/firewall-scan.test.mjs"
+repoLabel: "scanner + regression suite"
 ---
 
 This site publishes itself every night with no human in the loop. A clean-room firewall scans every page first and blocks anything confidential, like an employer name, an internal codename, or a private file path, before it can go live. Since nobody is watching at publish time, that scanner is the only thing standing between a leak and the open internet. So I treated it like what it is. A security control that has to survive an attacker.
@@ -30,7 +32,7 @@ And the other direction, which matters just as much when nobody is watching: fal
 
 ## The fix
 
-A canonicalization layer that runs before any matching. Normalize the unicode, fold the homoglyphs back to Latin, strip the zero-width characters, decode the entities and percent-encoding, strip tags without rejoining a split marker, fold the leetspeak, collapse the spacing. Then match. On top of that, a tuned denylist that can tell an internal filename apart from an ordinary English phrase. And a regression test for every single bypass, so none of them can come back. The suite sits at 65 tests now.
+A canonicalization layer that runs before any matching. Normalize the unicode, fold the homoglyphs back to Latin, strip the zero-width characters, decode the entities and percent-encoding, strip tags without rejoining a split marker, fold the leetspeak, collapse the spacing. Then match. On top of that, a tuned denylist that can tell an internal filename apart from an ordinary English phrase. And a regression test for every single bypass, so none of them can come back. The suite sits at 65 tests now. Both are public in this site's repo — [the scanner](https://github.com/jdurey/jdurey.github.io/blob/main/scripts/firewall-scan.mjs) and [every regression case](https://github.com/jdurey/jdurey.github.io/blob/main/tests/firewall-scan.test.mjs) — and CI runs the suite on every deploy, so a regression can't publish.
 
 ## The honest part
 
