@@ -157,7 +157,7 @@ async function main() {
 
   // assets
   await cp(path.join(ROOT, "assets"), path.join(DIST, "assets"), { recursive: true });
-  for (const passthrough of ["m5-tribunal", "audits"]) {
+  for (const passthrough of ["m5-tribunal", "audits", "for"]) {
     if (existsSync(path.join(ROOT, passthrough))) {
       await cp(path.join(ROOT, passthrough), path.join(DIST, passthrough), { recursive: true });
     }
