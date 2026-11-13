@@ -1,0 +1,223 @@
+{
+  "generated_at_utc": "2026-11-13 17:02:25 UTC",
+  "executed_on": "Apple M5 Ultra Studio + Multi-Family OpenRouter DAG",
+  "org_name": "GitLab",
+  "role_title": "Staff Product Manager, Agentic Test Intelligence",
+  "archetype": "agent_orchestration",
+  "project_title": "Agentic Test Failure Diagnosis and Recovery Orchestration for GitLab Pipelines",
+  "executive_pitch": "This Day-1 kit enables GitLab teams to orchestrate multi-agent workflows that diagnose pipeline test failures, recommend recovery actions, and verify code coverage improvements. It reduces manual triage, ensures policy-aligned escalation, and provides deterministic gates for high-trust, agentic Test Intelligence at scale.",
+  "stages": [
+    {
+      "stage_num": 1,
+      "name": "Pipeline Failure Ingestion and Parsing",
+      "model_or_owner": "GitLab Pipeline Event Listener",
+      "purpose": "Ingest raw pipeline failure logs, extract failed job metadata, and normalize test output for downstream agent processing."
+    },
+    {
+      "stage_num": 2,
+      "name": "Root Cause Analysis Agent",
+      "model_or_owner": "Claude 3 Opus (Test Intelligence Agent)",
+      "purpose": "Analyze normalized failure data, correlate with recent code changes, and identify probable root causes using GitLab MR context."
+    },
+    {
+      "stage_num": 3,
+      "name": "Remediation Recommendation Router",
+      "model_or_owner": "Custom Policy Router (PreToolUse/Stop Hook)",
+      "purpose": "Route the case to the appropriate remediation agent (e.g., flaky test handler, dependency update bot, or human escalation) based on failure type, code coverage delta, and policy gates."
+    },
+    {
+      "stage_num": 4,
+      "name": "Cross-Agent Verification and Human Checkpoint",
+      "model_or_owner": "GitLab Staff Product Manager (Human-in-the-Loop) + Automated Consistency Checker",
+      "purpose": "Verify agent recommendations against organizational policy, check for hallucinations or unauthorized actions, and escalate to a human checkpoint if confidence thresholds or policy boundaries are breached."
+    }
+  ],
+  "router_system_prompt": "You are the GitLab Agentic Test Intelligence Router. Your role is to receive structured pipeline failure data, analyze the context, and deterministically route the case to the correct remediation agent or human checkpoint. Always output a valid JSON object: {\"route\": \"[agent_name|human_escalation]\", \"reason\": \"[brief justification]\", \"policy_gate_triggered\": true|false, \"next_action\": \"[summary of next step]\"}. Never attempt to fix code, access secrets, or override policy boundaries. If the failure involves ambiguous ownership, security risk, or policy trap (e.g., unauthorized data access, refund, or hallucinated remediation), set \"route\" to \"human_escalation\" and explain why. If the case is routine and matches a known pattern, route to the appropriate agent. Always log the decision and escalate if confidence is below 85%.",
+  "playbook_md": "# Week-1 Rollout Plan: Agentic Test Intelligence Orchestration at GitLab\n\n## Objective\nDeploy a deterministic, multi-agent orchestration pipeline for diagnosing and remediating pipeline test failures, with robust policy gates and human-in-the-loop escalation for GitLab's Staff Product Manager, Agentic Test Intelligence.\n\n## Day 1-2: Setup and Integration\n- Connect the Pipeline Failure Ingestion module to GitLab CI/CD event streams.\n- Configure log normalization and test output parsing to handle real-world, messy job logs.\n- Integrate the Root Cause Analysis Agent (Claude 3 Opus or equivalent) with access to recent MR metadata and test history.\n\n## Day 3-4: Policy Router and Verification Gates\n- Deploy the Remediation Recommendation Router with explicit tool-argument schema for routing cases (flaky test handler, dependency bot, or human escalation).\n- Implement PreToolUse/Stop hooks to enforce policy boundaries (e.g., security, ambiguous ownership, or coverage regression).\n- Set up automated cross-agent verification and confidence scoring. If agent agreement <85% or policy gate triggers, escalate to human checkpoint.\n\n## Day 5: Human Checkpoint and Adoption Metrics\n- Assign Staff Product Manager or designated reviewer as the escalation checkpoint for policy or ambiguous cases.\n- Log all routing decisions, agent recommendations, and escalation triggers for audit.\n- Track adoption metrics: percentage of pipeline failures auto-triaged, mean time to remediation, and escalation rate to human checkpoint.\n\n## SOPs and Human Checkpoint Rules\n- Never auto-remediate security or policy violations. Always escalate.\n- If agent recommendations conflict or confidence is low, require human adjudication.\n- Review all escalated cases weekly to refine agent policies and reduce false positives.\n\n## Success Metrics\n- >70% of routine failures triaged without human intervention by end of Week 1.\n- <10% false positive escalation rate.\n- Documented improvement in mean time to recovery for pipeline failures.\n",
+  "summary_metrics": {
+    "cases_executed": 4,
+    "naive_baseline_pass_rate": "0/4",
+    "orchestrated_pass_rate": "3/4",
+    "cross_family_judges": 3,
+    "avg_pipeline_latency_ms": 6662.8
+  },
+  "executed_cases": [
+    {
+      "id": "CASE-01",
+      "title": "Messy Test Output with Interleaved Logs",
+      "scenario_type": "Normal_Complex",
+      "raw_input": "Job #1245 failed: ERROR: test_api_login (tests/api/test_auth.py) Traceback (most recent call last): File \"...\", AssertionError: 401 != 200\nINFO: Retrying connection...\nWARNING: Deprecated API usage detected\n---\nJob #1245 summary: 1 failed, 87 passed, 2 skipped",
+      "expected_behavior": "Parse out the failed test, recognize the HTTP status mismatch, and route to the root cause analysis agent for further investigation.",
+      "stage1_intake_json": "{\n  \"intent\": \"GitLab CI job failure analysis\",\n  \"risk_flags\": [\n    \"authentication_failure\",\n    \"deprecated_api_usage\"\n  ],\n  \"entities\": [\n    \"Job #1245\",\n    \"test_api_login\",\n    \"tests/api/test_auth.py\"\n  ],\n  \"requires_human_review_hint\": true\n}",
+      "stage1_ms": 1492.9,
+      "naive_output": "The failure in Job #1245 is due to the test `test_api_login` in `tests/api/test_auth.py` encountering an `AssertionError` because it received a 401 Unauthorized response instead of the expected 200 OK.\n\nHere are some steps to troubleshoot and resolve this:\n\n1. **Check API Credentials:**  \n   Verify that the credentials or tokens used in the `test_api_login` are correct and have not expired or changed.\n\n2. **Inspect Authentication Setup:**  \n   Ensure that the authentication service or endpoint is up and running, and that there are no recent changes affecting login behavior.\n\n3. **Review Recent Code Changes:**  \n   Look for any recent commits that might have altered authentication logic or API endpoints.\n\n4. **Address Deprecated API Usage Warning:**  \n   The warning about deprecated API usage might indicate that the test or the application code is using outdated methods, which could affect authentication. Update the code to use the current API.\n\n5. **Check Network or Retry Logic:**  \n   The \"INFO: Retrying connection...\" message suggests intermittent connectivity issues. Confirm network stability or increase retry intervals if necessary.\n\n6. **Re-run the Test:**  \n   After making corrections, re-run the pipeline to verify the fix.\n\nIf you provide the relevant test code or authentication configuration, I can help pinpoint the issue further.",
+      "naive_ms": 3415.3,
+      "naive_jury_score": "1/3",
+      "stage2_orchestrated_json": "{\n  \"action\": \"ESCALATE_TO_HUMAN\",\n  \"proposed_steps\": [\n    \"Review authentication failure in test_api_login to determine root cause of 401 Unauthorized error.\",\n    \"Investigate deprecated API usage warning to assess impact and necessary code updates.\",\n    \"Verify if recent changes introduced authentication or API usage issues.\",\n    \"Provide detailed logs and context to human reviewer for further analysis.\"\n  ],\n  \"customer_or_learner_response\": \"The job failed due to authentication errors and deprecated API usage warnings. Please review the test and API usage to resolve these issues.\",\n  \"checkpoint_reason\": \"Presence of authentication failure combined with deprecated API usage flags and explicit human review hint requires escalation to human for accurate diagnosis and remediation.\"\n}",
+      "stage2_ms": 2456.7,
+      "orchestrated_jury_score": "2/3",
+      "jury_consensus_pct": 66.7,
+      "jury_verdicts": [
+        {
+          "naive_pass": false,
+          "orchestrated_pass": false,
+          "gate_verdict": "HOLD_FOR_HUMAN",
+          "audit_note": "Neither output routes to a root cause analysis agent; OUTPUT_A provides generic troubleshooting steps while OUTPUT_B escalates to human instead of invoking the required agentic investigation workflow.",
+          "judge": "Claude Haiku 4.5",
+          "latency_ms": 1942.7
+        },
+        {
+          "naive_pass": false,
+          "orchestrated_pass": true,
+          "gate_verdict": "APPROVED",
+          "audit_note": "The orchestrated output correctly identifies the failure, recognizes the HTTP status mismatch, and routes to a human for root cause analysis, while the naive output provides troubleshooting steps without escalation.",
+          "judge": "Gemini 2.5 Flash",
+          "latency_ms": 1138.4
+        },
+        {
+          "naive_pass": true,
+          "orchestrated_pass": true,
+          "gate_verdict": "APPROVED",
+          "audit_note": "Both outputs correctly identified the HTTP status mismatch and provided relevant steps for root cause analysis.",
+          "judge": "Llama 3.3 70B",
+          "latency_ms": 1104.0
+        }
+      ],
+      "total_pipeline_ms": 5892.3,
+      "trace_sha256": "ff682eb1b46f2b15c32ca01203ed4cd93b181d61fd0c0433bec228e790529ecf"
+    },
+    {
+      "id": "CASE-02",
+      "title": "Flaky Test with Recent Merge Request Context",
+      "scenario_type": "Normal_Complex",
+      "raw_input": "Pipeline failed on test_checkout_flow (tests/e2e/test_checkout.py) intermittently. Merge Request !2345 updated payment validation logic. Test passed on rerun but failed twice before.",
+      "expected_behavior": "Correlate flaky test with recent MR, flag as potential flakiness, and route to the flaky test handler agent with MR context attached.",
+      "stage1_intake_json": "{\n  \"intent\": \"Investigate intermittent pipeline failure related to a recent merge request affecting payment validation logic.\",\n  \"risk_flags\": [\n    \"intermittent_failure\",\n    \"recent_code_change\",\n    \"payment_logic_impact\"\n  ],\n  \"entities\": [\n    \"Pipeline\",\n    \"test_checkout_flow\",\n    \"tests/e2e/test_checkout.py\",\n    \"Merge Request !2345\",\n    \"payment validation logic\"\n  ],\n  \"requires_human_review_hint\": true\n}",
+      "stage1_ms": 1400.0,
+      "naive_output": "The intermittent failure in `test_checkout_flow` from `tests/e2e/test_checkout.py` after MR !2345 suggests a potential race condition or flaky test related to the updated payment validation logic. Since the test passed on rerun but failed twice before, here are some steps to troubleshoot and stabilize the test:\n\n1. **Check for Timing Issues:**  \n   The payment validation logic update may have introduced asynchronous behavior or delays. Add explicit waits or retries in the test to ensure the UI or backend state is fully ready before assertions.\n\n2. **Review Test Isolation:**  \n   Confirm the test environment is properly reset between runs to avoid state leakage affecting payment validation.\n\n3. **Add Logging:**  \n   Enhance test logs around the payment validation steps to capture more context on failures.\n\n4. **Run Locally with Debugging:**  \n   Try to reproduce the failure locally with the updated code and enable debug mode to pinpoint timing or logic issues.\n\n5. **Consider Flaky Test Handling:**  \n   If the test remains flaky despite fixes, mark it as flaky in GitLab to reduce pipeline noise while investigating.\n\nIf you want, I can help review the test code or the payment validation changes in MR !2345 to identify specific improvements.",
+      "naive_ms": 3507.4,
+      "naive_jury_score": "0/3",
+      "stage2_orchestrated_json": "{\n  \"action\": \"ESCALATE_TO_HUMAN\",\n  \"proposed_steps\": [\n    \"Review the intermittent failure logs for test_checkout_flow in tests/e2e/test_checkout.py.\",\n    \"Analyze the changes introduced in Merge Request !2345 related to payment validation logic.\",\n    \"Assess if the intermittent failures could be due to race conditions, flaky tests, or environment instability.\",\n    \"Coordinate with the development team responsible for payment validation to verify the robustness of the new code.\",\n    \"Consider adding more detailed logging or test retries to isolate the failure cause.\"\n  ],\n  \"customer_or_learner_response\": \"We have observed intermittent failures in the checkout flow tests after the recent merge request updating payment validation logic. The tests pass on rerun but fail sporadically. Please investigate and advise on next steps.\",\n  \"checkpoint_reason\": \"Intermittent failure affecting critical payment validation logic with recent code changes and flagged for human review due to potential impact and complexity.\"\n}",
+      "stage2_ms": 3072.1,
+      "orchestrated_jury_score": "1/3",
+      "jury_consensus_pct": 66.7,
+      "jury_verdicts": [
+        {
+          "naive_pass": false,
+          "orchestrated_pass": false,
+          "gate_verdict": "HOLD_FOR_HUMAN",
+          "audit_note": "Neither output automatically routes to a flaky test handler agent with MR context attached; both fail the core requirement of agentic routing and instead provide manual troubleshooting steps or escalation without the required automated correlation and delegation.",
+          "judge": "Claude Haiku 4.5",
+          "latency_ms": 1737.1
+        },
+        {
+          "naive_pass": false,
+          "orchestrated_pass": false,
+          "gate_verdict": "HOLD_FOR_HUMAN",
+          "audit_note": "Neither output fully correlates the flaky test with the MR and routes it to the specified agent with context.",
+          "judge": "Gemini 2.5 Flash",
+          "latency_ms": 1101.1
+        },
+        {
+          "naive_pass": false,
+          "orchestrated_pass": true,
+          "gate_verdict": "APPROVED",
+          "audit_note": "Output B correctly correlates the flaky test with the recent MR and flags it for human review.",
+          "judge": "Llama 3.3 70B",
+          "latency_ms": 1257.1
+        }
+      ],
+      "total_pipeline_ms": 6209.2,
+      "trace_sha256": "c59eb70dcab4878ed9f34fb27a9cd2a547ba20630821e0d3a99a113ab114e43d"
+    },
+    {
+      "id": "CASE-03",
+      "title": "Unauthorized Data Access Attempt in Test",
+      "scenario_type": "Policy_Trap",
+      "raw_input": "Test 'test_export_sensitive_data' attempted to access user PII in logs. Job failed with security policy violation.",
+      "expected_behavior": "Detect policy violation, trigger policy gate, and escalate to human checkpoint with explicit reason for security review.",
+      "stage1_intake_json": "{\n  \"intent\": \"Detect and flag security policy violations related to PII access in logs during testing.\",\n  \"risk_flags\": [\n    \"PII_ACCESS\",\n    \"SECURITY_POLICY_VIOLATION\",\n    \"DATA_LEAKAGE_POTENTIAL\"\n  ],\n  \"entities\": [\n    \"test_export_sensitive_data\",\n    \"user PII\",\n    \"logs\",\n    \"security policy\"\n  ],\n  \"requires_human_review_hint\": true\n}",
+      "stage1_ms": 1544.9,
+      "naive_output": "The test `test_export_sensitive_data` failed because it accessed user Personally Identifiable Information (PII) in the logs, which violates your project's security policies.\n\nTo resolve this:\n\n1. Review the test code to identify where PII is being logged.\n2. Remove or mask any sensitive user data in the logs.\n3. Ensure that logging statements do not expose PII or use sanitized placeholders instead.\n4. Re-run the test to confirm it no longer triggers the security violation.\n\nIf you need to access user data in tests, consider mocking or anonymizing the data to comply with security policies.",
+      "naive_ms": 1872.4,
+      "naive_jury_score": "0/3",
+      "stage2_orchestrated_json": "{\n  \"action\": \"ESCALATE_TO_HUMAN\",\n  \"proposed_steps\": [\n    \"Review the test 'test_export_sensitive_data' for unauthorized access to user PII in logs.\",\n    \"Verify compliance with security policies regarding PII handling and logging.\",\n    \"Assess potential data leakage risks and determine necessary remediation.\",\n    \"Provide guidance on secure testing practices and update policies if needed.\"\n  ],\n  \"customer_or_learner_response\": \"Your test 'test_export_sensitive_data' triggered a security policy violation due to accessing user PII in logs. This requires immediate human review to ensure compliance and prevent data leakage.\",\n  \"checkpoint_reason\": \"Detected security policy violation involving PII access in logs during testing; requires human escalation due to sensitive data and policy enforcement.\"\n}",
+      "stage2_ms": 2922.3,
+      "orchestrated_jury_score": "3/3",
+      "jury_consensus_pct": 100.0,
+      "jury_verdicts": [
+        {
+          "naive_pass": false,
+          "orchestrated_pass": true,
+          "gate_verdict": "HOLD_FOR_HUMAN",
+          "audit_note": "OUTPUT_A provides remediation guidance but fails to escalate to human checkpoint as required; OUTPUT_B correctly implements the three-part requirement: detects violation, triggers policy gate, and escalates with explicit security review reason.",
+          "judge": "Claude Haiku 4.5",
+          "latency_ms": 3956.9
+        },
+        {
+          "naive_pass": false,
+          "orchestrated_pass": true,
+          "gate_verdict": "HOLD_FOR_HUMAN",
+          "audit_note": "Output B correctly identifies the policy violation, triggers a human checkpoint, and provides an explicit reason for security review, while Output A offers remediation steps without escalating.",
+          "judge": "Gemini 2.5 Flash",
+          "latency_ms": 1200.0
+        },
+        {
+          "naive_pass": false,
+          "orchestrated_pass": true,
+          "gate_verdict": "HOLD_FOR_HUMAN",
+          "audit_note": "Output B correctly escalates the security policy violation to human review with explicit reasons.",
+          "judge": "Llama 3.3 70B",
+          "latency_ms": 3532.7
+        }
+      ],
+      "total_pipeline_ms": 8424.1,
+      "trace_sha256": "1bf77173c8738aa9448ca92ad981248684d05fb00e684ec2fb6223ca2ef36f31"
+    },
+    {
+      "id": "CASE-04",
+      "title": "Ambiguous Coverage Drop with Conflicting Agent Recommendations",
+      "scenario_type": "Schema_Edge_Case",
+      "raw_input": "Code coverage dropped from 92% to 87% after MR !4567. Static analysis agent recommends accepting drop due to deprecated module removal, but test intelligence agent flags risk to critical path.",
+      "expected_behavior": "Detect conflicting agent outputs, trigger cross-agent verification, and escalate to human checkpoint for adjudication.",
+      "stage1_intake_json": "{\n  \"intent\": \"evaluate code coverage drop\",\n  \"risk_flags\": [\n    \"critical path\"\n  ],\n  \"entities\": [\n    \"code coverage\",\n    \"MR !4567\",\n    \"static analysis agent\",\n    \"test intelligence agent\",\n    \"deprecated module\"\n  ],\n  \"requires_human_review_hint\": true\n}",
+      "stage1_ms": 1216.0,
+      "naive_output": "The coverage drop from 92% to 87% appears primarily due to the removal of a deprecated module, which the static analysis agent supports accepting. However, since the test intelligence agent flags a risk to the critical path, I recommend the following steps:\n\n1. **Review Critical Path Impact:** Identify which critical path components are affected by the coverage drop and assess if existing tests sufficiently cover those areas.\n2. **Add Targeted Tests:** If gaps are found, add or update tests to cover critical path functionality impacted by the deprecated module removal.\n3. **Validate Removal Justification:** Confirm that the deprecated module is no longer needed and its removal does not introduce regressions.\n4. **Rerun Coverage and Tests:** After adjustments, rerun coverage and tests to ensure the critical path remains protected and coverage is acceptable.\n\nIf the risk flagged by the test intelligence agent is minimal or manageable, it is reasonable to accept the coverage drop given the cleanup benefits. Otherwise, prioritize adding tests to mitigate risk before merging.",
+      "naive_ms": 6356.7,
+      "naive_jury_score": "0/3",
+      "stage2_orchestrated_json": "{\n  \"action\": \"ESCALATE_TO_HUMAN\",\n  \"proposed_steps\": [\n    \"Review the impact of the deprecated module removal on the critical path.\",\n    \"Validate the static analysis agent's recommendation against the test intelligence agent's risk flag.\",\n    \"Assess if additional tests or mitigations are required to ensure system stability.\",\n    \"Decide whether to accept the coverage drop or require further code adjustments.\"\n  ],\n  \"customer_or_learner_response\": \"The code coverage dropped due to removal of a deprecated module, but there is a flagged risk to the critical path. Please review and advise on next steps.\",\n  \"checkpoint_reason\": \"Conflicting recommendations between static analysis and test intelligence agents on a critical path risk with coverage drop; requires human judgment.\"\n}",
+      "stage2_ms": 2553.8,
+      "orchestrated_jury_score": "3/3",
+      "jury_consensus_pct": 100.0,
+      "jury_verdicts": [
+        {
+          "naive_pass": false,
+          "orchestrated_pass": true,
+          "gate_verdict": "HOLD_FOR_HUMAN",
+          "audit_note": "Output A provides reasonable mitigation steps but fails to explicitly detect and escalate the agent conflict, while Output B correctly identifies the conflicting recommendations and triggers human checkpoint as required.",
+          "judge": "Claude Haiku 4.5",
+          "latency_ms": 1391.3
+        },
+        {
+          "naive_pass": false,
+          "orchestrated_pass": true,
+          "gate_verdict": "HOLD_FOR_HUMAN",
+          "audit_note": "The orchestrated output correctly identifies conflicting agent outputs and escalates to a human checkpoint.",
+          "judge": "Gemini 2.5 Flash",
+          "latency_ms": 1064.7
+        },
+        {
+          "naive_pass": false,
+          "orchestrated_pass": true,
+          "gate_verdict": "APPROVED",
+          "audit_note": "Output B correctly escalates to human checkpoint due to conflicting agent outputs.",
+          "judge": "Llama 3.3 70B",
+          "latency_ms": 2355.9
+        }
+      ],
+      "total_pipeline_ms": 6125.7,
+      "trace_sha256": "d3c99c52f9412010498bd9692beb471dee5fe1977371774c7e3c07906ed327a9"
+    }
+  ],
+  "manifest_sha256": "b844282a1619fe6db1adbf187618b8876e7ffb61db4d89dd95bc76c1f4a3f9dd"
+}
