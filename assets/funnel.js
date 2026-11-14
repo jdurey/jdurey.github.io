@@ -347,7 +347,7 @@ function installDiagnosticWidget() {
       window.clearInterval(timer);
       if (statusEl) {
         statusEl.dataset.state = "warn";
-        statusEl.textContent = `${err.message || "Could not reach edge worker."} You can still request a custom Mac Studio prototype directly below.`;
+        statusEl.textContent = `${err.message || "Could not reach edge worker."} You can still request a custom Day-1 prototype directly below.`;
       }
     } finally {
       runBtn.disabled = false;
@@ -386,7 +386,7 @@ function installCaptureForms() {
       if (!payload.work_email || !payload.work_email.includes("@")) {
         if (feedbackEl) {
           feedbackEl.hidden = false;
-          feedbackEl.innerHTML = `<p class="cap-err">Please enter a valid work email so the Mac Studio runner can deliver your prototype and CV.</p>`;
+          feedbackEl.innerHTML = `<p class="cap-err">Please enter a valid work email so the automated pipeline can deliver your prototype and CV.</p>`;
         }
         return;
       }
@@ -428,7 +428,7 @@ function installCaptureForms() {
                 <code class="mono-dim">${escHtml(data.receipt_id)}</code>
               </div>
               <h3>Custom Day-1 prototype queued for ${escHtml(data.company)}</h3>
-              <p class="muted" data-live-stage-label>My Mac Studio M5 Ultra multi-agent runner picks up queued requests every 20 minutes, executes a 4-stage workflow + 3-family evaluation jury for your team, deploys to <code>${escHtml(data.expected_prototype_url)}</code>, and emails you the live link with my role-matched CV.</p>
+              <p class="muted" data-live-stage-label>My automated multi-agent pipeline picks up queued requests every 20 minutes, runs a 4-stage workflow + 3-family evaluation jury for your team, deploys to <code>${escHtml(data.expected_prototype_url)}</code>, and emails you the live link with my role-matched CV.</p>
               <ul class="cap-pipeline-list">${stepsHtml}</ul>
               <div class="cta" style="margin-top:1rem">
                 <a class="btn btn-primary" href="${escHtml(data.cal_url)}" target="_blank" rel="noopener">Skip the Wait: Book 20-Min Call</a>

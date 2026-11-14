@@ -102,7 +102,7 @@ function proofStrip() {
   </div>
   <div class="proof-stat">
     <strong>$17</strong>
-    <span>Total spend across 23,740 calls via a 6-rung Apple Silicon MLX and cloud router at 0% false-pass.</span>
+    <span>Total spend across 23,740 calls via a 6-rung policy and cost router at 0% false-pass.</span>
   </div>
   <div class="proof-stat">
     <strong>56</strong>
@@ -158,7 +158,7 @@ function funnelWorkbench(site) {
   <aside id="commission-prototype" class="capture-card" aria-label="Commission a free custom Day-1 prototype">
     <p class="eyebrow">Autonomous Day-1 Proof · Free Work Sample</p>
     <h2>Get a runnable prototype built for your team.</h2>
-    <p class="capture-sub">Not ready for a call yet? Drop your work email and role or workflow focus. My 256GB Mac Studio agent fleet executes a custom 4-stage workflow and 3-family evaluation jury for your company, publishes it to <code>jdurey.github.io/for/&lt;your-org&gt;/</code>, and emails it with my role-matched CV.</p>
+    <p class="capture-sub">Not ready for a call yet? Drop your work email and role or workflow focus. My automated multi-agent pipeline runs a custom 4-stage workflow and 3-family evaluation jury for your company, publishes it to <code>jdurey.github.io/for/&lt;your-org&gt;/</code>, and emails it with my role-matched CV.</p>
 
     <form data-employer-capture-form>
       <div class="hp-trap" aria-hidden="true">
@@ -198,7 +198,7 @@ function funnelWorkbench(site) {
       </div>
 
       <button type="submit" class="btn btn-primary" style="width:100%">Commission Free Prototype + CV</button>
-      <p class="cap-note">Zero sales spam. Built automatically on Mac Studio, firewall-scanned, and delivered to your inbox. Ready to talk now? <a href="${calUrl}" target="_blank" rel="noopener">Grab 20 minutes on Cal.com</a>.</p>
+      <p class="cap-note">Zero sales spam. Built by my automated prototype pipeline, firewall-scanned, and delivered to your inbox. Ready to talk now? <a href="${calUrl}" target="_blank" rel="noopener">Grab 20 minutes on Cal.com</a>.</p>
     </form>
 
     <div data-capture-feedback hidden></div>
@@ -225,14 +225,14 @@ function funnelArchitectureSection() {
       <p>Cloudflare KV logs structured intake, UTM source, honeypot bot checks, and first-party prototype engagement.</p>
     </div>
     <div class="arch-step">
-      <div class="arch-num">Stage 03 · 24/7 Daemon</div>
+      <div class="arch-num">Stage 03 · Orchestrator</div>
       <h3>Autonomous Dispatch</h3>
-      <p>A Python launchd worker polls every 20 minutes, verifies DNS MX records, and stages build specs over Tailscale.</p>
+      <p>A scheduled Python worker polls queued leads, verifies DNS MX records, and compiles a role-matched build spec.</p>
     </div>
     <div class="arch-step">
-      <div class="arch-num">Stage 04 · M5 Ultra</div>
+      <div class="arch-num">Stage 04 · Agent Build</div>
       <h3>4-Stage DAG + Jury</h3>
-      <p>My 256GB Mac Studio executes realistic cases across 3 judge families and runs a 65-test CI publish firewall.</p>
+      <p>An automated runner executes realistic cases across 3 judge families and passes a 65-test CI publish firewall.</p>
     </div>
     <div class="arch-step">
       <div class="arch-num">Stage 05 · Human Gate</div>
@@ -394,7 +394,7 @@ ${bodyHtml}
   <aside class="case-cta-box" aria-label="Hiring and workflow prototype options">
     <p class="eyebrow">Hiring for Applied AI Enablement, AI Ops, or Workflow Automation?</p>
     <h2>Test this method against your own role or team workflow.</h2>
-    <p>Run a 6-second multi-model diagnostic on your open job description, interview my 3-minute AI video twin, or have my Mac Studio fleet build a free runnable prototype for your team.</p>
+    <p>Run a 6-second multi-model diagnostic on your open job description, interview my 3-minute AI video twin, or have my automated workflow pipeline build a free runnable prototype for your team.</p>
     <div class="cta">
       <a class="btn btn-primary" href="/?utm_source=case_study&amp;utm_campaign=${esc(cs.slug)}#commission-prototype" data-funnel-cta="case_prototype_${esc(cs.slug)}">Get a Free Team Prototype</a>
       <a class="btn" href="/?utm_source=case_study&amp;utm_campaign=${esc(cs.slug)}#diagnostic" data-funnel-cta="case_diag_${esc(cs.slug)}">Run Live JD Diagnostic</a>
