@@ -105,3 +105,11 @@ API keys, runs on a laptop. Every raw model response is saved under `results/raw
   or canaries drift, re-score before trusting any verdict.
 - **14 items is a probe, not a benchmark.** It's built to show where each rung breaks, not to
   publish a tight number. The NDA boundary is in [`NDA-BOUNDARY.md`](NDA-BOUNDARY.md).
+
+## Related Book, Video Course & Benchmarks
+
+- **Print Book ($24.99 on Amazon).** [*AI for Corporate Training & Instructional Design: The UbD Glass-Box Playbook*](https://www.amazon.com/dp/B0HRQFWFPR) is live in print.
+- **65-Min Video & Code-Lab Course ($12.99 through Dec 15, Reg. $69.99).** [*AI Corporate Training: UbD SOP-to-SCORM & Video Factory*](https://www.udemy.com/course/ai-corporate-training-ubd-sop-to-scorm-video-factory/?couponCode=MASTER2026_SCORM) walks through the code lab.
+- **40-Question Scenario Exam ($12.99 through Dec 15).** [*Production LLM Evals & Multi-Agent Ops Practice Exams*](https://www.udemy.com/course/production-llm-evals-multi-agent-ops-practice-exams/?couponCode=LAUNCH2026_EVALS) tests routing and grading gates.
+- **Instant Code Kits.** Grab the [SOP-to-SCORM Factory ($99)](https://whop.com/checkout/plan_y1ACgqNYGtul8/) or the [Enterprise AI Eval & 6-Rung Router Kit ($79)](https://whop.com/checkout/plan_lGsdWjQsePkvO/) on Whop.
+- **Live AI Video Twin & 56 Open Studies.** Browse all 56 benchmarks at [jdurey.github.io](https://jdurey.github.io) or run live Q&A on the [AI video twin](https://jdurey.github.io/interview/) page.
