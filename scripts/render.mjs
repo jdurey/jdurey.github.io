@@ -220,7 +220,7 @@ function selfServeB2bKitsSection(site) {
     </div>
     <a class="more" href="https://whop.com/human-creative-benchmark-studio/" target="_blank" rel="noopener" data-funnel-cta="home_whop_storefront_hub">Storefront Hub (Human Creative &amp; Benchmark Studio) -&gt;</a>
   </div>
-  <p class="muted" style="max-width:78ch;margin-top:.35rem">Download clean-room Python source kits instantly via Whop, enroll your team in live 40-question practice exams on Udemy, or book a 20-minute scope call for a turnkey fixed-scope sprint alongside your free custom team prototype above.</p>
+  <p class="muted" style="max-width:78ch;margin-top:.35rem">Download clean-room Python source kits instantly via Whop, enroll your team in live 40-question practice exams on Udemy ($12.99 Launch Special through Dec 15, 2026), or book a 20-minute scope call for a turnkey fixed-scope sprint alongside your free custom team prototype above.</p>
   <div class="b2b-kits-grid">
     <article class="b2b-kit-card is-featured-kit">
       <div>
@@ -239,7 +239,7 @@ function selfServeB2bKitsSection(site) {
       <div class="b2b-kit-actions">
         <a class="btn btn-sm btn-checkout" href="https://whop.com/checkout/plan_y1ACgqNYGtul8/" target="_blank" rel="noopener" data-funnel-cta="home_whop_sop_99">Self-Serve Enterprise Kit ($99) -&gt;</a>
         <a class="btn btn-sm" href="https://www.amazon.com/dp/B0HRQFWFPR" target="_blank" rel="noopener" data-funnel-cta="home_amazon_kdp_corp_2499">Amazon Paperback ($24.99 · ISBN 9798142559005) -&gt;</a>
-        <a class="btn btn-sm" href="https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?referralCode=5E22746817AA1D8B741E" target="_blank" rel="noopener" data-funnel-cta="home_udemy_sop_exams_3999">Udemy Practice Exams ($39.99 LIVE) -&gt;</a>
+        <a class="btn btn-sm" href="https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?couponCode=LAUNCH2026_SCORM" target="_blank" rel="noopener" data-funnel-cta="home_udemy_sop_exams_1299">Udemy Practice Exams ($12.99 Launch) -&gt;</a>
         <a class="btn btn-sm" href="/sop-to-lms/" data-funnel-cta="home_sop_demo">Live SCORM Demo</a>
       </div>
     </article>
@@ -260,7 +260,7 @@ function selfServeB2bKitsSection(site) {
       </div>
       <div class="b2b-kit-actions">
         <a class="btn btn-sm btn-checkout" href="https://whop.com/checkout/plan_lGsdWjQsePkvO/" target="_blank" rel="noopener" data-funnel-cta="home_whop_eval_79">Self-Serve Eval &amp; REA Kit ($79) -&gt;</a>
-        <a class="btn btn-sm" href="https://www.udemy.com/course/production-llm-evals-multi-agent-ops-practice-exams/?referralCode=1251079782430866AFA3" target="_blank" rel="noopener" data-funnel-cta="home_udemy_eval_exams_3999">Udemy Practice Exams ($39.99 LIVE) -&gt;</a>
+        <a class="btn btn-sm" href="https://www.udemy.com/course/production-llm-evals-multi-agent-ops-practice-exams/?couponCode=LAUNCH2026_EVALS" target="_blank" rel="noopener" data-funnel-cta="home_udemy_eval_exams_1299">Udemy Practice Exams ($12.99 Launch) -&gt;</a>
         <a class="btn btn-sm" href="https://whop.com/human-creative-benchmark-studio/enterprise-ai-eval-rea-pro-kit" target="_blank" rel="noopener" data-funnel-cta="home_whop_eval_spec">Vault Spec</a>
       </div>
     </article>
@@ -290,14 +290,14 @@ function selfServeB2bKitsSection(site) {
     <article class="b2b-kit-card">
       <div>
         <div class="b2b-kit-head">
-          <span class="tag tag-eval">Udemy Self-Serve · LIVE</span>
-          <span class="b2b-kit-price">$39.99 · 40 Blind-Verified Questions</span>
+          <span class="tag tag-eval">Udemy Launch Special · LIVE</span>
+          <span class="b2b-kit-price">$12.99 Launch (Reg. $39.99) · 40 Questions</span>
         </div>
         <h3>Production LLM Evals &amp; Multi-Agent Ops: Practice Exams</h3>
-        <p>Timed scenario certification covering cross-family LLM judges, 6-rung token routing, silent truncation traps, and multi-agent failure triage. Companion 14-lecture (64+ min) video &amp; code-lab masterclass (<em>Production LLM Evals, Cost Routing &amp; UbD AI Pipelines</em>) is entering Udemy publication, with instant code-lab access available today in the $79 Whop Vault.</p>
+        <p>Timed scenario certification covering cross-family LLM judges, 6-rung token routing, silent truncation traps, and multi-agent failure triage (coupon <code>LAUNCH2026_EVALS</code> valid through Dec 15, 2026). Companion 14-lecture (64+ min) video &amp; code-lab masterclass (<em>Production LLM Evals, Cost Routing &amp; UbD AI Pipelines</em>) is entering Udemy publication, with instant code-lab access available today in the $79 Whop Vault.</p>
       </div>
       <div class="b2b-kit-actions">
-        <a class="btn btn-sm btn-primary" href="https://www.udemy.com/course/production-llm-evals-multi-agent-ops-practice-exams/?referralCode=1251079782430866AFA3" target="_blank" rel="noopener" data-funnel-cta="udemy_card_eval_3999">Enroll on Udemy ($39.99 LIVE) -&gt;</a>
+        <a class="btn btn-sm btn-primary" href="https://www.udemy.com/course/production-llm-evals-multi-agent-ops-practice-exams/?couponCode=LAUNCH2026_EVALS" target="_blank" rel="noopener" data-funnel-cta="udemy_card_eval_1299">Enroll on Udemy ($12.99 Launch) -&gt;</a>
         <a class="btn btn-sm" href="https://whop.com/checkout/plan_lGsdWjQsePkvO/" target="_blank" rel="noopener" data-funnel-cta="udemy_card_whop_79">Instant Code-Lab Vault ($79)</a>
       </div>
     </article>
@@ -305,14 +305,14 @@ function selfServeB2bKitsSection(site) {
     <article class="b2b-kit-card">
       <div>
         <div class="b2b-kit-head">
-          <span class="tag tag-systems">Udemy Self-Serve · LIVE</span>
-          <span class="b2b-kit-price">$39.99 · 40 Scenario Questions</span>
+          <span class="tag tag-systems">Udemy Launch Special · LIVE</span>
+          <span class="b2b-kit-price">$12.99 Launch (Reg. $39.99) · 40 Questions</span>
         </div>
         <h3>AI Instructional Design &amp; SOP-to-SCORM: Practice Exams</h3>
-        <p>Applied certification on backward-designed (UbD) corporate training, ADL SCORM 1.2 runtime telemetry, QTI 1.2 item banks, and 4-vendor blind-solver QA. Companion 14-lecture (64+ min) video &amp; code-lab masterclass (<em>AI Corporate Training: UbD SOP-to-SCORM &amp; Video Factory</em>) is entering Udemy publication, with instant source access available today in the $99 Whop Vault.</p>
+        <p>Applied certification on backward-designed (UbD) corporate training, ADL SCORM 1.2 runtime telemetry, QTI 1.2 item banks, and 4-vendor blind-solver QA (coupon <code>LAUNCH2026_SCORM</code> valid through Dec 15, 2026). Companion 14-lecture (64+ min) video &amp; code-lab masterclass (<em>AI Corporate Training: UbD SOP-to-SCORM &amp; Video Factory</em>) is entering Udemy publication, with instant source access available today in the $99 Whop Vault.</p>
       </div>
       <div class="b2b-kit-actions">
-        <a class="btn btn-sm btn-primary" href="https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?referralCode=5E22746817AA1D8B741E" target="_blank" rel="noopener" data-funnel-cta="udemy_card_sop_3999">Enroll on Udemy ($39.99 LIVE) -&gt;</a>
+        <a class="btn btn-sm btn-primary" href="https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?couponCode=LAUNCH2026_SCORM" target="_blank" rel="noopener" data-funnel-cta="udemy_card_sop_1299">Enroll on Udemy ($12.99 Launch) -&gt;</a>
         <a class="btn btn-sm" href="https://whop.com/checkout/plan_y1ACgqNYGtul8/" target="_blank" rel="noopener" data-funnel-cta="udemy_card_whop_99">Instant Compiler Vault ($99)</a>
       </div>
     </article>
