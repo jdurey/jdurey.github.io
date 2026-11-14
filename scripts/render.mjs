@@ -20,10 +20,12 @@ function nav(site, active) {
     <a class="brand" href="/">${esc(site.name)}<span class="brand-dot">.</span></a>
     <div class="nav-links">
       ${link("/work/", "Work", "work")}
+      ${link("/sop-to-lms/", "SOP-to-LMS", "sop-to-lms")}
       ${link("/skills/", "Skills", "skills")}
       ${link("/interview/", "Interview", "interview")}
       ${link("/about/", "About", "about")}
-      ${site.offerUrl ? link(site.offerUrl, "Hire", "hire") + "\n      " : ""}<a href="${esc(site.links.github)}" rel="me">GitHub</a>
+      ${site.offerUrl ? link(site.offerUrl, "Hire", "hire") + "\n      " : ""}<a href="https://whop.com/human-creative-benchmark-studio/" target="_blank" rel="noopener" data-funnel-cta="nav_whop_hub">B2B Kits</a>
+      <a href="${esc(site.links.github)}" rel="me">GitHub</a>
     </div>
   </nav>`;
 }
@@ -78,6 +80,8 @@ ${body}
   <div class="foot-links">
     <a href="mailto:${esc(site.links.email)}">Email</a>
     ${site.links.cal ? `<a href="${esc(site.links.cal)}" target="_blank" rel="noopener">Book a call</a>` : ""}
+    <a href="/sop-to-lms/">SOP-to-LMS</a>
+    <a href="https://whop.com/human-creative-benchmark-studio/" target="_blank" rel="noopener">B2B Storefront</a>
     <a href="/interview/">AI Twin</a>
     <a href="${esc(site.links.github)}">GitHub</a>
     ${site.links.linkedin ? `<a href="${esc(site.links.linkedin)}">LinkedIn</a>` : ""}
@@ -206,6 +210,81 @@ function funnelWorkbench(site) {
 </section>`;
 }
 
+function selfServeB2bKitsSection(site) {
+  const calUrl = site.links.cal ? esc(site.links.cal) : `mailto:${esc(site.links.email)}`;
+  return `<section id="b2b-kits" class="b2b-kits-section" aria-label="Self-Serve B2B Enterprise Source Kits and Async Founder Sprints">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow" style="margin-bottom:0.35rem">Instant Self-Serve Source Kits &amp; Fixed-Scope Founder Sprints</p>
+      <h2 style="margin:0">Run the production harnesses in your own VPC today</h2>
+    </div>
+    <a class="more" href="https://whop.com/human-creative-benchmark-studio/" target="_blank" rel="noopener" data-funnel-cta="home_whop_storefront_hub">Storefront Hub (Human Creative &amp; Benchmark Studio) -&gt;</a>
+  </div>
+  <p class="muted" style="max-width:78ch;margin-top:.35rem">Download clean-room Python source kits instantly for internal deployment, or book a 20-minute scope call for a turnkey fixed-scope sprint alongside your free custom team prototype above.</p>
+  <div class="b2b-kits-grid">
+    <article class="b2b-kit-card is-featured-kit">
+      <div>
+        <div class="b2b-kit-head">
+          <span class="tag tag-systems">Corporate L&amp;D Kit</span>
+          <span class="b2b-kit-price">$99 · Instant Download</span>
+        </div>
+        <h3>Corporate L&amp;D Zero-Hallucination SOP-to-SCORM &amp; Video Factory</h3>
+        <p>Compile SOPs, SOC-2 runbooks, and help docs into blind-verified SCORM 1.2, QTI 1.2, 300-DPI PDFs, and 1080p video inside your own environment.</p>
+        <ul class="b2b-kit-bullets">
+          <li>4-vendor blind-solver verification gate (0% policy drift)</li>
+          <li>ADL SCORM 1.2 + QTI 1.2 + 1080p caption pipeline source</li>
+          <li>Workday, Cornerstone, Docebo, and SCORM Cloud ready</li>
+        </ul>
+      </div>
+      <div class="b2b-kit-actions">
+        <a class="btn btn-sm btn-checkout" href="https://whop.com/checkout/plan_y1ACgqNYGtul8/" target="_blank" rel="noopener" data-funnel-cta="home_whop_sop_99">Self-Serve Enterprise Kit ($99) -&gt;</a>
+        <a class="btn btn-sm" href="/sop-to-lms/" data-funnel-cta="home_sop_demo">Live SCORM Demo</a>
+      </div>
+    </article>
+
+    <article class="b2b-kit-card is-featured-kit">
+      <div>
+        <div class="b2b-kit-head">
+          <span class="tag tag-eval">AI Eval &amp; Routing Kit</span>
+          <span class="b2b-kit-price">$79 · Instant Download</span>
+        </div>
+        <h3>Enterprise AI Eval, 6-Rung Cost Router &amp; REA AgentEnv Pro Kit</h3>
+        <p>Production Python harnesses for 4-vendor cross-family LLM judge evals, deterministic 6-rung model routing, and reproducible AgentEnv stress-testing.</p>
+        <ul class="b2b-kit-bullets">
+          <li>Eliminates single-judge self-bias and silent truncations</li>
+          <li>6-rung policy and cost router with SHA-256 audit receipts</li>
+          <li>Drop-in regression suites for agentic CI/CD pipelines</li>
+        </ul>
+      </div>
+      <div class="b2b-kit-actions">
+        <a class="btn btn-sm btn-checkout" href="https://whop.com/checkout/plan_lGsdWjQsePkvO/" target="_blank" rel="noopener" data-funnel-cta="home_whop_eval_79">Self-Serve Eval &amp; REA Kit ($79) -&gt;</a>
+        <a class="btn btn-sm" href="https://whop.com/human-creative-benchmark-studio/enterprise-ai-eval-rea-pro-kit" target="_blank" rel="noopener" data-funnel-cta="home_whop_eval_spec">Vault Spec</a>
+      </div>
+    </article>
+
+    <article class="b2b-kit-card">
+      <div>
+        <div class="b2b-kit-head">
+          <span class="tag tag-enablement">Done-For-You B2B Pilot</span>
+          <span class="b2b-kit-price">$2.5k-$10k · Fixed Scope</span>
+        </div>
+        <h3>Async Founder &amp; Enterprise Enablement Sprints</h3>
+        <p>Want turnkey delivery instead of self-serve code? Commission a fixed-scope workflow audit, multi-vendor eval gate, or multi-SOP LMS catalog buildout.</p>
+        <ul class="b2b-kit-bullets">
+          <li>Custom Day-1 prototype at <code>/for/&lt;your-org&gt;/</code> before kickoff</li>
+          <li>Runnable QC harness + non-technical team playbooks</li>
+          <li>Fixed scope and price with zero open-ended hourly billing</li>
+        </ul>
+      </div>
+      <div class="b2b-kit-actions">
+        <a class="btn btn-sm btn-primary" href="${calUrl}" target="_blank" rel="noopener" data-funnel-cta="home_b2b_sprint_cal">Book 20-Min Scope Call</a>
+        <a class="btn btn-sm" href="https://whop.com/human-creative-benchmark-studio/" target="_blank" rel="noopener" data-funnel-cta="home_whop_hub_btn">All Kits Hub</a>
+      </div>
+    </article>
+  </div>
+</section>`;
+}
+
 function funnelArchitectureSection() {
   return `<section class="funnel-arch" aria-label="How this agentic hiring funnel works">
   <div class="section-head">
@@ -292,6 +371,8 @@ export function homePage({ site, featured, recent }) {
 ${proofStrip()}
 
 ${funnelWorkbench(site)}
+
+${selfServeB2bKitsSection(site)}
 
 ${funnelArchitectureSection()}
 
@@ -455,6 +536,7 @@ export function offerPage({ site, offer, bodyHtml }) {
 </section>
 ${proofStrip()}
 ${funnelWorkbench(site)}
+${selfServeB2bKitsSection(site)}
 <div class="prose offer-body">
 ${bodyHtml}
   <div class="cta cta-foot">

@@ -104,6 +104,8 @@ function installAbmAutoTracking() {
     const href = link.getAttribute("href") || "";
     if (href.includes("cal.com/joshua-durey")) {
       trackFunnelEvent("cal_booking_click", { detail: path });
+    } else if (href.includes("whop.com/")) {
+      trackFunnelEvent("whop_checkout_click", { detail: link.dataset.funnelCta || href });
     } else if (href.endsWith(".py") || href.includes("orchestrator_")) {
       trackFunnelEvent("orchestrator_download", { detail: href });
     } else if (href.includes("/interview")) {
