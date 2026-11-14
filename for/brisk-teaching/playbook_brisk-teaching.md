@@ -1,34 +1,27 @@
-# Brisk Teaching: Week-1 Rollout Playbook for Automated Writing Feedback Calibration
+# Brisk Teaching Day-1 Writing Feedback Calibration & Rubric Alignment Rollout Plan
 
-## Objective
-Deploy the Golden-Set Writing Feedback Calibration Pipeline to ensure AI-generated feedback is rubric-aligned, bias-mitigated, and ready for district-scale adoption.
+## Week-1 SOP for Facilitators and Ops
 
-## Day 1-2: Setup & Golden-Set Import
-- Import 20+ district-approved writing samples (diverse genres, ELL, SPED, argumentative, narrative) as the golden-set.
-- Upload corresponding Brisk-aligned rubrics for each assignment type.
-- Configure the normalization agent to handle common formatting and ELL/SPED accommodations.
+### 1. Onboarding & Training
+- **Kickoff Session:** Introduce the JSON governance kit to instructional coaches, curriculum leads, and district IT. Demo the four-stage pipeline using real Brisk tools (Batch Feedback, Essay Feedback, Rubric Generator).
+- **Hands-on Lab:** Run through the four test cases in a sandbox. Highlight how the orchestrated agent flags missing rubric fields, PII, prompt-injection, and unsupported integrations, while naive chatbots fail.
+- **Role Assignment:** Assign at least one human reviewer per school or district to handle escalated cases flagged by the pipeline (e.g., ambiguous rubric, PII, policy traps).
 
-## Day 3: LLM & Panel Calibration
-- Run golden-set samples through the Brisk LLM and cross-model panel (GPT-4o, Claude 3 Sonnet).
-- Compare outputs to human-annotated gold standards, logging discrepancies.
-- Adjust model prompts and scoring anchors for rubric fidelity and bias mitigation.
+### 2. Live Workflow Integration
+- **Tool Configuration:** Ensure Brisk's writing feedback and rubric tools are routed through the JSON contract pipeline. Disable freeform chatbot outputs for any feedback or rubric-alignment actions.
+- **Human Checkpoint SOP:** For any case with `escalate_to_human: true`, reviewers must check the audit log, confirm flagged risks, and either approve, remediate, or reject the output. All actions and rationales are logged for compliance.
+- **Policy Review:** Weekly review of flagged cases to refine escalation criteria and update rubric mappings or compliance rules as needed.
 
-## Day 4: Human Checkpoint Training
-- Train district reviewers on escalation SOPs: ambiguous rubric mapping, cross-model disagreement, policy boundary triggers (e.g., PII, prompt injection).
-- Review flagged cases in a shared dashboard, annotate with rationale, and update calibration notes.
+### 3. Adoption & Quality Metrics
+- **Metrics to Track:**
+  - % of feedback actions processed with complete, schema-valid JSON contracts
+  - # of escalated cases resolved within 24 hours
+  - Reviewer agreement rate on flagged cases
+  - Reduction in incomplete or non-compliant feedback compared to baseline
+- **Feedback Loop:** Collect teacher and reviewer feedback on flagged cases and pipeline usability. Iterate on schema and escalation rules based on real classroom scenarios.
 
-## Day 5: Live Pilot & Metrics
-- Process 100+ real student submissions from Brisk's platform.
-- Monitor pipeline logs for: (1) cross-model agreement rate, (2) escalation frequency, (3) rubric alignment accuracy, and (4) reviewer turnaround time.
-- Hold a daily standup to review flagged cases and refine escalation criteria.
+### 4. Communication & Support
+- **Weekly Standup:** Share adoption metrics and surfaced edge cases with the Brisk Teaching team. Highlight success stories and areas for improvement.
+- **Support Channel:** Maintain a dedicated Slack or Teams channel for rapid escalation and troubleshooting of flagged cases.
 
-## Human Checkpoint Rules
-- Any case with rubric ambiguity, policy trap, or cross-model disagreement is auto-escalated.
-- Reviewers must annotate final decisions and update the golden-set if new edge cases emerge.
-
-## Adoption Metrics
-- Target: 90%+ rubric alignment accuracy, <5% unhandled escalations, reviewer turnaround <24h.
-- Weekly review of flagged case logs and calibration drift.
-
-## Next Steps
-- Expand golden-set, iterate on panel prompts, and prepare for district-wide rollout.
+By following this playbook, Brisk Teaching ensures every automated writing feedback action is standards-aligned, policy-compliant, and fully auditable from Day 1.
