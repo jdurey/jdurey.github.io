@@ -157,14 +157,14 @@ async function main() {
 
   // assets
   await cp(path.join(ROOT, "assets"), path.join(DIST, "assets"), { recursive: true });
-  for (const passthrough of ["m5-tribunal", "audits", "for"]) {
+  for (const passthrough of ["m5-tribunal", "audits", "for", "interview"]) {
     if (existsSync(path.join(ROOT, passthrough))) {
       await cp(path.join(ROOT, passthrough), path.join(DIST, passthrough), { recursive: true });
     }
   }
 
   // SEO surface (findability = traction)
-  const urls = ["", "work/", "skills/", "about/", ...(existsSync(path.join(ROOT, "m5-tribunal")) ? ["m5-tribunal/"] : []), ...(offer ? [`${offer.slug}/`] : []), ...items.map((i) => `work/${i.slug}/`)];
+  const urls = ["", "work/", "skills/", "about/", ...(existsSync(path.join(ROOT, "interview")) ? ["interview/"] : []), ...(existsSync(path.join(ROOT, "m5-tribunal")) ? ["m5-tribunal/"] : []), ...(offer ? [`${offer.slug}/`] : []), ...items.map((i) => `work/${i.slug}/`)];
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`).join("\n")}

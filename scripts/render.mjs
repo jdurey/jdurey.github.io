@@ -21,6 +21,7 @@ function nav(site, active) {
     <div class="nav-links">
       ${link("/work/", "Work", "work")}
       ${link("/skills/", "Skills", "skills")}
+      ${link("/interview/", "Interview", "interview")}
       ${link("/about/", "About", "about")}
       ${site.offerUrl ? link(site.offerUrl, "Hire", "hire") + "\n      " : ""}<a href="${esc(site.links.github)}" rel="me">GitHub</a>
     </div>
@@ -105,6 +106,7 @@ export function homePage({ site, featured, recent }) {
     <p class="lede">${site.thesisHtml}</p>
     <div class="cta">
       <a class="btn btn-primary" href="/work/">See the work</a>
+      <a class="btn" href="/interview/">Interview AI Josh</a>
       <a class="btn" href="${site.offerUrl ? esc(site.offerUrl) : "mailto:" + esc(site.links.email)}">Hire me</a>
       ${site.links.cal ? `<a class="btn" href="${esc(site.links.cal)}" target="_blank" rel="noopener">Book a call</a>` : ""}
     </div>

@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Interview AI Josh · Josh Durey</title>
+<meta name="description" content="Conduct a live 3-minute voice and video interview with Josh Durey's interactive AI twin about applied AI enablement, agentic workflows, and LLM quality control.">
+<meta name="author" content="Josh Durey">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Interview AI Josh · Josh Durey">
+<meta property="og:description" content="Live 3-minute interactive video interview with Josh Durey's AI twin, backed by runnable portfolio receipts.">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://jdurey.github.io/interview/">
+<link rel="preconnect" href="https://api.anam.ai">
+<link rel="preconnect" href="https://josh-anam-session.josh-durey.workers.dev" crossorigin>
+<link rel="modulepreload" href="/interview/bundle.js">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg">
+<style>
+  .interview-wrap {
+    padding: clamp(2rem, 4vw, 3.2rem) 0 1rem;
+  }
+  .interview-head {
+    max-width: 74ch;
+    margin-bottom: 1.75rem;
+  }
+  .interview-head h1 {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    max-width: 22ch;
+    margin-bottom: .45rem;
+  }
+  .interview-head .lede {
+    margin-bottom: 0;
+    font-size: clamp(1rem, 1.12vw, 1.14rem);
+  }
+  .interview-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.18fr) minmax(300px, .82fr);
+    gap: clamp(1.1rem, 2.5vw, 1.75rem);
+    align-items: start;
+  }
+  .stage-card,
+  .side-panel {
+    background:
+      linear-gradient(180deg, color-mix(in oklch, var(--fg) 3%, transparent), transparent 34%),
+      var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.15rem;
+  }
+  .stage-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: .8rem;
+    font-family: var(--mono);
+    font-size: .74rem;
+    color: var(--fg-muted);
+    flex-wrap: wrap;
+  }
+  .stage-badges {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .pill-live {
+    display: inline-flex;
+    align-items: center;
+    gap: .38rem;
+    padding: .16rem .58rem;
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    background: color-mix(in oklch, var(--accent-2) 18%, var(--bg-soft));
+    border: 1px solid color-mix(in oklch, var(--accent-2) 62%, var(--border));
+    color: var(--fg);
+  }
+  .pill-live::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-2);
+  }
+  .pill-timer {
+    padding: .16rem .62rem;
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: .72rem;
+    font-variant-numeric: tabular-nums;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    color: var(--fg);
+  }
+  .pill-timer[data-warn="true"] {
+    border-color: var(--warn);
+    color: var(--warn);
+    background: color-mix(in oklch, var(--warn) 14%, var(--bg-soft));
+  }
+  .video-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    border-radius: calc(var(--radius) - 2px);
+    overflow: hidden;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+  }
+  .video-frame video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.15rem;
+    background: linear-gradient(180deg, color-mix(in oklch, var(--bg) 10%, transparent) 30%, color-mix(in oklch, var(--bg) 88%, transparent) 100%);
+  }
+  .video-overlay[hidden],
+  .pill-live[hidden],
+  .btn[hidden] {
+    display: none !important;
+  }
+  .poster-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 22%;
+    z-index: 0;
+  }
+  .overlay-card {
+    position: relative;
+    z-index: 1;
+    background: color-mix(in oklch, var(--bg-card) 92%, transparent);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: .85rem 1rem;
+  }
+  .overlay-card p {
+    margin: 0;
+    font-size: .9rem;
+    color: var(--fg-muted);
+    line-height: 1.5;
+  }
+  .overlay-card strong {
+    color: var(--fg);
+  }
+  .complete-view {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: color-mix(in oklch, var(--bg) 90%, transparent);
+  }
+  .complete-box {
+    max-width: 38ch;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.35rem;
+  }
+  .complete-box h2 {
+    margin: 0 0 .45rem;
+    font-size: 1.32rem;
+  }
+  .complete-box p {
+    margin: 0 0 1rem;
+    font-size: .94rem;
+    color: var(--fg-muted);
+  }
+  .complete-actions {
+    display: flex;
+    gap: .6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .controls-row {
+    display: flex;
+    align-items: center;
+    gap: .68rem;
+    flex-wrap: wrap;
+    margin-top: .95rem;
+  }
+  .btn-danger {
+    border-color: color-mix(in oklch, var(--red) 65%, var(--border));
+    color: var(--red);
+  }
+  .btn-danger:hover {
+    border-color: var(--red);
+    background: color-mix(in oklch, var(--red) 12%, var(--bg-card));
+  }
+  .cta-pulse {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px color-mix(in oklch, var(--accent) 36%, transparent);
+  }
+  .status-line {
+    margin: .72rem 0 0;
+    font-family: var(--mono);
+    font-size: .78rem;
+    color: var(--fg-muted);
+  }
+  .prompt-strip {
+    margin-top: 1rem;
+    padding-top: .95rem;
+    border-top: 1px solid var(--border-soft);
+  }
+  .prompt-label {
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    margin: 0 0 .55rem;
+  }
+  .prompt-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .45rem;
+  }
+  .prompt-chip {
+    appearance: none;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--fg-muted);
+    font-family: var(--sans);
+    font-size: .82rem;
+    padding: .34rem .78rem;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 150ms var(--ease-press), color 150ms var(--ease-press);
+  }
+  .prompt-chip:hover {
+    border-color: var(--accent);
+    color: var(--fg);
+  }
+  .side-stack {
+    display: grid;
+    gap: 1rem;
+  }
+  .side-panel h2 {
+    margin: 0 0 .5rem;
+    font-size: 1.08rem;
+  }
+  .receipt-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .35rem;
+  }
+  .receipt-body {
+    color: var(--fg-muted);
+    font-size: .92rem;
+    margin: .35rem 0 .75rem;
+    line-height: 1.55;
+  }
+  .receipt-link {
+    font-family: var(--mono);
+    font-size: .78rem;
+  }
+  .spec-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--fg-muted);
+    font-size: .88rem;
+    line-height: 1.6;
+  }
+  .spec-list li + li {
+    margin-top: .3rem;
+  }
+  .trace-log {
+    margin: 0;
+    padding: .75rem;
+    background: var(--bg);
+    border: 1px solid var(--border-soft);
+    border-radius: calc(var(--radius) - 2px);
+    font-family: var(--mono);
+    font-size: .73rem;
+    line-height: 1.5;
+    color: var(--fg-muted);
+    max-height: 210px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  @media (max-width: 920px) {
+    .interview-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <nav class="site-nav">
+    <a class="brand" href="/">Josh Durey<span class="brand-dot">.</span></a>
+    <div class="nav-links">
+      <a href="/work/">Work</a>
+      <a href="/skills/">Skills</a>
+      <a href="/interview/" aria-current="page">Interview</a>
+      <a href="/about/">About</a>
+      <a href="https://github.com/jdurey" rel="me">GitHub</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="interview-wrap">
+    <div class="interview-head">
+      <p class="eyebrow">Interactive AI Twin · 3-Minute Recruiter Screen</p>
+      <h1>Ask AI Josh anything before you book a call.</h1>
+      <p class="lede">Speak directly with an interactive video twin running on my cloned voice and verified portfolio receipts. Sessions are capped at 3 minutes so you get a fast, honest read on fit, then you can grab 20 minutes on my live calendar.</p>
+    </div>
+
+    <div class="interview-grid">
+      <div class="stage-card">
+        <div class="stage-topbar">
+          <span>CARA-4.1 Realtime · Cloned Voice · Mic Only (No Camera)</span>
+          <div class="stage-badges">
+            <span id="live-badge" class="pill-live" hidden>Live</span>
+            <span id="timer-badge" class="pill-timer" data-warn="false">03:00 cap</span>
+          </div>
+        </div>
+
+        <div class="video-frame">
+          <video id="avatar-video" autoplay playsinline></video>
+
+          <div id="poster-overlay" class="video-overlay">
+            <img class="poster-bg" src="/interview/portrait.jpg" alt="Portrait of Josh Durey">
+            <div class="overlay-card">
+              <p><strong>3-minute live voice + video screen.</strong> Your browser will ask for microphone access when you click Start; your camera is never used. Interrupt anytime just like a normal call.</p>
+            </div>
+          </div>
+
+          <div id="complete-overlay" class="video-overlay complete-view" hidden>
+            <div class="complete-box">
+              <h2>Ready to talk with the real Josh?</h2>
+              <p>Grab 20 minutes to walk through your team's workflow, role scope, or compensation specifics directly.</p>
+              <div class="complete-actions">
+                <a class="btn btn-primary" href="https://cal.com/joshua-durey-wqgvgp/20-min-scope-call" target="_blank" rel="noopener">Book a 20-Min Call</a>
+                <button id="restart-btn" type="button" class="btn">Ask a Follow-Up (3:00)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls-row">
+          <button id="start-btn" type="button" class="btn btn-primary" disabled>Warming Session...</button>
+          <button id="stop-btn" type="button" class="btn btn-danger" hidden>End Session</button>
+          <a id="book-cta" class="btn" href="https://cal.com/joshua-durey-wqgvgp/20-min-scope-call" target="_blank" rel="noopener">Book a 20-Min Call</a>
+        </div>
+
+        <p id="status" class="status-line">Prefetching server-minted session token...</p>
+
+        <div class="prompt-strip">
+          <p class="prompt-label">Suggested recruiter questions (click to preview receipt, then ask aloud)</p>
+          <div class="prompt-chips">
+            <button type="button" class="prompt-chip" data-topic="team_enablement" data-prompt="How do you audit a non-technical team's workflow for AI readiness?">Workflow audit &amp; adoption</button>
+            <button type="button" class="prompt-chip" data-topic="quality_gates" data-prompt="Tell me how your cross-family quality gates caught 324 silent failures across 88,000 API calls.">88,000-call quality gates</button>
+            <button type="button" class="prompt-chip" data-topic="workflow_fleet" data-prompt="How did you govern 52,000 multi-agent sessions with 2-second merge gates?">52,167-session agent fleet</button>
+            <button type="button" class="prompt-chip" data-topic="cost_routing" data-prompt="How does your 6-rung Apple Silicon and cloud router keep false-pass drift at zero?">6-rung cost router</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="side-stack" aria-label="Live portfolio receipts and telemetry">
+        <div class="side-panel" id="receipt-card">
+          <span id="c-tag" class="receipt-tag">Agentic Systems</span>
+          <h2 id="c-title">Multi-Agent Fleet Governance · 30+ Hook Gates</h2>
+          <p id="c-body" class="receipt-body">52,167 .jsonl sessions governed across 16,000+ assessment items and 1,000+ videos, with SHA-bound merge receipts cutting pre-merge checks from 10m to 2s.</p>
+          <a id="c-link" class="receipt-link" href="/work/agentic-workflow-demo/">Read agentic workflow case study -&gt;</a>
+        </div>
+
+        <div class="side-panel">
+          <span class="receipt-tag">System Guardrails</span>
+          <h2>How this twin is wired</h2>
+          <ul class="spec-list">
+            <li><strong>Server-minted token:</strong> Cloudflare Worker mints a 1-hour session token; API keys never ship to the client.</li>
+            <li><strong>3:00 hard cap:</strong> Enforced both in the UI timer and server-side on the persona, with auto-stop on inactive tabs.</li>
+            <li><strong>Fail-closed scope:</strong> Grounded strictly on verified public case studies; compensation and client NDA questions escalate to live calendar booking.</li>
+          </ul>
+        </div>
+
+        <div class="side-panel">
+          <span class="receipt-tag">Realtime Trace</span>
+          <h2>Session telemetry</h2>
+          <pre id="log" class="trace-log">[boot] initializing @anam-ai/js-sdk client...</pre>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div>Josh Durey · Applied AI Enablement</div>
+  <div class="foot-links">
+    <a href="mailto:josh.durey@gmail.com">Email</a>
+    <a href="https://cal.com/joshua-durey-wqgvgp/20-min-scope-call" target="_blank" rel="noopener">Book a call</a>
+    <a href="https://github.com/jdurey">GitHub</a>
+    <a href="https://www.linkedin.com/in/joshua-durey/">LinkedIn</a>
+  </div>
+  <div class="foot-meta">Runnable portfolio · <a href="https://github.com/jdurey/jdurey.github.io">source</a></div>
+</footer>
+
+<script type="module" src="/interview/bundle.js"></script>
+</body>
+</html>
