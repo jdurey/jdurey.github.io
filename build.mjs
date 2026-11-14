@@ -189,6 +189,73 @@ ${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`)
   ].join("\n");
   await emit("robots.txt", robots);
 
+  // Agentic Web Discovery: llms.txt + .well-known/agent.json (A2A AgentCard)
+  const base = site.url.replace(/\/$/, "");
+  const llmsTxt = [
+    `# ${site.name} - ${site.tagline}`,
+    `> ${site.description}`,
+    ``,
+    `## Capabilities & Live Agentic Endpoints`,
+    `- [Live 3-Model Workflow & JD Diagnostic](${base}/#diagnostic): Interactive multi-vendor workflow readiness & rubric diagnostic backed by Cloudflare Workers AI.`,
+    `- [Live 3-Minute Interactive AI Video Screen](${base}/interview/): Conversational technical & leadership screen escalating to ${site.links?.cal || "calendar"}.`,
+    `- [256GB M5 Ultra vs. Cloud API Tribunal](${base}/m5-tribunal/): 72 SHA-256-verified runs comparing local MLX vs frontier cloud models with TCO router calculator.`,
+    `- [AgentCard (A2A Protocol)](${base}/.well-known/agent.json): Machine-readable capabilities, endpoints, and booking/diagnostic metadata.`,
+    ``,
+    `## Featured Greenfield Harnesses & Case Studies (${items.length} Published)`,
+    ...items.slice(0, 20).map((cs) => `- [${cs.title}](${base}/work/${cs.slug}/): ${cs.summary || cs.subtitle || "Production AI workflow & quality gate study"}`),
+    ``,
+  ].join("\n");
+  await emit("llms.txt", llmsTxt);
+
+  const agentCard = {
+    protocolVersion: "1.0",
+    name: "Josh Durey - Applied AI Enablement & Workflow Systems",
+    description: site.description,
+    url: `${base}/`,
+    provider: {
+      organization: "Human Creative",
+      url: `${base}/`,
+      contactEmail: site.links?.email || "josh.durey@gmail.com",
+    },
+    capabilities: {
+      streaming: false,
+      pushNotifications: false,
+    },
+    endpoints: {
+      diagnosticApi: "https://josh-employer-funnel.josh-durey.workers.dev/api/funnel/diagnose",
+      prototypeCommissionApi: "https://josh-employer-funnel.josh-durey.workers.dev/api/funnel/capture",
+      interactiveVideoTwin: `${base}/interview/`,
+      calendarBooking: site.links?.cal || "https://cal.com/joshua-durey-wqgvgp/20-min-scope-call",
+    },
+    skills: [
+      {
+        id: "ai-workflow-audit",
+        name: "AI Workflow & Agentic Readiness Diagnostic",
+        description: "Audits operational workflows, identifies high-leverage automation candidates, and designs human checkpoints and cross-family LLM quality gates.",
+        tags: ["ai-enablement", "agentic-workflows", "llm-qc", "cost-routing"],
+      },
+      {
+        id: "judge-trust-calibration",
+        name: "Cross-Family LLM Rubric & Judge Calibration",
+        description: "Calibrates multi-vendor LLM-as-a-Judge panels to eliminate self-enhancement bias, stochastic verdict flips, and silent truncations.",
+        tags: ["llm-as-a-judge", "rubrics", "evaluation", "quality-gates"],
+      },
+      {
+        id: "scorm-qti-curriculum-compiler",
+        name: "SOP & Documentation to Interactive Training & Assessment Compiler",
+        description: "Compiles team SOPs and instructional documentation into blind-solver-verified assessments, SCORM modules, and adoption training kits.",
+        tags: ["scorm", "assessments", "enablement", "instructional-systems"],
+      },
+      {
+        id: "six-rung-model-router",
+        name: "6-Rung Model Cost & Latency Router Architecture",
+        description: "Routes high-volume agent workloads across deterministic Python hooks, local Apple Silicon MLX models, and frontier APIs.",
+        tags: ["model-routing", "mlx", "token-economics", "telemetry-gates"],
+      },
+    ],
+  };
+  await emit(".well-known/agent.json", JSON.stringify(agentCard, null, 2) + "\n");
+
   // GitHub Pages: don't run Jekyll over our output
   await emit(".nojekyll", "");
   if (site.customDomain) await emit("CNAME", site.customDomain + "\n");
