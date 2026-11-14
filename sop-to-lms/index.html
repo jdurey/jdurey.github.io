@@ -1,0 +1,1146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SOP-to-LMS Compiler · Verified SCORM 1.2 &amp; 1080p Courseware in 24 Hours · Josh Durey</title>
+<meta name="description" content="Compress corporate course production from 6 weeks to 24 hours with 0% unverified hallucinations. Turn SOPs, compliance policies, and help docs into blind-solver-verified SCORM 1.2 packages and 1080p modules.">
+<meta name="author" content="Josh Durey">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Compress Corporate Course Production from 6 Weeks to 24 Hours · SOP-to-LMS">
+<meta property="og:description" content="Turn messy Confluence pages, SOC-2 runbooks, and help docs into verified SCORM 1.2 packages + 1080p modules with a 4-vendor blind-solver quality gate.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://jdurey.github.io/sop-to-lms/">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Enterprise SOP-to-LMS & Verified SCORM 1.2 Compiler",
+  "provider": {
+    "@type": "Person",
+    "name": "Josh Durey",
+    "url": "https://jdurey.github.io/"
+  },
+  "areaServed": "Global",
+  "audience": {
+    "@type": "BusinessAudience",
+    "audienceType": "Chief Learning Officers, VPs of Enablement, Enterprise L&D Leaders"
+  },
+  "description": "Compiles enterprise SOPs, compliance policies, and help documentation into ADL SCORM 1.2 packages and 1080p narrated training modules verified by a 4-vendor blind-solver LLM jury.",
+  "url": "https://jdurey.github.io/sop-to-lms/"
+}
+</script>
+<style>
+  .b2b-hero {
+    max-width: var(--maxw-wide);
+    padding: clamp(2.1rem, 4.4vw, 3.5rem) 0 clamp(1.2rem, 2.5vw, 1.8rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+    gap: clamp(1.6rem, 4vw, 3.2rem);
+    align-items: stretch;
+  }
+  .b2b-hero h1 {
+    max-width: 21ch;
+    font-size: clamp(2.05rem, 3.55vw, 3.15rem);
+    line-height: 1.08;
+    margin-bottom: 0.45em;
+  }
+  .b2b-compare-box {
+    background:
+      linear-gradient(160deg, color-mix(in oklch, var(--accent) 9%, var(--bg-card)), var(--bg-panel));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.35rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .compare-row {
+    padding: 0.78rem 0.9rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-soft);
+    background: color-mix(in oklch, var(--bg) 72%, transparent);
+  }
+  .compare-row.is-featured {
+    border-color: color-mix(in oklch, var(--accent-2) 62%, var(--border));
+    background: color-mix(in oklch, var(--accent-2) 10%, var(--bg));
+  }
+  .compare-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.25rem;
+  }
+  .compare-row p {
+    margin: 0;
+    font-size: 0.87rem;
+    line-height: 1.45;
+    color: var(--fg-muted);
+  }
+  .lms-compat-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.42rem;
+    align-items: center;
+    padding-top: 0.35rem;
+    border-top: 1px solid var(--border-soft);
+  }
+  .lms-compat-bar span.label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--fg-dim);
+    margin-right: 0.25rem;
+  }
+
+  /* Interactive SCORM 1.2 Workbench */
+  .scorm-stage {
+    max-width: var(--maxw-wide);
+    margin: 1.8rem auto 2.8rem;
+  }
+  .scorm-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.22fr) minmax(320px, 0.92fr);
+    gap: clamp(1rem, 2.2vw, 1.45rem);
+    align-items: start;
+  }
+  .sco-player-card,
+  .telemetry-card {
+    background:
+      linear-gradient(180deg, color-mix(in oklch, var(--fg) 3%, transparent), transparent 28%),
+      var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: clamp(1.15rem, 2.3vw, 1.55rem);
+  }
+  .telemetry-card {
+    border-color: color-mix(in oklch, var(--accent) 42%, var(--border));
+  }
+  .sco-topbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.65rem;
+    padding-bottom: 0.9rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .sco-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1.1rem;
+  }
+  .sco-tab {
+    min-height: 38px;
+    padding: 0.42rem 0.85rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    color: var(--fg-muted);
+    font: 640 0.82rem/1.2 var(--sans);
+    cursor: pointer;
+    transition: border-color 140ms ease, background 140ms ease, color 140ms ease;
+  }
+  .sco-tab[aria-selected="true"] {
+    border-color: var(--accent);
+    background: color-mix(in oklch, var(--accent) 16%, var(--bg-card));
+    color: var(--fg);
+  }
+  .sco-tab.is-done::after {
+    content: " ✓";
+    color: var(--accent-2);
+    font-weight: 800;
+  }
+  .clause-callout {
+    background: var(--bg);
+    border: 1px solid var(--border-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 0.95rem 1.05rem;
+    margin-bottom: 0.95rem;
+  }
+  .clause-callout .clause-id {
+    font-family: var(--mono);
+    font-size: 0.73rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .clause-callout h3 {
+    font-size: 1.08rem;
+    margin: 0 0 0.38rem;
+  }
+  .clause-callout p {
+    margin: 0;
+    font-size: 0.93rem;
+    line-height: 1.55;
+    color: var(--fg-muted);
+  }
+  .sop-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0.85rem 0 1.1rem;
+    display: grid;
+    gap: 0.52rem;
+  }
+  .sop-checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.62rem;
+    padding: 0.62rem 0.78rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-soft);
+    background: color-mix(in oklch, var(--bg-soft) 75%, transparent);
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+  .sop-checklist input[type="checkbox"] {
+    margin-top: 0.22rem;
+    accent-color: var(--accent);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  .scenario-opt {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.82rem 0.95rem;
+    margin-bottom: 0.55rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--fg);
+    font: 480 0.91rem/1.48 var(--sans);
+    cursor: pointer;
+    transition: border-color 140ms ease, background 140ms ease;
+  }
+  .scenario-opt:hover {
+    border-color: var(--accent);
+    background: color-mix(in oklch, var(--accent) 7%, var(--bg));
+  }
+  .scenario-opt.is-correct {
+    border-color: var(--accent-2);
+    background: color-mix(in oklch, var(--accent-2) 14%, var(--bg));
+  }
+  .scenario-opt.is-wrong {
+    border-color: var(--red);
+    background: color-mix(in oklch, var(--red) 13%, var(--bg));
+  }
+  .scenario-feedback {
+    margin-top: 0.85rem;
+    padding: 0.85rem 0.95rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    font-size: 0.89rem;
+    line-height: 1.5;
+  }
+  .scenario-feedback.is-pass {
+    border-color: color-mix(in oklch, var(--accent-2) 65%, var(--border));
+  }
+  .scenario-feedback.is-fail {
+    border-color: color-mix(in oklch, var(--warn) 65%, var(--border));
+  }
+
+  .cmi-state-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 0.9rem;
+  }
+  .cmi-cell {
+    background: var(--bg);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    padding: 0.52rem 0.68rem;
+  }
+  .cmi-cell span {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.67rem;
+    color: var(--fg-dim);
+    letter-spacing: 0.03em;
+  }
+  .cmi-cell strong {
+    display: block;
+    margin-top: 0.14rem;
+    font-family: var(--mono);
+    font-size: 0.84rem;
+    color: var(--fg);
+  }
+  .cmi-cell strong[data-status="passed"] { color: var(--accent-2); }
+  .cmi-cell strong[data-status="failed"] { color: var(--red); }
+  .cmi-cell strong[data-status="incomplete"] { color: var(--warn); }
+
+  .scorm-console {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.72rem 0.8rem;
+    font-family: var(--mono);
+    font-size: 0.73rem;
+    line-height: 1.5;
+    max-height: 195px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+  }
+  .scorm-log-line {
+    padding: 0.22rem 0;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--fg-muted);
+    word-break: break-word;
+  }
+  .scorm-log-line:first-child {
+    color: var(--fg);
+  }
+  .scorm-log-line .fn { color: var(--accent); }
+  .scorm-log-line .ok { color: var(--accent-2); }
+
+  .solver-panel {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 0.9rem;
+  }
+  .solver-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.48rem;
+    margin-top: 0.55rem;
+  }
+  .solver-badge {
+    background: var(--bg);
+    border: 1px solid color-mix(in oklch, var(--accent-2) 42%, var(--border));
+    border-radius: 6px;
+    padding: 0.5rem 0.64rem;
+  }
+  .solver-badge .vendor {
+    font-family: var(--mono);
+    font-size: 0.69rem;
+    color: var(--fg);
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.3rem;
+  }
+  .solver-badge .vendor em {
+    font-style: normal;
+    color: var(--accent-2);
+  }
+  .solver-badge .verdict {
+    font-size: 0.74rem;
+    color: var(--fg-muted);
+    margin-top: 0.18rem;
+    display: block;
+  }
+
+  .download-strip {
+    margin-top: 1.1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 6px;
+    border: 1px solid color-mix(in oklch, var(--accent) 46%, var(--border));
+    background: color-mix(in oklch, var(--accent) 8%, var(--bg));
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .download-strip p {
+    margin: 0.18rem 0 0;
+    font-size: 0.84rem;
+    color: var(--fg-muted);
+  }
+
+  /* Pilot Capture Workbench */
+  .pilot-workbench {
+    max-width: var(--maxw-wide);
+    margin: 2.6rem auto 2rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+    gap: clamp(1.1rem, 2.5vw, 1.6rem);
+    align-items: start;
+  }
+  .deliverable-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 1.3rem;
+    display: grid;
+    gap: 0.65rem;
+  }
+  .deliverable-list li {
+    padding: 0.78rem 0.92rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    font-size: 0.92rem;
+    line-height: 1.48;
+  }
+  .deliverable-list li strong {
+    display: block;
+    color: var(--fg);
+    margin-bottom: 0.15rem;
+  }
+  .deliverable-list li span {
+    color: var(--fg-muted);
+  }
+  .cap-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.68rem;
+  }
+
+  @media (max-width: 920px) {
+    .b2b-hero,
+    .scorm-grid,
+    .pilot-workbench {
+      grid-template-columns: 1fr;
+    }
+    .cap-row-2,
+    .solver-grid,
+    .cmi-state-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <nav class="site-nav">
+    <a class="brand" href="/">Josh Durey<span class="brand-dot">.</span></a>
+    <div class="nav-links">
+      <a href="/work/">Work</a>
+      <a href="/sop-to-lms/" aria-current="page">SOP-to-LMS</a>
+      <a href="/skills/">Skills</a>
+      <a href="/interview/">Interview</a>
+      <a href="/about/">About</a>
+      <a href="https://cal.com/joshua-durey-wqgvgp/20-min-scope-call" target="_blank" rel="noopener">Book Call</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="b2b-hero" aria-label="Enterprise SOP to LMS value proposition">
+    <div class="hero-copy">
+      <p class="eyebrow">For Chief Learning Officers · VPs of Enablement · Enterprise L&amp;D</p>
+      <h1>Compress Corporate Course Production from 6 Weeks to 24 Hours with 0% Unverified Hallucinations.</h1>
+      <p class="lede">Turn messy Confluence runbooks, SOC-2 policies, product release notes, and customer help docs into import-ready <strong>SCORM 1.2 packages</strong>, <strong>1080p narrated modules</strong>, and <strong>scenario-based mastery checks</strong> verified by a 4-vendor blind-solver jury.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#pilot-capture" data-b2b-cta="hero_free_pilot">Send 1 Public SOP -&gt; Free 24h Pilot</a>
+        <a class="btn" href="/sop-to-lms/sample-incident-sop-scorm12.zip" download="sample-incident-sop-scorm12.zip" data-b2b-cta="hero_scorm_zip">Download Sample SCORM 1.2 (.zip)</a>
+        <a class="btn" href="#live-scorm-demo" data-b2b-cta="hero_live_demo">Try Live SCORM Telemetry</a>
+        <a class="btn" href="https://cal.com/joshua-durey-wqgvgp/20-min-scope-call" target="_blank" rel="noopener" data-b2b-cta="hero_cal">Book 20-Min Scope Call</a>
+      </div>
+    </div>
+
+    <aside class="b2b-compare-box" aria-label="Production benchmark comparison">
+      <div>
+        <p class="eyebrow" style="margin-bottom:0.6rem">Why Standard L&amp;D Pipelines Bottleneck</p>
+        <div style="display:grid;gap:0.55rem">
+          <div class="compare-row">
+            <div class="compare-head">
+              <span>Legacy ID Waterfall</span>
+              <span class="tag">6 to 8 Weeks</span>
+            </div>
+            <p>$12k to $25k per finished hour. Content goes stale the week Engineering ships a UI or policy change.</p>
+          </div>
+          <div class="compare-row">
+            <div class="compare-head">
+              <span>Single-Prompt AI Authoring</span>
+              <span class="tag tag-method">~8% Drift Risk</span>
+            </div>
+            <p>Drafts look polished but invent policy exceptions, ship ambiguous distractors, and fail compliance review.</p>
+          </div>
+          <div class="compare-row is-featured">
+            <div class="compare-head">
+              <strong>4-Vendor Verified SOP Compiler</strong>
+              <span class="tag tag-systems">24 Hours · 0% Drift</span>
+            </div>
+            <p>Clause-pinned SCORM 1.2 + 1080p modules. Every question must pass unanimous 4-family blind solving before export.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lms-compat-bar">
+        <span class="label">Drops Straight Into:</span>
+        <span class="chip">Workday Learning</span>
+        <span class="chip">Cornerstone</span>
+        <span class="chip">Docebo</span>
+        <span class="chip">Absorb</span>
+        <span class="chip">Litmos</span>
+        <span class="chip">SCORM Cloud</span>
+      </div>
+    </aside>
+  </section>
+
+  <section class="proof-strip" aria-label="Compiler verification metrics">
+    <div class="proof-stat">
+      <strong>24h</strong>
+      <span>Turnaround from raw SOP, policy PDF, or Help Center URL to verified SCORM 1.2 + 1080p package.</span>
+    </div>
+    <div class="proof-stat">
+      <strong>4 / 4</strong>
+      <span>Independent LLM families must solve every scenario cold from your source doc alone before an item ships.</span>
+    </div>
+    <div class="proof-stat">
+      <strong>0.0%</strong>
+      <span>Unverified policy claims permitted past deterministic clause-citation and hint-leak gates.</span>
+    </div>
+    <div class="proof-stat">
+      <strong>SCORM 1.2</strong>
+      <span>Standards-compliant <code>imsmanifest.xml</code>, <code>cmi.core</code> runtime scoring, and mastery tracking out of the box.</span>
+    </div>
+  </section>
+
+  <section id="live-scorm-demo" class="scorm-stage" aria-label="Interactive in-browser SCORM 1.2 telemetry demo">
+    <div class="section-head" style="margin-bottom:0.8rem">
+      <div>
+        <p class="eyebrow" style="margin-bottom:0.3rem">Interactive In-Browser SCO Sandbox · Zero Login Required</p>
+        <h2 style="margin:0">Click through a compiled SOC-2 SOP and watch live SCORM 1.2 telemetry</h2>
+      </div>
+      <button type="button" class="btn" id="resetDemoBtn" style="min-height:38px;padding:0.45rem 0.95rem;font-size:0.84rem">Reset SCO Session</button>
+    </div>
+    <p class="muted" style="max-width:78ch;margin:0 0 1.2rem">Below is an actual compiled 3-step module from <code>SOP-SEC-042 (Production Credential Exposure &amp; 15-Minute Containment)</code>. Advance through the steps and answer the Step 3 scenario check to inspect real-time <code>window.API</code> calls and 4-vendor blind-solver receipts.</p>
+
+    <div class="scorm-grid">
+      <div class="sco-player-card">
+        <div class="sco-topbar">
+          <div>
+            <span class="tag tag-systems">ADL SCORM 1.2 SCO</span>
+            <span class="chip">Mastery Threshold: 80%</span>
+          </div>
+          <span class="mono-dim" style="font-size:0.75rem;font-family:var(--mono);color:var(--fg-dim)">Source: SOP-SEC-042 v3.4</span>
+        </div>
+
+        <div class="sco-tabs" role="tablist" aria-label="SOP module steps">
+          <button type="button" class="sco-tab" role="tab" id="tab-0" aria-selected="true" data-step-btn="0">Step 1 · Blast-Radius Freeze</button>
+          <button type="button" class="sco-tab" role="tab" id="tab-1" aria-selected="false" data-step-btn="1">Step 2 · KMS Key Cutover</button>
+          <button type="button" class="sco-tab" role="tab" id="tab-2" aria-selected="false" data-step-btn="2">Step 3 · Scenario Check</button>
+        </div>
+
+        <div id="scoStepViewport"></div>
+
+        <div class="download-strip">
+          <div>
+            <strong>Test-import this exact package in your own LMS right now</strong>
+            <p>Includes <code>imsmanifest.xml</code>, standalone HTML5 SCO, <code>scorm12.js</code> runtime wrapper, and 4-vendor verification JSON.</p>
+          </div>
+          <a class="btn btn-primary" href="/sop-to-lms/sample-incident-sop-scorm12.zip" download="sample-incident-sop-scorm12.zip" data-b2b-cta="demo_scorm_zip">Download SCORM 1.2 .zip (6 KB)</a>
+        </div>
+      </div>
+
+      <aside class="telemetry-card" aria-label="Live SCORM 1.2 API stream and blind-solver verification">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem;margin-bottom:0.65rem">
+          <span class="eyebrow" style="margin:0">Live LMS Runtime State (window.API)</span>
+          <span class="chip" id="lmsConnBadge">LMS_SANDBOX_ACTIVE</span>
+        </div>
+
+        <div class="cmi-state-grid">
+          <div class="cmi-cell">
+            <span>cmi.core.lesson_status</span>
+            <strong id="cmiStatusVal" data-status="incomplete">"incomplete"</strong>
+          </div>
+          <div class="cmi-cell">
+            <span>cmi.core.score.raw (min 80)</span>
+            <strong id="cmiScoreVal">"--"</strong>
+          </div>
+          <div class="cmi-cell">
+            <span>cmi.core.lesson_location</span>
+            <strong id="cmiLocVal">"step_1_freeze"</strong>
+          </div>
+          <div class="cmi-cell">
+            <span>cmi.core.session_time</span>
+            <strong id="cmiTimeVal">"0000:00:01.00"</strong>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem">
+          <span style="font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--fg-muted)">SCORM 1.2 Event Log</span>
+          <span style="font-family:var(--mono);font-size:0.7rem;color:var(--fg-dim)" id="scormCallCount">0 calls</span>
+        </div>
+        <div class="scorm-console" id="scormConsole" aria-live="polite"></div>
+
+        <div class="solver-panel">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem">
+            <span class="eyebrow" style="margin:0">4-Vendor Blind-Solver Gate</span>
+            <span class="tag tag-eval" id="solverGateSummary">4/4 UNANIMOUS</span>
+          </div>
+          <p style="margin:0.32rem 0 0;font-size:0.8rem;color:var(--fg-muted)" id="solverStepNote">All 4 model families verified Step 1 against SOP-SEC-042 Clauses 4.1 and 4.2 with 0 extrapolated claims.</p>
+          <div class="solver-grid" id="solverBadges">
+            <div class="solver-badge">
+              <div class="vendor"><span>Claude Sonnet 4.5</span><em>PASS</em></div>
+              <span class="verdict" data-solver-detail="claude">Clause 4.1 exact citation · 0 drift</span>
+            </div>
+            <div class="solver-badge">
+              <div class="vendor"><span>OpenAI GPT-4.1</span><em>PASS</em></div>
+              <span class="verdict" data-solver-detail="openai">Clause 4.1 exact citation · 0 drift</span>
+            </div>
+            <div class="solver-badge">
+              <div class="vendor"><span>Llama 3.3 70B</span><em>PASS</em></div>
+              <span class="verdict" data-solver-detail="llama">Forensic rule verified · 0 drift</span>
+            </div>
+            <div class="solver-badge">
+              <div class="vendor"><span>Qwen 2.5 72B</span><em>PASS</em></div>
+              <span class="verdict" data-solver-detail="qwen">Audit-log rule verified · 0 drift</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="funnel-arch" aria-label="How the 24-hour SOP-to-LMS compiler works">
+    <div class="section-head">
+      <h2>How one SOP becomes a verified LMS module in 24 hours</h2>
+      <span class="mono-dim" style="font-family:var(--mono);font-size:0.78rem;color:var(--fg-dim)">Deterministic 5-stage compiler</span>
+    </div>
+    <p class="muted" style="max-width:76ch;margin-top:0.2rem">Built for high-consequence onboarding, security compliance, revenue enablement, and customer-facing product certification where hallucinated policy rules are unacceptable.</p>
+    <div class="arch-steps">
+      <div class="arch-step">
+        <div class="arch-num">Stage 01 · Ingest</div>
+        <h3>Clause-Hash Parsing</h3>
+        <p>Splits Notion, Confluence, Markdown, or PDF SOPs into atomic, SHA-256-indexed policy rules with exact section anchors.</p>
+      </div>
+      <div class="arch-step">
+        <div class="arch-num">Stage 02 · Author</div>
+        <h3>Scenario Synthesis</h3>
+        <p>Generates concise operational walkthroughs and realistic workplace judgment checks rather than trivial recall trivia.</p>
+      </div>
+      <div class="arch-step">
+        <div class="arch-num">Stage 03 · Jury Gate</div>
+        <h3>4-Vendor Blind Solving</h3>
+        <p>Claude, GPT, Llama, and Qwen take every quiz item cold using only your SOP. Any split verdict or hint leak fails closed.</p>
+      </div>
+      <div class="arch-step">
+        <div class="arch-num">Stage 04 · Media</div>
+        <h3>1080p + Captions</h3>
+        <p>Synthesizes word-aligned studio narration, progressive visual callouts, and clean <code>.srt</code> / <code>.vtt</code> caption tracks.</p>
+      </div>
+      <div class="arch-step">
+        <div class="arch-num">Stage 05 · Export</div>
+        <h3>SCORM 1.2 Bundle</h3>
+        <p>Packages <code>imsmanifest.xml</code>, HTML5 SCOs, and verification receipts ready for Workday, Cornerstone, or Docebo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pilot-capture" class="pilot-workbench" aria-label="Request a free 24-hour verified SCORM 1.2 pilot">
+    <div>
+      <p class="eyebrow">Zero-Cost Executive Proof · Delivered in 24 Hours</p>
+      <h2 style="margin-top:0.2rem">Send 1 Public SOP or Help Doc -&gt; Get a Free Verified SCORM 1.2 + 1080p Module in 24h.</h2>
+      <p class="muted">Do not buy slideware promises. Send one public Help Center article, onboarding guide, or sanitized SOP. Within 24 hours, you receive a runnable custom build to test with your own L&amp;D and Enablement stakeholders.</p>
+
+      <ul class="deliverable-list">
+        <li>
+          <strong>1. Import-Ready SCORM 1.2 Package (.zip)</strong>
+          <span>Tested <code>imsmanifest.xml</code> + interactive scenario check reporting <code>cmi.core.score.raw</code> and <code>lesson_status</code> directly into your LMS.</span>
+        </li>
+        <li>
+          <strong>2. Synchronized 1080p30 Walkthrough + .VTT Captions</strong>
+          <span>Clean executive-grade visual briefing grounded strictly in your source documentation with zero off-policy improvisation.</span>
+        </li>
+        <li>
+          <strong>3. 4-Vendor Blind-Solver Audit Receipt</strong>
+          <span>Full JSON + human-readable proof table verifying 4/4 cross-family consensus, distractor clarity, and 0% hallucinated claims.</span>
+        </li>
+        <li>
+          <strong>4. Hosted Stakeholder Preview Link</strong>
+          <span>Published at <code>jdurey.github.io/for/&lt;your-org&gt;/</code> for instant review alongside a 20-minute rollout architecture scope.</span>
+        </li>
+      </ul>
+
+      <div class="cta">
+        <a class="btn" href="https://cal.com/joshua-durey-wqgvgp/20-min-scope-call" target="_blank" rel="noopener" data-b2b-cta="pilot_cal">Book 20-Min Scope Call on Cal.com</a>
+        <a class="btn" href="/interview/" data-b2b-cta="pilot_ai_twin">Screen AI Josh in 3 Minutes</a>
+      </div>
+    </div>
+
+    <aside class="capture-card" aria-label="24-hour B2B SOP-to-LMS pilot intake form">
+      <p class="eyebrow">Live B2B Pilot Queue · Source: sop-to-lms-b2b</p>
+      <h2>Commission your free 24h SCORM 1.2 pilot</h2>
+      <p class="capture-sub">Drop your work email and a link to any public Help Center doc, compliance runbook, or sanitized SOP excerpt.</p>
+
+      <form id="b2bPilotForm">
+        <div class="hp-trap" aria-hidden="true">
+          <label for="b2b-hp">Leave blank</label>
+          <input id="b2b-hp" type="text" name="website_hp" tabindex="-1" autocomplete="off">
+        </div>
+        <input type="hidden" name="diagnostic_sha" id="b2bDiagSha" value="scorm12_soc2_init">
+
+        <div class="funnel-field">
+          <label for="b2b-email">Work Email *</label>
+          <input id="b2b-email" class="funnel-input" type="email" name="work_email" required placeholder="vp-learning@company.com">
+        </div>
+
+        <div class="cap-row-2">
+          <div class="funnel-field">
+            <label for="b2b-company">Company *</label>
+            <input id="b2b-company" class="funnel-input" type="text" name="company" required placeholder="Acme Enterprise">
+          </div>
+          <div class="funnel-field">
+            <label for="b2b-name">Your Name &amp; Title</label>
+            <input id="b2b-name" class="funnel-input" type="text" name="name" placeholder="Jordan Lee, VP Enablement">
+          </div>
+        </div>
+
+        <div class="cap-row-2">
+          <div class="funnel-field">
+            <label for="b2b-lms">Target LMS / Platform</label>
+            <select id="b2b-lms" class="funnel-select" name="target_lms">
+              <option value="Workday Learning">Workday Learning</option>
+              <option value="Docebo">Docebo</option>
+              <option value="Cornerstone OnDemand">Cornerstone OnDemand</option>
+              <option value="SCORM Cloud / Absorb / Litmos">SCORM Cloud / Absorb / Litmos</option>
+              <option value="AI-Native L&D / Enablement Platform">AI-Native L&amp;D / Enablement Platform</option>
+            </select>
+          </div>
+          <div class="funnel-field">
+            <label for="b2b-track">Engagement Model</label>
+            <select id="b2b-track" class="funnel-select" name="track">
+              <option value="sprint">Free 24h Pilot -&gt; Fixed-Scope Catalog Sprint</option>
+              <option value="fractional">Fractional AI Enablement &amp; L&amp;D Systems Lead</option>
+              <option value="full_time">Full-Time Remote Principal AI Enablement Role</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="funnel-field">
+          <label for="b2b-scope">Public SOP URL, Help Center Link, or Policy Excerpt *</label>
+          <textarea id="b2b-scope" class="funnel-textarea" name="role_or_workflow" required placeholder="Paste 1 public Help Center URL, onboarding doc link, or 1-3 paragraphs of a sanitized SOP you want compiled into SCORM 1.2 + 1080p video..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%" id="b2bSubmitBtn">Build My Free Verified SCORM 1.2 Pilot -&gt;</button>
+        <p class="cap-note" style="margin:0.65rem 0 0;font-size:0.8rem;color:var(--fg-muted)">Zero cold sales calls. Delivered to your inbox with SCORM 1.2 <code>.zip</code> + verification receipt. Prefer live scoping? <a href="https://cal.com/joshua-durey-wqgvgp/20-min-scope-call" target="_blank" rel="noopener">Book 20 minutes on Cal.com</a> or <a href="/interview/">interview AI Josh (3m)</a>.</p>
+      </form>
+
+      <div id="b2bFeedback" hidden></div>
+    </aside>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div>Josh Durey · Applied AI Enablement &amp; Verified L&amp;D Systems</div>
+  <div class="foot-links">
+    <a href="/">Portfolio Home</a>
+    <a href="/sop-to-lms/sample-incident-sop-scorm12.zip" download="sample-incident-sop-scorm12.zip">Sample SCORM 1.2 (.zip)</a>
+    <a href="https://cal.com/joshua-durey-wqgvgp/20-min-scope-call" target="_blank" rel="noopener">Book 20-Min Call</a>
+    <a href="/interview/">AI Video Twin</a>
+    <a href="mailto:josh.durey@gmail.com">josh.durey@gmail.com</a>
+  </div>
+  <div class="foot-meta">ADL SCORM 1.2 compliant · 4-vendor blind-solver verified · <a href="/work/">56 runnable case studies</a></div>
+</footer>
+
+<script>
+(function () {
+  var FUNNEL_API = "https://josh-employer-funnel.josh-durey.workers.dev";
+  var UTM_KEY = "jd_funnel_utm_v1";
+
+  function escHtml(s) {
+    var d = document.createElement("div");
+    d.textContent = String(s == null ? "" : s);
+    return d.innerHTML;
+  }
+
+  function getUtm() {
+    try {
+      var p = new URLSearchParams(window.location.search);
+      var prev = JSON.parse(sessionStorage.getItem(UTM_KEY) || "{}");
+      var m = {
+        utm_source: p.get("utm_source") || prev.utm_source || "sop-to-lms-b2b",
+        utm_medium: p.get("utm_medium") || prev.utm_medium || "b2b_landing",
+        utm_campaign: p.get("utm_campaign") || prev.utm_campaign || "sop_to_lms_24h_pilot",
+        first_referrer: prev.first_referrer || document.referrer || ""
+      };
+      sessionStorage.setItem(UTM_KEY, JSON.stringify(m));
+      return m;
+    } catch (e) {
+      return {
+        utm_source: "sop-to-lms-b2b",
+        utm_medium: "b2b_landing",
+        utm_campaign: "sop_to_lms_24h_pilot",
+        first_referrer: document.referrer || ""
+      };
+    }
+  }
+
+  function sendAbmEvent(eventName, detail) {
+    try {
+      var utm = getUtm();
+      var payload = JSON.stringify({
+        event: eventName,
+        path: window.location.pathname || "/sop-to-lms/",
+        slug: "sop-to-lms",
+        utm_source: utm.utm_source,
+        utm_campaign: utm.utm_campaign,
+        detail: detail || ""
+      });
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(FUNNEL_API + "/api/funnel/event", new Blob([payload], { type: "application/json" }));
+      } else {
+        fetch(FUNNEL_API + "/api/funnel/event", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: payload,
+          keepalive: true
+        }).catch(function () {});
+      }
+    } catch (e) {}
+  }
+
+  sendAbmEvent("sop_to_lms_view", document.referrer || "direct");
+
+  document.addEventListener("click", function (e) {
+    var link = e.target.closest("a[href]");
+    if (!link) return;
+    var cta = link.getAttribute("data-b2b-cta") || "";
+    var href = link.getAttribute("href") || "";
+    if (href.indexOf("sample-incident-sop-scorm12.zip") !== -1) {
+      sendAbmEvent("scorm_sample_download", cta || "zip_download");
+    } else if (href.indexOf("cal.com/joshua-durey") !== -1) {
+      sendAbmEvent("cal_booking_click", cta || "/sop-to-lms/");
+    } else if (cta) {
+      sendAbmEvent("funnel_cta_click", cta);
+    }
+  });
+
+  // --- Interactive SCORM 1.2 Runtime Simulation & Live Telemetry ---
+  var consoleEl = document.getElementById("scormConsole");
+  var callCountEl = document.getElementById("scormCallCount");
+  var statusValEl = document.getElementById("cmiStatusVal");
+  var scoreValEl = document.getElementById("cmiScoreVal");
+  var locValEl = document.getElementById("cmiLocVal");
+  var timeValEl = document.getElementById("cmiTimeVal");
+  var solverNoteEl = document.getElementById("solverStepNote");
+  var solverSummaryEl = document.getElementById("solverGateSummary");
+  var diagShaEl = document.getElementById("b2bDiagSha");
+  var viewportEl = document.getElementById("scoStepViewport");
+  var tabBtns = Array.prototype.slice.call(document.querySelectorAll("[data-step-btn]"));
+
+  var startMs = Date.now();
+  var apiCallTotal = 0;
+  var completedSteps = { 0: false, 1: false, 2: false };
+  var currentStep = 0;
+
+  function fmtScormTime(ms) {
+    var sec = Math.max(1, Math.floor(ms / 1000));
+    var h = String(Math.floor(sec / 3600)).padStart(4, "0");
+    var m = String(Math.floor((sec % 3600) / 60)).padStart(2, "0");
+    var s = String(sec % 60).padStart(2, "0");
+    return h + ":" + m + ":" + s + ".00";
+  }
+
+  function logScorm(fnName, arg1, arg2, ret) {
+    apiCallTotal += 1;
+    callCountEl.textContent = apiCallTotal + (apiCallTotal === 1 ? " call" : " calls");
+    var ts = new Date().toISOString().slice(11, 19);
+    var argsStr = arg2 !== undefined
+      ? JSON.stringify(arg1) + ", " + JSON.stringify(arg2)
+      : JSON.stringify(arg1);
+    var line = document.createElement("div");
+    line.className = "scorm-log-line";
+    line.innerHTML = "[" + escHtml(ts) + "] <span class=\"fn\">" + escHtml(fnName) + "</span>(" + escHtml(argsStr) + ") -&gt; <span class=\"ok\">\"" + escHtml(ret) + "\"</span>";
+    consoleEl.prepend(line);
+  }
+
+  function setCmi(key, val) {
+    logScorm("LMSSetValue", key, String(val), "true");
+    if (key === "cmi.core.lesson_status") {
+      statusValEl.textContent = "\"" + val + "\"";
+      statusValEl.setAttribute("data-status", val);
+    } else if (key === "cmi.core.score.raw") {
+      scoreValEl.textContent = "\"" + val + "\"";
+    } else if (key === "cmi.core.lesson_location") {
+      locValEl.textContent = "\"" + val + "\"";
+    } else if (key === "cmi.core.session_time") {
+      timeValEl.textContent = "\"" + val + "\"";
+    }
+  }
+
+  function updateSolverBadges(stepIdx, pick) {
+    var cEl = document.querySelector('[data-solver-detail="claude"]');
+    var oEl = document.querySelector('[data-solver-detail="openai"]');
+    var lEl = document.querySelector('[data-solver-detail="llama"]');
+    var qEl = document.querySelector('[data-solver-detail="qwen"]');
+
+    if (stepIdx === 0) {
+      solverSummaryEl.textContent = "4/4 CLAUSE VERIFIED";
+      solverNoteEl.textContent = "Step 1 checked against SOP-SEC-042 Clauses 4.1 & 4.2: 5-minute freeze window and immutable log preservation verified across 4 model families.";
+      cEl.textContent = "Clause 4.1 exact match · 0 drift";
+      oEl.textContent = "5m SLA boundary verified · 0 drift";
+      lEl.textContent = "CloudTrail retention verified";
+      qEl.textContent = "Git reflog preservation verified";
+    } else if (stepIdx === 1) {
+      solverSummaryEl.textContent = "4/4 SEQUENCE VERIFIED";
+      solverNoteEl.textContent = "Step 2 checked against SOP-SEC-042 Clauses 4.3 & 4.4: KMS cutover order and SEV-1 paging trigger verified with zero extrapolated steps.";
+      cEl.textContent = "KMS dual-key order verified";
+      oEl.textContent = "Revocation sequence verified";
+      lEl.textContent = "ASN/IP log audit verified";
+      qEl.textContent = "SEV-1 escalation rule verified";
+    } else {
+      solverSummaryEl.textContent = "4/4 BLIND-SOLVER LOCK";
+      if (!pick) {
+        solverNoteEl.textContent = "All 4 blind solvers solved this scenario cold from SOP-SEC-042 alone and converged on Option B (mean confidence 98.2%, 0 rival distractors).";
+      } else if (pick === "B") {
+        solverNoteEl.textContent = "Learner response matches 4/4 blind-solver consensus (Option B). SCORM 1.2 mastery status committed (100 >= 80).";
+      } else {
+        solverNoteEl.textContent = "Distractor " + pick + " rejected unanimously by all 4 blind solvers due to direct violation of SOP-SEC-042 Clause 4.1 or 4.3.";
+      }
+      cEl.textContent = "Solved cold: Option B (0.99)";
+      oEl.textContent = "Solved cold: Option B (0.98)";
+      lEl.textContent = "Solved cold: Option B (0.97)";
+      qEl.textContent = "Solved cold: Option B (0.98)";
+    }
+  }
+
+  function renderStep(idx) {
+    currentStep = idx;
+    tabBtns.forEach(function (b, i) {
+      b.setAttribute("aria-selected", i === idx ? "true" : "false");
+      b.classList.toggle("is-done", !!completedSteps[i]);
+    });
+
+    if (idx === 0) {
+      setCmi("cmi.core.lesson_location", "step_1_freeze");
+      logScorm("LMSCommit", "", undefined, "true");
+      updateSolverBadges(0);
+      viewportEl.innerHTML =
+        '<div class="clause-callout">' +
+          '<span class="clause-id">Grounded Source · SOP-SEC-042 Clause 4.1 &amp; 4.2</span>' +
+          '<h3>Minutes 0 to 5: Freeze Blast Radius Without Destroying Audit Evidence</h3>' +
+          '<p>When a live production token or service-account secret is exposed in an external ticket, CI log, or public repo, the on-call responder must disable or rotate the compromised identity within <strong>5 minutes</strong>. Never delete cloud audit logs or force-overwrite git history to conceal exposure; SOC-2 Type II auditors require immutable forensic timelines.</p>' +
+        '</div>' +
+        '<ul class="sop-checklist">' +
+          '<li><input type="checkbox" id="chk1" checked> <label for="chk1"><strong>Identity Contained (&lt;= 5 min):</strong> Locate key ID in IAM / KMS and prepare immediate revocation.</label></li>' +
+          '<li><input type="checkbox" id="chk2"> <label for="chk2"><strong>Forensic Integrity Preserved:</strong> Leave ticket read-logs, CloudTrail events, and commit SHAs intact for audit inspection.</label></li>' +
+        '</ul>' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.6rem">' +
+          '<span style="font-size:0.82rem;color:var(--fg-muted)">Click checkbox or advance to emit live SCORM bookmark telemetry.</span>' +
+          '<button type="button" class="btn btn-primary" id="nextStep0">Continue to Step 2 -&gt;</button>' +
+        '</div>';
+
+      viewportEl.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+        cb.addEventListener("change", function () {
+          setCmi("cmi.suspend_data", JSON.stringify({ step1_forensics_ack: cb.checked }));
+          logScorm("LMSCommit", "", undefined, "true");
+        });
+      });
+      document.getElementById("nextStep0").addEventListener("click", function () {
+        completedSteps[0] = true;
+        renderStep(1);
+      });
+    } else if (idx === 1) {
+      setCmi("cmi.core.lesson_location", "step_2_cutover");
+      logScorm("LMSCommit", "", undefined, "true");
+      updateSolverBadges(1);
+      viewportEl.innerHTML =
+        '<div class="clause-callout">' +
+          '<span class="clause-id">Grounded Source · SOP-SEC-042 Clause 4.3 &amp; 4.4</span>' +
+          '<h3>Minutes 5 to 15: Scoped KMS Cutover &amp; External Read Triage</h3>' +
+          '<p>Provision a least-privilege replacement key in KMS, verify production service health, and permanently revoke the exposed key ID. Immediately query tenant access logs across the exposure window. If <strong>any non-customer IP or external ASN</strong> accessed the resource or viewed the exposed secret, page the Security Incident Commander via PagerDuty <strong>SEV-1</strong>.</p>' +
+        '</div>' +
+        '<ul class="sop-checklist">' +
+          '<li><input type="checkbox" id="chk3" checked> <label for="chk3"><strong>Zero-Downtime Key Swap:</strong> Issue scoped KMS secret, cut workload over, and hard-revoke exposed credential.</label></li>' +
+          '<li><input type="checkbox" id="chk4" checked> <label for="chk4"><strong>SEV-1 Trigger Rule:</strong> Escalate immediately whenever external IP views &gt;= 1 during exposure window.</label></li>' +
+        '</ul>' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.6rem">' +
+          '<button type="button" class="btn" id="prevStep1">&lt;- Back to Step 1</button>' +
+          '<button type="button" class="btn btn-primary" id="nextStep1">Proceed to Scenario Check -&gt;</button>' +
+        '</div>';
+
+      document.getElementById("prevStep1").addEventListener("click", function () { renderStep(0); });
+      document.getElementById("nextStep1").addEventListener("click", function () {
+        completedSteps[1] = true;
+        renderStep(2);
+      });
+    } else {
+      setCmi("cmi.core.lesson_location", "step_3_scenario_check");
+      logScorm("LMSCommit", "", undefined, "true");
+      updateSolverBadges(2, null);
+      viewportEl.innerHTML =
+        '<div class="clause-callout">' +
+          '<span class="clause-id">Workplace Judgment Check · Interaction ID: SCN_SOC2_042_01</span>' +
+          '<h3>02:14 UTC Support Ticket Leak Scenario</h3>' +
+          '<p>A Tier-2 engineer accidentally pastes a live production bearer token into a public vendor ticket. Ticket telemetry shows <strong>two external non-customer IPs</strong> viewed the thread 3 minutes ago. Under SOP-SEC-042, which response sequence is compliant?</p>' +
+        '</div>' +
+        '<div id="scenarioOptions">' +
+          '<button type="button" class="scenario-opt" data-opt="A"><strong>Option A:</strong> Purge the ticket audit log and git reflog immediately so external scanners cannot index it, then rotate the key during morning standup.</button>' +
+          '<button type="button" class="scenario-opt" data-opt="B"><strong>Option B:</strong> Rotate to a scoped KMS key and revoke the exposed token within 5 minutes, preserve all ticket and cloud audit logs intact, query tenant reads across the window, and page SEV-1 Incident Command.</button>' +
+          '<button type="button" class="scenario-opt" data-opt="C"><strong>Option C:</strong> Leave the production token active while Legal and Communications approve a customer advisory, then revoke once messaging is signed off.</button>' +
+          '<button type="button" class="scenario-opt" data-opt="D"><strong>Option D:</strong> Rotate the key silently within 5 minutes and close the ticket without paging SEV-1 since fewer than five external IPs viewed it.</button>' +
+        '</div>' +
+        '<div id="scenarioFeedback" hidden></div>';
+
+      var optBtns = Array.prototype.slice.call(viewportEl.querySelectorAll(".scenario-opt"));
+      var fbEl = document.getElementById("scenarioFeedback");
+      var explanations = {
+        A: "Violates Clause 4.1 (5-minute revocation SLA) and Clause 4.2 (destroying audit trails invalidates SOC-2 Type II forensic evidence).",
+        B: "Exact match to SOP-SEC-042 Clauses 4.1 through 4.4: 5-minute KMS rotation + revocation, immutable forensic logs preserved, tenant access window queried, and SEV-1 paged for >= 1 external IP view.",
+        C: "Violates Clause 4.1: containment and token revocation must execute within 5 minutes before drafting stakeholder communications.",
+        D: "Violates Clause 4.4: ANY external non-customer IP view (>= 1) mandates paging the Security Incident Commander on PagerDuty SEV-1."
+      };
+
+      optBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var pick = btn.getAttribute("data-opt");
+          var passed = pick === "B";
+          optBtns.forEach(function (b) {
+            b.classList.remove("is-correct", "is-wrong");
+            if (b.getAttribute("data-opt") === "B") b.classList.add("is-correct");
+            else if (b === btn && !passed) b.classList.add("is-wrong");
+          });
+
+          setCmi("cmi.core.interactions.0.id", "SCN_SOC2_042_01");
+          setCmi("cmi.core.interactions.0.type", "choice");
+          setCmi("cmi.core.interactions.0.student_response", pick);
+          setCmi("cmi.core.interactions.0.result", passed ? "correct" : "wrong");
+          setCmi("cmi.core.score.raw", passed ? "100" : "0");
+          setCmi("cmi.core.lesson_status", passed ? "passed" : "failed");
+          setCmi("cmi.core.session_time", fmtScormTime(Date.now() - startMs));
+          logScorm("LMSCommit", "", undefined, "true");
+
+          completedSteps[2] = passed;
+          tabBtns[2].classList.toggle("is-done", passed);
+          updateSolverBadges(2, pick);
+          if (diagShaEl) {
+            diagShaEl.value = passed ? "scorm12_soc2_passed_100" : "scorm12_soc2_attempted_" + pick;
+          }
+          sendAbmEvent("scorm_demo_answered", pick + ":" + (passed ? "passed" : "failed"));
+
+          fbEl.hidden = false;
+          fbEl.className = "scenario-feedback " + (passed ? "is-pass" : "is-fail");
+          fbEl.innerHTML = passed
+            ? "<strong>MASTERED (100/100 · cmi.core.lesson_status = \"passed\")</strong><br>" + escHtml(explanations[pick])
+            : "<strong>NOT YET PASSED (0/100 · cmi.core.lesson_status = \"failed\")</strong><br>" + escHtml(explanations[pick]) + " <em>Select Option B above to watch the LMS status commit to passed.</em>";
+        });
+      });
+    }
+  }
+
+  function initDemoSession() {
+    consoleEl.innerHTML = "";
+    apiCallTotal = 0;
+    startMs = Date.now();
+    completedSteps = { 0: false, 1: false, 2: false };
+    logScorm("LMSInitialize", "", undefined, "true");
+    setCmi("cmi.core.lesson_status", "incomplete");
+    setCmi("cmi.core.score.min", "0");
+    setCmi("cmi.core.score.max", "100");
+    scoreValEl.textContent = "\"--\"";
+    setCmi("cmi.core.session_time", "0000:00:01.00");
+    renderStep(0);
+  }
+
+  tabBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      renderStep(Number(btn.getAttribute("data-step-btn") || 0));
+    });
+  });
+
+  document.getElementById("resetDemoBtn").addEventListener("click", function () {
+    initDemoSession();
+    sendAbmEvent("scorm_demo_reset", "manual");
+  });
+
+  window.setInterval(function () {
+    if (!document.hidden) {
+      timeValEl.textContent = "\"" + fmtScormTime(Date.now() - startMs) + "\"";
+    }
+  }, 1000);
+
+  initDemoSession();
+
+  // --- Live B2B Pilot Capture Form -> Cloudflare Employer/B2B Funnel Worker ---
+  var form = document.getElementById("b2bPilotForm");
+  var submitBtn = document.getElementById("b2bSubmitBtn");
+  var feedbackEl = document.getElementById("b2bFeedback");
+
+  if (form) {
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var fd = new FormData(form);
+      var utm = getUtm();
+      var targetLms = String(fd.get("target_lms") || "Workday Learning").trim();
+      var rawSop = String(fd.get("role_or_workflow") || "").trim();
+
+      var payload = {
+        source: "sop-to-lms-b2b",
+        work_email: String(fd.get("work_email") || "").trim(),
+        company: String(fd.get("company") || "").trim(),
+        name: String(fd.get("name") || "").trim(),
+        track: String(fd.get("track") || "sprint").trim(),
+        role_or_workflow: "[B2B SOP-to-LMS 24h Pilot | Target LMS: " + targetLms + "] " + rawSop,
+        diagnostic_sha: String(fd.get("diagnostic_sha") || "scorm12_b2b").trim(),
+        website_hp: String(fd.get("website_hp") || "").trim(),
+        page_path: window.location.pathname || "/sop-to-lms/",
+        utm_source: utm.utm_source || "sop-to-lms-b2b",
+        utm_medium: utm.utm_medium || "b2b_landing",
+        utm_campaign: utm.utm_campaign || "sop_to_lms_24h_pilot",
+        referrer: utm.first_referrer || ""
+      };
+
+      if (!payload.work_email || payload.work_email.indexOf("@") === -1) {
+        feedbackEl.hidden = false;
+        feedbackEl.innerHTML = '<p class="cap-err" style="color:var(--red);margin-top:0.75rem">Please enter a valid work email so the compiler pipeline can deliver your SCORM 1.2 package.</p>';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Queueing 24h SCORM 1.2 Build...";
+
+      try {
+        var resp = await fetch(FUNNEL_API + "/api/funnel/capture", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        var data = await resp.json();
+        if (!resp.ok || !data.ok) {
+          throw new Error(data.error || "Could not submit pilot request.");
+        }
+
+        sendAbmEvent("lead_captured", "sop-to-lms-b2b:" + (data.receipt_id || ""));
+        form.hidden = true;
+
+        var calHref = data.cal_url || "https://cal.com/joshua-durey-wqgvgp/20-min-scope-call";
+        var twinHref = data.interview_url || "https://jdurey.github.io/interview/";
+        var protoUrl = data.expected_prototype_url || "https://jdurey.github.io/for/your-org/";
+
+        feedbackEl.hidden = false;
+        feedbackEl.innerHTML =
+          '<div class="cap-receipt" style="padding-top:0.4rem">' +
+            '<div class="card-meta" style="margin-bottom:0.55rem">' +
+              '<span class="tag tag-systems">24h SCORM Pilot Queued</span>' +
+              '<code style="font-family:var(--mono);font-size:0.76rem;color:var(--fg-dim)">' + escHtml(data.receipt_id || "rcpt_queued") + '</code>' +
+            '</div>' +
+            '<h3 style="margin:0 0 0.45rem">SOP-to-LMS build queued for ' + escHtml(data.company || payload.company) + '</h3>' +
+            '<p class="muted" style="font-size:0.9rem;line-height:1.52">Your SOP intake is queued for 4-vendor blind-solver compilation (' + escHtml(targetLms) + '). Your hosted preview will publish to <code>' + escHtml(protoUrl) + '</code> alongside your downloadable SCORM 1.2 <code>.zip</code> and verification receipt.</p>' +
+            '<div class="cta" style="margin-top:1rem">' +
+              '<a class="btn btn-primary" href="' + escHtml(calHref) + '" target="_blank" rel="noopener">Book 20-Min Scope Call</a>' +
+              '<a class="btn" href="' + escHtml(twinHref) + '">Interview AI Josh (3m)</a>' +
+            '</div>' +
+          '</div>';
+      } catch (err) {
+        feedbackEl.hidden = false;
+        feedbackEl.innerHTML = '<p class="cap-err" style="color:var(--red);margin-top:0.75rem">' + escHtml(err.message || "Network error.") + ' Or email your SOP link directly to <a href="mailto:josh.durey@gmail.com">josh.durey@gmail.com</a>.</p>';
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Build My Free Verified SCORM 1.2 Pilot ->";
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

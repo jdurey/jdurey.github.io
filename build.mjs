@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
 import { homePage, workIndex, caseStudyPage, aboutPage, offerPage, skillsIndex } from "./scripts/render.mjs";
+import { buildSampleIncidentScormZip } from "./sop-to-lms/scorm-pack.mjs";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(ROOT, "dist");
@@ -163,8 +164,15 @@ async function main() {
     }
   }
 
+  // B2B Corporate L&D SOP-to-LMS Funnel + Standards-Compliant Sample SCORM 1.2 .zip
+  if (existsSync(path.join(ROOT, "sop-to-lms/index.html"))) {
+    const sopHtml = await readFile(path.join(ROOT, "sop-to-lms/index.html"), "utf8");
+    await emit("sop-to-lms/index.html", sopHtml);
+    await emit("sop-to-lms/sample-incident-sop-scorm12.zip", buildSampleIncidentScormZip());
+  }
+
   // SEO surface (findability = traction)
-  const urls = ["", "work/", "skills/", "about/", ...(existsSync(path.join(ROOT, "interview")) ? ["interview/"] : []), ...(existsSync(path.join(ROOT, "m5-tribunal")) ? ["m5-tribunal/"] : []), ...(offer ? [`${offer.slug}/`] : []), ...items.map((i) => `work/${i.slug}/`)];
+  const urls = ["", "work/", "skills/", "about/", ...(existsSync(path.join(ROOT, "sop-to-lms/index.html")) ? ["sop-to-lms/"] : []), ...(existsSync(path.join(ROOT, "interview")) ? ["interview/"] : []), ...(existsSync(path.join(ROOT, "m5-tribunal")) ? ["m5-tribunal/"] : []), ...(offer ? [`${offer.slug}/`] : []), ...items.map((i) => `work/${i.slug}/`)];
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`).join("\n")}
@@ -197,6 +205,7 @@ ${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`)
     ``,
     `## Capabilities & Live Agentic Endpoints`,
     `- [Live 3-Model Workflow & JD Diagnostic](${base}/#diagnostic): Interactive multi-vendor workflow readiness & rubric diagnostic backed by Cloudflare Workers AI.`,
+    `- [B2B Corporate L&D SOP-to-LMS Compiler](${base}/sop-to-lms/): Compress enterprise course production from 6 weeks to 24 hours with live SCORM 1.2 telemetry, 4-vendor blind-solver verification, and a downloadable sample SCORM 1.2 package (${base}/sop-to-lms/sample-incident-sop-scorm12.zip).`,
     `- [Live 3-Minute Interactive AI Video Screen](${base}/interview/): Conversational technical & leadership screen escalating to ${site.links?.cal || "calendar"}.`,
     `- [256GB M5 Ultra vs. Cloud API Tribunal](${base}/m5-tribunal/): 72 SHA-256-verified runs comparing local MLX vs frontier cloud models with TCO router calculator.`,
     `- [AgentCard (A2A Protocol)](${base}/.well-known/agent.json): Machine-readable capabilities, endpoints, and booking/diagnostic metadata.`,
@@ -224,6 +233,8 @@ ${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`)
     endpoints: {
       diagnosticApi: "https://josh-employer-funnel.josh-durey.workers.dev/api/funnel/diagnose",
       prototypeCommissionApi: "https://josh-employer-funnel.josh-durey.workers.dev/api/funnel/capture",
+      sopToLmsShowcase: `${base}/sop-to-lms/`,
+      sampleScorm12Package: `${base}/sop-to-lms/sample-incident-sop-scorm12.zip`,
       interactiveVideoTwin: `${base}/interview/`,
       calendarBooking: site.links?.cal || "https://cal.com/joshua-durey-wqgvgp/20-min-scope-call",
     },
@@ -244,6 +255,7 @@ ${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`)
         id: "scorm-qti-curriculum-compiler",
         name: "SOP & Documentation to Interactive Training & Assessment Compiler",
         description: "Compiles team SOPs and instructional documentation into blind-solver-verified assessments, SCORM modules, and adoption training kits.",
+        url: `${base}/sop-to-lms/`,
         tags: ["scorm", "assessments", "enablement", "instructional-systems"],
       },
       {
