@@ -1,35 +1,30 @@
-# Week-1 Rollout Plan: Multi-Agent Automation Escalation DAG for Zapier
+# Zapier Enterprise Automation Orchestration Router: Week-1 Rollout Plan
 
 ## Objective
-Enable Automation Strategists and Customer Success teams to triage and resolve complex customer workflow requests using a robust, policy-compliant agent orchestration pipeline.
+Deploy a robust agent orchestration and governance pipeline for Automation Strategists in Customer Success, ensuring every enterprise workflow request is normalized, validated, and routed with structured schema, policy, and escalation controls.
 
-## Day 1-2: Onboarding & Access
-- Provision access to the DAG orchestration kit for all Automation Strategists via secure internal tooling.
-- Conduct a 30-minute walkthrough of the four pipeline stages, emphasizing policy boundaries and escalation triggers (e.g., PII, refunds, unsupported integrations).
+## Day 1-2: Onboarding & Agent Setup
+- Review the JSON contract specification and router_system_prompt with all Customer Success and Solutions Engineering team members.
+- Integrate the orchestration agent into the internal Zapier sandbox environment, connecting to real app directories and workflow catalogs.
+- Assign a facilitator to monitor initial runs and document edge cases.
 
-## Day 3: Hands-On Testing
-- Run the four provided test cases in a sandbox environment.
-- For each case, compare agent outputs to expected behaviors and document any discrepancies.
-- Use the built-in escalation handler to review flagged cases, ensuring human checkpoints are functioning.
+## Day 3-4: Test Case Execution & Human Checkpoint Calibration
+- Run all four provided test scenarios through the pipeline, comparing naive chatbot outputs to orchestrated agent results.
+- For each flagged escalation (ambiguous field, PII, policy violation, or unsupported integration), route to a designated human reviewer in Customer Success Ops.
+- Document audit rationales and remediation steps for each escalation, building a reference library of real-world governance decisions.
 
-## Day 4-5: SOP Integration & Feedback
-- Integrate the DAG into the standard customer intake workflow for Automation Strategists.
-- Update internal SOPs to include:
-  - Always escalate when policy_flag or escalate is true.
-  - Never fulfill requests involving refunds, PII exports, or unsupported integrations without human approval.
-  - Log all escalations and agent decisions for audit and continuous improvement.
-- Collect feedback from users on edge case handling and false positives/negatives.
+## Day 5: SOP Finalization & Adoption Metrics
+- Finalize standard operating procedures for:
+  - When to escalate to human (any ambiguous, null, or compliance-risk field)
+  - How to document audit rationales in the JSON contract
+  - How to propose remediation or alternatives for unsupported integrations
+- Establish adoption metrics:
+  - % of enterprise workflow requests processed with valid JSON contracts
+  - % of escalations correctly flagged and resolved
+  - Time-to-resolution for human checkpoint cases
+  - Reduction in policy or schema errors compared to naive chatbot baselines
 
-## Adoption Metrics
-- Track the number of cases auto-resolved vs. escalated.
-- Monitor time-to-resolution for escalated cases.
-- Review weekly audit logs for policy adherence and agent accuracy.
-
-## Human Checkpoint Rules
-- Any flagged policy or ambiguous intent must be reviewed by a human Automation Strategist before customer delivery.
-- Escalation handler must provide clear explanations for all escalated cases.
-- Regularly update escalation keywords and policy rules based on new product features or customer scenarios.
-
-## Continuous Improvement
-- Schedule weekly review sessions to refine agent prompts, escalation logic, and policy boundaries.
-- Encourage Automation Strategists to submit new edge cases for DAG retraining and scenario expansion.
+## Ongoing: Continuous Improvement
+- Hold weekly retrospectives to review escalated cases and update the router_system_prompt or schema rules as new edge cases emerge.
+- Track adoption and compliance metrics in a shared dashboard, reporting to Customer Success leadership.
+- Encourage all strategists to submit new workflow edge cases to continuously improve orchestration coverage and governance fidelity.
