@@ -4,7 +4,7 @@ title: About
 
 I build AI systems for teams that have to trust the output, and I check that the output is actually trustworthy. Those two halves rarely live in the same person, and the gap between them is where most AI adoption stalls.
 
-Before any of this, I spent more than twenty years in K-12 education, the last stretch as a vice-principal. When I moved into AI work, I did K-8 curriculum and assessment QC at an AI-education company: writing items, auditing rubrics, watching where a model's confidence and a real person's reality came apart. That is where I learned what a broken workflow looks like before it shows up in front of a customer, and what shipping the wrong answer costs.
+My training is an MA in Applied Linguistics, so I treat prompts, rubrics, and model outputs as testable specs. Before going independent, I ran multi-agent curriculum and assessment QC on contract for an AI-education company: governing 52,000+ agent runs, auditing rubrics, and watching where a model's confidence and a real person's reality came apart. That is where I learned what a broken workflow looks like before it shows up in front of a customer, and what shipping the wrong answer costs.
 
 So the work I do now is horizontal. The domain was education. The skill is getting AI to do real work and proving it holds up.
 
