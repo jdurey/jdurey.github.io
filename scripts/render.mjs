@@ -212,15 +212,15 @@ function funnelWorkbench(site) {
 
 function selfServeB2bKitsSection(site) {
   const calUrl = site.links.cal ? esc(site.links.cal) : `mailto:${esc(site.links.email)}`;
-  return `<section id="b2b-kits" class="b2b-kits-section" aria-label="Self-Serve B2B Enterprise Source Kits, Live Udemy Practice Exams, and Async Founder Sprints">
+  return `<section id="b2b-kits" class="b2b-kits-section" aria-label="Self-Serve B2B Enterprise Source Kits, Live Udemy Video Masterclass, Practice Exams, and Async Founder Sprints">
   <div class="section-head">
     <div>
-      <p class="eyebrow" style="margin-bottom:0.35rem">Instant Self-Serve Source Kits · Live Udemy Courses · Fixed-Scope Founder Sprints</p>
+      <p class="eyebrow" style="margin-bottom:0.35rem">Instant Self-Serve Source Kits · Live 65m Udemy Video Masterclass · Fixed-Scope Founder Sprints</p>
       <h2 style="margin:0">Run the production harnesses in your own VPC or certify your team today</h2>
     </div>
     <a class="more" href="https://whop.com/human-creative-benchmark-studio/" target="_blank" rel="noopener" data-funnel-cta="home_whop_storefront_hub">Storefront Hub (Human Creative &amp; Benchmark Studio) -&gt;</a>
   </div>
-  <p class="muted" style="max-width:78ch;margin-top:.35rem">Download clean-room Python source kits instantly via Whop, enroll your team in live 40-question practice exams on Udemy ($12.99 Launch Special through Dec 15, 2026), or book a 20-minute scope call for a turnkey fixed-scope sprint alongside your free custom team prototype above.</p>
+  <p class="muted" style="max-width:78ch;margin-top:.35rem">Download clean-room Python source kits instantly via Whop, enroll your team in the live 65-minute SOP-to-SCORM Video &amp; Code-Lab Masterclass or 40-question practice exams on Udemy ($12.99 Launch Specials through Dec 15, 2026), or book a 20-minute scope call for a turnkey fixed-scope sprint.</p>
   <div class="b2b-kits-grid">
     <article class="b2b-kit-card is-featured-kit">
       <div>
@@ -233,11 +233,12 @@ function selfServeB2bKitsSection(site) {
         <ul class="b2b-kit-bullets">
           <li>4-vendor blind-solver verification gate (0% policy drift)</li>
           <li>ADL SCORM 1.2 + QTI 1.2 + 1080p caption pipeline source</li>
-          <li>Includes instant access to the 14-lecture (64+ min) <em>AI Corporate Training: UbD SOP-to-SCORM &amp; Video Factory</em> masterclass entering Udemy publication</li>
+          <li>Paired with the <strong>LIVE 14-lecture (64.6-min) Udemy Video &amp; Code-Lab Masterclass</strong> ($12.99 Launch, Reg. $69.99) and $24.99 Amazon Paperback</li>
         </ul>
       </div>
       <div class="b2b-kit-actions">
         <a class="btn btn-sm btn-checkout" href="https://whop.com/checkout/plan_y1ACgqNYGtul8/" target="_blank" rel="noopener" data-funnel-cta="home_whop_sop_99">Self-Serve Enterprise Kit ($99) -&gt;</a>
+        <a class="btn btn-sm btn-primary" href="https://www.udemy.com/course/ai-corporate-training-ubd-sop-to-scorm-video-factory/?couponCode=MASTER2026_SCORM" target="_blank" rel="noopener" data-funnel-cta="home_udemy_sop_masterclass_1299">65m Video Masterclass ($12.99 · 81% OFF) -&gt;</a>
         <a class="btn btn-sm" href="https://www.amazon.com/dp/B0HRQFWFPR" target="_blank" rel="noopener" data-funnel-cta="home_amazon_kdp_corp_2499">Amazon Paperback ($24.99 · ISBN 9798142559005) -&gt;</a>
         <a class="btn btn-sm" href="https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?couponCode=LAUNCH2026_SCORM" target="_blank" rel="noopener" data-funnel-cta="home_udemy_sop_exams_1299">Udemy Practice Exams ($12.99 Launch) -&gt;</a>
         <a class="btn btn-sm" href="/sop-to-lms/" data-funnel-cta="home_sop_demo">Live SCORM Demo</a>
@@ -287,6 +288,21 @@ function selfServeB2bKitsSection(site) {
   </div>
 
   <div class="b2b-kits-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:0.95rem">
+    <article class="b2b-kit-card is-featured-kit">
+      <div>
+        <div class="b2b-kit-head">
+          <span class="tag tag-systems">Udemy Flagship Masterclass · LIVE</span>
+          <span class="b2b-kit-price">$12.99 Launch (Reg. $69.99 · 81% OFF) · 65m Video + Code</span>
+        </div>
+        <h3>AI Corporate Training: UbD SOP-to-SCORM &amp; Video Factory</h3>
+        <p>14-lecture (64.6-minute) Python video and code-lab masterclass compiling enterprise SOPs and compliance policies into blind-verified ADL SCORM 1.2 packages, QTI 1.2 item banks, 300-DPI PDFs, and 1080p modules (coupon <code>MASTER2026_SCORM</code> valid through Dec 15, 2026).</p>
+      </div>
+      <div class="b2b-kit-actions">
+        <a class="btn btn-sm btn-primary" href="https://www.udemy.com/course/ai-corporate-training-ubd-sop-to-scorm-video-factory/?couponCode=MASTER2026_SCORM" target="_blank" rel="noopener" data-funnel-cta="udemy_card_sop_masterclass_1299">Enroll in 65m Masterclass ($12.99 Launch) -&gt;</a>
+        <a class="btn btn-sm" href="https://www.amazon.com/dp/B0HRQFWFPR" target="_blank" rel="noopener" data-funnel-cta="udemy_card_sop_book_2499">Amazon Paperback ($24.99)</a>
+      </div>
+    </article>
+
     <article class="b2b-kit-card">
       <div>
         <div class="b2b-kit-head">
@@ -309,7 +325,7 @@ function selfServeB2bKitsSection(site) {
           <span class="b2b-kit-price">$12.99 Launch (Reg. $39.99) · 40 Questions</span>
         </div>
         <h3>AI Instructional Design &amp; SOP-to-SCORM: Practice Exams</h3>
-        <p>Applied certification on backward-designed (UbD) corporate training, ADL SCORM 1.2 runtime telemetry, QTI 1.2 item banks, and 4-vendor blind-solver QA (coupon <code>LAUNCH2026_SCORM</code> valid through Dec 15, 2026). Companion 14-lecture (64+ min) video &amp; code-lab masterclass (<em>AI Corporate Training: UbD SOP-to-SCORM &amp; Video Factory</em>) is entering Udemy publication, with instant source access available today in the $99 Whop Vault.</p>
+        <p>Applied certification on backward-designed (UbD) corporate training, ADL SCORM 1.2 runtime telemetry, QTI 1.2 item banks, and 4-vendor blind-solver QA (coupon <code>LAUNCH2026_SCORM</code> valid through Dec 15, 2026). Pairs directly with the live 14-lecture (64.6-min) <em>UbD SOP-to-SCORM &amp; Video Factory</em> masterclass ($12.99 Launch) and $99 Whop Compiler Vault.</p>
       </div>
       <div class="b2b-kit-actions">
         <a class="btn btn-sm btn-primary" href="https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?couponCode=LAUNCH2026_SCORM" target="_blank" rel="noopener" data-funnel-cta="udemy_card_sop_1299">Enroll on Udemy ($12.99 Launch) -&gt;</a>
@@ -408,6 +424,34 @@ function omnistoreCatalogJsonLd(site) {
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
         url: "https://www.amazon.com/dp/B0HRQFWFPR",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      name: "AI Corporate Training: UbD SOP-to-SCORM & Video Factory",
+      description:
+        "14-lecture (64.6-minute) Python video and code-lab masterclass compiling enterprise SOPs and compliance policies into blind-verified ADL SCORM 1.2 packages, QTI 1.2 item banks, 300-DPI PDFs, and 1080p modules.",
+      courseCode: "MASTER2026_SCORM",
+      provider: {
+        "@type": "Person",
+        name: site.name || "Josh Durey",
+        sameAs: base,
+      },
+      url: "https://www.udemy.com/course/ai-corporate-training-ubd-sop-to-scorm-video-factory/?couponCode=MASTER2026_SCORM",
+      hasCourseInstance: {
+        "@type": "CourseInstance",
+        courseMode: "online",
+        courseWorkload: "PT65M",
+      },
+      offers: {
+        "@type": "Offer",
+        category: "Paid",
+        price: "12.99",
+        priceCurrency: "USD",
+        priceValidUntil: "2026-12-15",
+        availability: "https://schema.org/InStock",
+        url: "https://www.udemy.com/course/ai-corporate-training-ubd-sop-to-scorm-video-factory/?couponCode=MASTER2026_SCORM",
       },
     },
     {
