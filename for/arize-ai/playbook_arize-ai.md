@@ -1,30 +1,29 @@
-# Arize AI Multi-Agent Eval DAG: Week-1 Rollout Playbook
+# Arize AI Evals & Annotations Orchestration Rollout Plan (Week 1)
 
 ## Objective
-Deploy a robust, production-grade multi-agent evaluation pipeline for Evals & Annotations, enabling schema-based routing, cross-model verification, and human-in-the-loop escalation for Arize AI’s enterprise customers.
+Deploy the agent-orchestrated Evals & Annotations pipeline to enforce structured JSON governance, robust schema validation, and reliable human-in-the-loop escalation for all evaluation and annotation workflows in Arize AI's production environment.
 
 ## Day 1-2: Setup & Integration
-- **Connect Arize Preprocessor Agent** to intake endpoints (API, UI, or batch uploads).
-- **Configure schema routing rules** for top customer personas (e.g., Booking.com NLU, Uber RAG, Siemens DataAccess, PepsiCo Sentiment).
-- **Integrate primary and secondary model endpoints** (OpenAI, Anthropic, Cohere, Llama-3) with clear customer context tags.
+- Integrate the pipeline stages (Input Normalization, Policy Gate, Rubric Scoring, Human Review) into the Arize AI workspace.
+- Configure the router_system_prompt in the workflow agent, ensuring all outputs strictly conform to the unified JSON contract.
+- Set up logging and audit trails for every pipeline decision, including escalation and refusal events.
 
-## Day 3-4: Policy & Verification Gate Implementation
-- **Deploy policy agent** with explicit rules for PII, unauthorized data access, and prompt injection detection.
-- **Set up cross-model verification**: For each eval, require agreement between two distinct model families. If outputs disagree or confidence is low, flag for human review.
-- **Test edge cases** using provided scenarios, logging all escalations and policy flags.
+## Day 3-4: Test & Validate
+- Run the four provided test cases through the pipeline, confirming correct detection of missing fields, PII, policy violations, and unsupported integrations.
+- Validate that every output includes accurate schema_valid, policy_flag, escalate_to_human, substantive_deliverable, and checkpoint_reason fields.
+- Review audit logs with the Evals & Annotations team to ensure all escalations and refusals are justified and actionable.
 
-## Day 5: Human-in-the-Loop & Feedback Loop
-- **Onboard human annotators or customer SMEs** to review flagged cases in the Arize workspace.
-- **Establish escalation SOPs**: Any schema mismatch, policy flag, or cross-model disagreement triggers a human checkpoint. Annotators must resolve and document decisions.
-- **Enable feedback capture** for annotators to refine schema, policy, and model prompts.
+## Day 5: Human-in-the-Loop SOP
+- Define clear escalation rules: any null/ambiguous schema field, unverified PII/checkout, policy boundary, or unsupported integration triggers escalate_to_human: true.
+- Assign human reviewers to the escalation queue, with a 24-hour SLA for resolution.
+- Document remediation steps for each escalation type (e.g., requesting missing labels, verifying PII, rejecting unsupported integrations).
 
-## Adoption Metrics (Week 1)
-- **Pipeline reliability**: % of requests routed without error or unhandled exceptions.
-- **Escalation rate**: % of cases requiring human review (target: <15% after tuning).
-- **Annotation agreement**: Cross-model and human-model agreement rates.
-- **Policy compliance**: Zero unauthorized data access or PII leakage incidents.
+## Adoption Metrics
+- Track % of eval/annotation requests processed with zero missing/ambiguous fields.
+- Monitor escalation rates and average human review turnaround time.
+- Log all policy violations and remediation outcomes for continuous improvement.
 
 ## Continuous Improvement
-- Review flagged cases weekly to update schema, policy, and verification logic.
-- Use annotator feedback to refine prompts and reduce unnecessary escalations.
-- Expand customer-specific routing as new enterprise integrations are onboarded.
+- Weekly review of flagged cases and audit rationales with Product and Engineering.
+- Update rubric criteria and escalation rules based on real-world edge cases.
+- Expand integration checks as new workflows and customer requirements emerge.
