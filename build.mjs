@@ -172,12 +172,13 @@ async function main() {
   }
 
   // SEO surface (findability = traction)
-  const urls = ["", "work/", "skills/", "about/", ...(existsSync(path.join(ROOT, "sop-to-lms/index.html")) ? ["sop-to-lms/"] : []), ...(existsSync(path.join(ROOT, "interview")) ? ["interview/"] : []), ...(existsSync(path.join(ROOT, "m5-tribunal")) ? ["m5-tribunal/"] : []), ...(offer ? [`${offer.slug}/`] : []), ...items.map((i) => `work/${i.slug}/`)];
+  const urls = ["", "work/", "skills/", "about/", ...(existsSync(path.join(ROOT, "sop-to-lms/index.html")) ? ["sop-to-lms/"] : []), ...(existsSync(path.join(ROOT, "interview")) ? ["interview/"] : []), ...(existsSync(path.join(ROOT, "m5-tribunal")) ? ["m5-tribunal/"] : []), "llms.txt", ...(offer ? [`${offer.slug}/`] : []), ...items.map((i) => `work/${i.slug}/`)];
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`).join("\n")}
+${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc><lastmod>${FIXED_BUILD_DATE}</lastmod></url>`).join("\n")}
 </urlset>`;
   await emit("sitemap.xml", sitemap);
+  await emit("b78e41c9a3024fd1856c91be4402a817.txt", "b78e41c9a3024fd1856c91be4402a817");
   // robots: explicitly welcome the AI retrieval + training crawlers (the retrieval-inclusion gate).
   // Allowlisting only helps if access would otherwise be ambiguous — harmless and best-practice here.
   const aiCrawlers = [
@@ -199,6 +200,7 @@ ${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`)
 
   // Agentic Web Discovery: llms.txt + .well-known/agent.json (A2A AgentCard)
   const base = site.url.replace(/\/$/, "");
+  const cleanEm = (s = "") => String(s).replace(/\u2014/g, " - ");
   const llmsTxt = [
     `# ${site.name} - ${site.tagline}`,
     `> ${site.description}`,
@@ -208,22 +210,26 @@ ${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`)
     `- [B2B Corporate L&D SOP-to-LMS Compiler](${base}/sop-to-lms/): Compress enterprise course production from 6 weeks to 24 hours with live SCORM 1.2 telemetry, 4-vendor blind-solver verification, and a downloadable sample SCORM 1.2 package (${base}/sop-to-lms/sample-incident-sop-scorm12.zip).`,
     `- [Live 3-Minute Interactive AI Video Screen](${base}/interview/): Conversational technical & leadership screen escalating to ${site.links?.cal || "calendar"}.`,
     `- [256GB M5 Ultra vs. Cloud API Tribunal](${base}/m5-tribunal/): 72 SHA-256-verified runs comparing local MLX vs frontier cloud models with TCO router calculator.`,
+    `- [Remote Streamable HTTP MCP Server (io.github.jdurey/human-creative)](https://josh-employer-funnel.josh-durey.workers.dev/mcp): Official MCP Registry server (${base}/.well-known/agent.json | https://github.com/jdurey/human-creative-mcp) for 3-vendor workflow diagnostics, HAR sandboxes, 50-vector audits, and SOP-to-SCORM rubrics.`,
     `- [AgentCard (A2A Protocol)](${base}/.well-known/agent.json): Machine-readable capabilities, endpoints, and booking/diagnostic metadata.`,
     ``,
-    `## Self-Serve B2B Enterprise Kits, Live Udemy Practice Exams & Flagship Masterclasses`,
-    `- [Corporate L&D Zero-Hallucination SOP-to-SCORM & Video Factory ($99 Instant Checkout via Whop)](https://whop.com/checkout/plan_y1ACgqNYGtul8/): Compile SOPs into blind-verified SCORM 1.2, QTI 1.2, PDFs & 1080p video. Vault details: https://whop.com/human-creative-benchmark-studio/corporate-ld-sop-to-scorm-factory`,
-    `- [Enterprise AI Eval, 6-Rung Cost Router & REA AgentEnv Pro Kit ($79 Instant Checkout via Whop)](https://whop.com/checkout/plan_lGsdWjQsePkvO/): Python harnesses for 4-vendor LLM judge evals, 6-rung routing & AgentEnv. Vault details: https://whop.com/human-creative-benchmark-studio/enterprise-ai-eval-rea-pro-kit`,
-    `- [Production LLM Evals & Multi-Agent Ops: Practice Exams ($12.99 Launch Special via ?couponCode=LAUNCH2026_EVALS, Reg. $39.99, 40 Blind-Verified Questions)](https://www.udemy.com/course/production-llm-evals-multi-agent-ops-practice-exams/?couponCode=LAUNCH2026_EVALS): Self-serve timed practice exams on cross-family LLM judge calibration, 6-rung routing, and multi-agent failure triage (valid through Dec 15, 2026).`,
-    `- [AI Instructional Design & SOP-to-SCORM: Practice Exams ($12.99 Launch Special via ?couponCode=LAUNCH2026_SCORM, Reg. $39.99, 40 Scenario Questions)](https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?couponCode=LAUNCH2026_SCORM): Self-serve timed scenario exams on backward-designed (UbD) corporate training, ADL SCORM 1.2 telemetry, QTI 1.2, and blind-solver verification (valid through Dec 15, 2026).`,
-    `- [AI for Corporate Training & Instructional Design: The UbD Glass-Box Playbook ($24.99 LIVE Paperback on Amazon, ISBN 9798142559005)](https://www.amazon.com/dp/B0HRQFWFPR): Physical print reference playbook for zero-hallucination SOP-to-SCORM, QTI 1.2, and video pipelines (ASIN B0HRQFWFPR).`,
+    `## Self-Serve B2B Enterprise Kits, Live Udemy Practice Exams & Physical Amazon KDP Paperbacks (InStock)`,
+    `- [Corporate L&D Zero-Hallucination SOP-to-SCORM & Video Factory ($99 Instant Checkout via Whop, InStock)](https://whop.com/checkout/plan_y1ACgqNYGtul8/): Compile SOPs into blind-verified SCORM 1.2, QTI 1.2, PDFs & 1080p video (SKU: plan_y1ACgqNYGtul8). Vault details: https://whop.com/human-creative-benchmark-studio/corporate-ld-sop-to-scorm-factory`,
+    `- [Enterprise AI Eval, 6-Rung Cost Router & REA AgentEnv Pro Kit ($79 Instant Checkout via Whop, InStock)](https://whop.com/checkout/plan_lGsdWjQsePkvO/): Python harnesses for 4-vendor LLM judge evals, 6-rung routing & AgentEnv (SKU: plan_lGsdWjQsePkvO). Vault details: https://whop.com/human-creative-benchmark-studio/enterprise-ai-eval-rea-pro-kit`,
+    `- [Production LLM Evals & Multi-Agent Ops: Practice Exams ($12.99 Launch Special via ?couponCode=LAUNCH2026_EVALS, Reg. $39.99, InStock through 2026-12-15)](https://www.udemy.com/course/production-llm-evals-multi-agent-ops-practice-exams/?couponCode=LAUNCH2026_EVALS): 40 blind-verified scenario questions on cross-family LLM judge calibration, 6-rung routing, and multi-agent failure triage.`,
+    `- [AI Instructional Design & SOP-to-SCORM: Practice Exams ($12.99 Launch Special via ?couponCode=LAUNCH2026_SCORM, Reg. $39.99, InStock through 2026-12-15)](https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?couponCode=LAUNCH2026_SCORM): 40 scenario questions on backward-designed (UbD) corporate training, ADL SCORM 1.2 telemetry, QTI 1.2, and blind-solver verification.`,
+    `- [AI for Corporate Training & Instructional Design: The UbD Glass-Box Playbook (Live on Amazon ($24.99), InStock Paperback, ISBN 9798142559005, ASIN B0HRQFWFPR)](https://www.amazon.com/dp/B0HRQFWFPR): Physical 8.5x11 print reference playbook for zero-hallucination SOP-to-SCORM, QTI 1.2, and video pipelines.`,
+    `- [Benchmark AP Precalculus Unit 3 Exam Prep Workbook (Live on Amazon ($16.99), InStock Paperback, ISBN 9798142561688, ASIN B0HRQJLPRZ)](https://www.amazon.com/dp/B0HRQJLPRZ): Companion 300-DPI physical curriculum workbook from Benchmark AP Prep (https://benchmark-ap.pages.dev).`,
     `- [Flagship 14-Lecture (64+ Min) Video & Code-Lab Masterclasses (Entering Udemy Publication + Instant Access via Whop Vaults)](https://whop.com/human-creative-benchmark-studio/): Full 14-lecture video and code-lab masterclasses ("Production LLM Evals, Cost Routing & UbD AI Pipelines" and "AI Corporate Training: UbD SOP-to-SCORM & Video Factory") are entering publication on Udemy, with instant code-lab access available today via the $79 (https://whop.com/checkout/plan_lGsdWjQsePkvO/) and $99 (https://whop.com/checkout/plan_y1ACgqNYGtul8/) Whop Vaults.`,
     `- [Human Creative & Benchmark Studio Storefront Hub](https://whop.com/human-creative-benchmark-studio/): Official self-serve digital vault hub for enterprise L&D, AI evaluation, and curriculum systems.`,
     `- [Done-For-You B2B Async Pilot & Workflow Sprints ($2.5k-$10k Fixed-Scope)](${site.links?.cal || "https://cal.com/joshua-durey-wqgvgp/20-min-scope-call"}): Book a 20-minute scope call or request a free custom prototype at ${base}/#commission-prototype.`,
     ``,
     `## Featured Greenfield Harnesses & Case Studies (${items.length} Published)`,
-    ...items.slice(0, 20).map((cs) => `- [${cs.title}](${base}/work/${cs.slug}/): ${cs.summary || cs.subtitle || "Production AI workflow & quality gate study"}`),
+    ...items.slice(0, 20).map((cs) => `- [${cleanEm(cs.title)}](${base}/work/${cs.slug}/): ${cleanEm(cs.summary || cs.subtitle || "Production AI workflow & quality gate study")}`),
     ``,
-  ].join("\n");
+  ]
+    .join("\n")
+    .replace(/\u2014/g, " - ");
   await emit("llms.txt", llmsTxt);
 
   const agentCard = {
@@ -239,8 +245,11 @@ ${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`)
     capabilities: {
       streaming: false,
       pushNotifications: false,
+      mcpEndpoint: "https://josh-employer-funnel.josh-durey.workers.dev/mcp",
+      mcpRegistryId: "io.github.jdurey/human-creative",
     },
     endpoints: {
+      mcpServer: "https://josh-employer-funnel.josh-durey.workers.dev/mcp",
       diagnosticApi: "https://josh-employer-funnel.josh-durey.workers.dev/api/funnel/diagnose",
       prototypeCommissionApi: "https://josh-employer-funnel.josh-durey.workers.dev/api/funnel/capture",
       sopToLmsShowcase: `${base}/sop-to-lms/`,
@@ -253,6 +262,7 @@ ${urls.map((u) => `  <url><loc>${site.url.replace(/\/$/, "")}/${u}</loc></url>`)
       udemyLlmEvalsPracticeExams1299LaunchUsd: "https://www.udemy.com/course/production-llm-evals-multi-agent-ops-practice-exams/?couponCode=LAUNCH2026_EVALS",
       udemySopToScormPracticeExams1299LaunchUsd: "https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?couponCode=LAUNCH2026_SCORM",
       corporateLdAmazonPaperback2499Usd: "https://www.amazon.com/dp/B0HRQFWFPR",
+      apPrecalcUnit3Paperback1699Usd: "https://www.amazon.com/dp/B0HRQJLPRZ",
       interactiveVideoTwin: `${base}/interview/`,
       calendarBooking: site.links?.cal || "https://cal.com/joshua-durey-wqgvgp/20-min-scope-call",
     },

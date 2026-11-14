@@ -382,6 +382,131 @@ function card(cs, index = 0) {
   </a>`;
 }
 
+function omnistoreCatalogJsonLd(site) {
+  const base = String(site.url || "https://jdurey.github.io").replace(/\/$/, "") + "/";
+  const authorPerson = {
+    "@type": "Person",
+    name: site.name || "Josh Durey",
+    url: base,
+  };
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "Book",
+      name: "AI for Corporate Training & Instructional Design: The UbD Glass-Box Playbook for Zero-Hallucination SOP-to-SCORM, QTI & Video Pipelines",
+      description:
+        "Enterprise L&D architecture paperback covering deterministic SOP-to-SCORM 1.2 compilation, multi-model verification rubrics, and audit-ready LMS rollouts.",
+      isbn: "9798142559005",
+      gtin13: "9798142559005",
+      sku: "B0HRQFWFPR",
+      bookFormat: "https://schema.org/Paperback",
+      author: authorPerson,
+      url: "https://www.amazon.com/dp/B0HRQFWFPR",
+      offers: {
+        "@type": "Offer",
+        price: "24.99",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+        url: "https://www.amazon.com/dp/B0HRQFWFPR",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      name: "Production LLM Evals & Multi-Agent Ops: Practice Exams",
+      description:
+        "40 blind-verified scenario questions on cross-family LLM judge calibration, 6-rung cost routing, silent truncation detection, and multi-agent failure triage.",
+      courseCode: "LAUNCH2026_EVALS",
+      provider: {
+        "@type": "Person",
+        name: site.name || "Josh Durey",
+        sameAs: base,
+      },
+      url: "https://www.udemy.com/course/production-llm-evals-multi-agent-ops-practice-exams/?couponCode=LAUNCH2026_EVALS",
+      hasCourseInstance: {
+        "@type": "CourseInstance",
+        courseMode: "online",
+      },
+      offers: {
+        "@type": "Offer",
+        category: "Paid",
+        price: "12.99",
+        priceCurrency: "USD",
+        priceValidUntil: "2026-12-15",
+        availability: "https://schema.org/InStock",
+        url: "https://www.udemy.com/course/production-llm-evals-multi-agent-ops-practice-exams/?couponCode=LAUNCH2026_EVALS",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      name: "AI Instructional Design & SOP-to-SCORM: Practice Exams",
+      description:
+        "40 scenario questions on backward-designed (UbD) corporate training, ADL SCORM 1.2 runtime telemetry, QTI 1.2 item banks, and 4-vendor blind-solver verification.",
+      courseCode: "LAUNCH2026_SCORM",
+      provider: {
+        "@type": "Person",
+        name: site.name || "Josh Durey",
+        sameAs: base,
+      },
+      url: "https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?couponCode=LAUNCH2026_SCORM",
+      hasCourseInstance: {
+        "@type": "CourseInstance",
+        courseMode: "online",
+      },
+      offers: {
+        "@type": "Offer",
+        category: "Paid",
+        price: "12.99",
+        priceCurrency: "USD",
+        priceValidUntil: "2026-12-15",
+        availability: "https://schema.org/InStock",
+        url: "https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?couponCode=LAUNCH2026_SCORM",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: "Corporate L&D Zero-Hallucination SOP-to-SCORM & Video Factory",
+      description:
+        "Self-serve enterprise compiler turning SOPs and compliance policies into blind-verified SCORM 1.2 packages, QTI 1.2 banks, 300-DPI PDFs, and 1080p modules.",
+      sku: "plan_y1ACgqNYGtul8",
+      brand: {
+        "@type": "Brand",
+        name: "Human Creative",
+      },
+      url: "https://whop.com/checkout/plan_y1ACgqNYGtul8/",
+      offers: {
+        "@type": "Offer",
+        price: "99.00",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+        url: "https://whop.com/checkout/plan_y1ACgqNYGtul8/",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: "Enterprise AI Eval, 6-Rung Cost Router & REA AgentEnv Pro Kit",
+      description:
+        "Production Python harnesses for 4-vendor cross-family LLM judge evaluation, deterministic 6-rung cost routing, and reproducible AgentEnv stress-testing.",
+      sku: "plan_lGsdWjQsePkvO",
+      brand: {
+        "@type": "Brand",
+        name: "Human Creative",
+      },
+      url: "https://whop.com/checkout/plan_lGsdWjQsePkvO/",
+      offers: {
+        "@type": "Offer",
+        price: "79.00",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+        url: "https://whop.com/checkout/plan_lGsdWjQsePkvO/",
+      },
+    },
+  ];
+}
+
 export function homePage({ site, featured, recent }) {
   const body = `
 <section class="hero">
@@ -445,7 +570,15 @@ ${funnelArchitectureSection()}
       .join("\n")}
   </ul>
 </section>`;
-  return layout({ site, title: "", description: site.description, body, active: "home", canonicalPath: "/" });
+  return layout({
+    site,
+    title: "",
+    description: site.description,
+    body,
+    active: "home",
+    canonicalPath: "/",
+    jsonLd: omnistoreCatalogJsonLd(site),
+  });
 }
 
 export function workIndex({ site, items }) {
