@@ -1,33 +1,24 @@
-# MagicSchool AI Day-1 Rollout Playbook: Principal Rubric & Raina Tutor Safeguards
+# MagicSchool AI Raina Tutor Answer-Leak Prevention & Cost Routing: Week-1 Ops Playbook
 
-## Week-1 Objectives
-- Deploy the multi-stage rubric and answer-leak prevention pipeline for Raina Student Tutor.
-- Ensure all outputs are aligned with MagicSchool's Principal Evaluation Rubric and answer-leak policies.
-- Establish cost-routing and human escalation for ambiguous or high-risk cases.
+## Objective
+Deploy and operationalize the Day-1 evaluation pipeline for Raina Student Tutor answer-leak prevention, 6-rung cost routing, and district AI enablement. Ensure all MagicSchool AI workflows are governed by structured JSON contracts, robust rubric scoring, and human-in-the-loop checkpoints.
 
-## SOP Steps
-1. **Golden-Set Calibration**
-   - Load 10-15 golden-set student-tutor exchanges covering all rubric dimensions (e.g., ELA, Math, Science, SEL).
-   - Run initial outputs through Stage 1 and review rubric scores. Flag any outputs below 4 for manual review.
-2. **Policy Gate & Leak Detection**
-   - Integrate Claude 3 Opus policy layer. Test with known answer-leak and prompt injection probes (see CASE-01, CASE-03).
-   - Document any false positives/negatives and adjust detection thresholds in collaboration with the security team.
-3. **6-Rung Cost Routing**
-   - Configure CostRouter v2 with district-specific cost/complexity thresholds. Validate routing logic with 5-10 real teacher/student queries.
-   - For any rung 5-6 cases, ensure "escalate_to_human" is triggered and logged in the audit dashboard.
-4. **Cross-Model Verification & Human Checkpoint**
-   - Assign 2-3 Enablement Team members to review all escalated cases daily. Use the cross-model verification protocol to resolve rubric disagreements or policy traps.
-   - Document escalation outcomes and update the rubric or policy guidance as needed.
+## Day 1-2: Setup & Stakeholder Alignment
+- Review the JSON contract and DAG stages with district AI leads, curriculum directors, and IT compliance officers.
+- Map all existing Raina Tutor and district workflow endpoints to the Input Normalization & Schema Validation stage.
+- Assign district ops staff as escalation reviewers for flagged cases (missing schema, policy risks, unsupported integrations).
 
-## Human Checkpoint Rules
-- Any ambiguous rubric fit, prompt injection, or district policy change triggers mandatory human review.
-- All escalations must be logged with explanation and resolution timestamp.
+## Day 3-4: Pilot & Human Checkpoint Training
+- Run 10-20 live Raina Tutor and district admin scenarios through the pipeline, including all four provided test cases.
+- For each flagged or escalated case, require a human reviewer to audit the detected_risks_or_gaps and checkpoint_reason fields before output is released to end users.
+- Train reviewers to recognize answer-leak, prompt-injection, and reward-gaming attempts using real MagicSchool AI classroom examples.
 
-## Adoption Metrics
-- Target: 95% rubric-aligned, leak-free outputs in first 7 days.
-- <2% false positive escalation rate.
-- All district policy changes reflected in rubric logic within 48 hours.
+## Day 5-7: Metrics, Feedback, and Iteration
+- Track key adoption and safety metrics: percentage of sessions with valid JSON output, rate of human escalations, rubric agreement rate between agent and human reviewers, and time-to-resolution for flagged cases.
+- Hold a daily standup to review escalated cases and refine schema validation, rubric calibration, and policy checkpoint logic.
+- Update district onboarding materials to include JSON contract requirements and escalation SOPs.
 
-## Communication
-- Daily Slack updates to Principal Evaluation and Enablement Teams.
-- Weekly summary report to district leadership and MagicSchool AI product leads.
+## Ongoing
+- Weekly audit of pipeline logs for false negatives (missed leaks or policy risks) and false positives (over-escalation).
+- Quarterly rubric recalibration with district curriculum and compliance teams.
+- Continuous improvement of agent prompts and schema validation rules based on real classroom and district feedback.
