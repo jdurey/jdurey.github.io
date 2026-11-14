@@ -24,5 +24,8 @@ So the work I do now is horizontal. The domain was education. The skill is getti
 
 I'm open to remote roles in applied AI enablement, full-time, fractional, or focused consulting. If you're putting AI into a real workflow and you need to know it works before a customer does, that's my lane.
 
+- **Live 3-Min AI Twin:** [jdurey.github.io/interview](https://jdurey.github.io/interview/)
+- **Book a 20-Min Call:** [cal.com/joshua-durey-wqgvgp/20-min-scope-call](https://cal.com/joshua-durey-wqgvgp/20-min-scope-call)
 - **Email:** [josh.durey@gmail.com](mailto:josh.durey@gmail.com)
+- **LinkedIn:** [linkedin.com/in/joshua-durey](https://www.linkedin.com/in/joshua-durey/)
 - **GitHub:** [github.com/jdurey](https://github.com/jdurey)
