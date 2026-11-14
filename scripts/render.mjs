@@ -238,6 +238,7 @@ function selfServeB2bKitsSection(site) {
       </div>
       <div class="b2b-kit-actions">
         <a class="btn btn-sm btn-checkout" href="https://whop.com/checkout/plan_y1ACgqNYGtul8/" target="_blank" rel="noopener" data-funnel-cta="home_whop_sop_99">Self-Serve Enterprise Kit ($99) -&gt;</a>
+        <a class="btn btn-sm" href="https://www.amazon.com/dp/B0HRQFWFPR" target="_blank" rel="noopener" data-funnel-cta="home_amazon_kdp_corp_2499">Amazon Paperback ($24.99 · ISBN 9798142559005) -&gt;</a>
         <a class="btn btn-sm" href="https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?referralCode=5E22746817AA1D8B741E" target="_blank" rel="noopener" data-funnel-cta="home_udemy_sop_exams_3999">Udemy Practice Exams ($39.99 LIVE) -&gt;</a>
         <a class="btn btn-sm" href="/sop-to-lms/" data-funnel-cta="home_sop_demo">Live SCORM Demo</a>
       </div>
@@ -313,6 +314,21 @@ function selfServeB2bKitsSection(site) {
       <div class="b2b-kit-actions">
         <a class="btn btn-sm btn-primary" href="https://www.udemy.com/course/ai-instructional-design-sop-to-scorm-practice-exams/?referralCode=5E22746817AA1D8B741E" target="_blank" rel="noopener" data-funnel-cta="udemy_card_sop_3999">Enroll on Udemy ($39.99 LIVE) -&gt;</a>
         <a class="btn btn-sm" href="https://whop.com/checkout/plan_y1ACgqNYGtul8/" target="_blank" rel="noopener" data-funnel-cta="udemy_card_whop_99">Instant Compiler Vault ($99)</a>
+      </div>
+    </article>
+
+    <article class="b2b-kit-card">
+      <div>
+        <div class="b2b-kit-head">
+          <span class="tag tag-enablement">Amazon KDP Paperback · LIVE</span>
+          <span class="b2b-kit-price">$24.99 · ISBN 9798142559005</span>
+        </div>
+        <h3>AI for Corporate Training &amp; Instructional Design Playbook</h3>
+        <p>Physical print reference (<em>The UbD Glass-Box Playbook for Zero-Hallucination SOP-to-SCORM, QTI &amp; Video Pipelines</em>, ASIN <code>B0HRQFWFPR</code>) covering deterministic SOP-to-LMS compilation and 4-vendor blind-solver QA.</p>
+      </div>
+      <div class="b2b-kit-actions">
+        <a class="btn btn-sm btn-primary" href="https://www.amazon.com/dp/B0HRQFWFPR" target="_blank" rel="noopener" data-funnel-cta="amazon_card_corp_ld_2499">Buy on Amazon ($24.99 LIVE) -&gt;</a>
+        <a class="btn btn-sm" href="/sop-to-lms/" data-funnel-cta="amazon_card_sop_demo">Interactive SCORM Demo</a>
       </div>
     </article>
   </div>
