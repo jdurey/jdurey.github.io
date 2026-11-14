@@ -1,35 +1,26 @@
-# HubSpot TrustOps Red Team Kit: Week-1 Rollout Plan
+## HubSpot Trust Enablement Workflow Kit: Week-1 Rollout Plan
 
-## Objective
-Deploy a behavioral red team pipeline to proactively test and harden HubSpot's AI agent workflows against adversarial prompts, policy bypasses, and ambiguous customer requests, ensuring customer trust and compliance from Day 1.
+### Objective
+Deploy a robust, JSON-governed workflow for triaging and responding to customer security inquiries, ensuring every response is auditable, policy-compliant, and ready for enterprise scrutiny.
 
-## Day 1-2: Setup & Access
-- Provision access to the TrustOps Red Team Kit for the Senior Manager, Customer Trust Enablement and designated TrustOps specialists.
-- Integrate the Input Normalization & Canary Check module with HubSpot's Agent Hub and Service Hub test environments.
-- Confirm logging and audit trail setup for all flagged and escalated cases.
+### Day 1-2: Team Onboarding & SOP Review
+- Brief Customer Trust Enablement specialists and managers on the new workflow, emphasizing the importance of structured JSON outputs and audit trails.
+- Distribute this playbook and walk through each pipeline stage, highlighting real HubSpot scenarios (see cases above).
+- Review escalation rules: any ambiguous schema, PII/checkout request, unsupported integration, or suspected policy violation must be flagged and held for human review.
 
-## Day 3-4: Scenario Injection & Human Checkpoint Configuration
-- Load the four provided HubSpot-specific test cases into the pipeline.
-- Assign at least two TrustOps team members as human checkpoint reviewers for all escalated or ambiguous cases.
-- Review and customize escalation triggers (e.g., canary phrase detection, ambiguous intent, policy boundary violations) to match HubSpot's latest policies.
+### Day 3-4: Hands-On Training & Shadowing
+- Run live-fire drills using the four provided test cases. Each specialist processes sample inputs through the workflow, with facilitators reviewing JSON outputs for contract completeness and correct flagging.
+- Pair new team members with experienced staff for shadowing, focusing on normalization, risk detection, and escalation rationale.
+- Use HubSpot's internal knowledge base and security documentation to validate all substantive deliverables.
 
-## Day 5: Live Simulation & Response Calibration
-- Run live simulations using the provided cases and several real anonymized customer queries from Service Hub.
-- Document agent responses, refusal rates, escalation frequency, and any policy or refusal errors.
-- Hold a daily 30-minute standup to review flagged cases and calibrate escalation/refusal logic.
+### Day 5: Human Checkpoint & Audit Logging
+- Senior Manager reviews all flagged cases, ensuring audit rationales are clear and remediation steps are actionable.
+- Log all escalated cases in a central audit tracker, noting detected gaps, policy flags, and final outcomes.
 
-## Day 6-7: Metrics, Feedback, and Continuous Improvement
-- Track adoption metrics: percentage of high-risk cases correctly escalated, refusal accuracy, and time-to-human resolution.
-- Gather feedback from TrustOps reviewers on edge cases and false positives/negatives.
-- Iterate on prompt hardening, canary phrase lists, and escalation SOPs based on findings.
+### Adoption Metrics & Continuous Improvement
+- Track: (1) % of inquiries processed with valid JSON contract, (2) # of escalations vs. resolved cases, (3) time to resolution for flagged cases, and (4) feedback from Sales, Legal, and Product on response quality.
+- Hold a retrospective at end of week to identify friction points and update SOPs or escalation criteria as needed.
 
-## Ongoing SOP
-- Require human checkpoint review for all flagged or high-risk cases (minimum 2 reviewers per week).
-- Update policy boundaries and escalation rules monthly or as HubSpot policies evolve.
-- Report weekly adoption and incident metrics to the Customer Trust Enablement leadership.
-
-## Success Metrics
-- 100% refusal accuracy on policy-trap and prompt injection cases.
-- <10% false negative rate for escalation triggers.
-- <24h mean time to human resolution for escalated cases.
-- Documented improvement in agent refusal and escalation behavior within two weeks.
+### Ongoing
+- Integrate this workflow into HubSpot's broader trust enablement and sales support processes.
+- Schedule monthly reviews to update policy rules, supported integrations, and compliance documentation in response to evolving customer and regulatory needs.
