@@ -106,6 +106,8 @@ function installAbmAutoTracking() {
       trackFunnelEvent("cal_booking_click", { detail: path });
     } else if (href.includes("whop.com/")) {
       trackFunnelEvent("whop_checkout_click", { detail: link.dataset.funnelCta || href });
+    } else if (href.includes("udemy.com/")) {
+      trackFunnelEvent("udemy_enrollment_click", { detail: link.dataset.funnelCta || href });
     } else if (href.endsWith(".py") || href.includes("orchestrator_")) {
       trackFunnelEvent("orchestrator_download", { detail: href });
     } else if (href.includes("/interview")) {
