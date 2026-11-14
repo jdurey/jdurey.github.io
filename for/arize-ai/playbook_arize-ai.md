@@ -1,29 +1,28 @@
-# Arize AI Evals & Annotations Orchestration Rollout Plan (Week 1)
+# Arize AI LLM Evaluation & Rubric Router: Week-1 Rollout Playbook
 
 ## Objective
-Deploy the agent-orchestrated Evals & Annotations pipeline to enforce structured JSON governance, robust schema validation, and reliable human-in-the-loop escalation for all evaluation and annotation workflows in Arize AI's production environment.
+Deploy and operationalize the LLM evaluation and reward rubric router for Arize AI's observability workflows, ensuring every trace, session, and agentic output is normalized, scored, and governed by the unified JSON contract from day one.
 
-## Day 1-2: Setup & Integration
-- Integrate the pipeline stages (Input Normalization, Policy Gate, Rubric Scoring, Human Review) into the Arize AI workspace.
-- Configure the router_system_prompt in the workflow agent, ensuring all outputs strictly conform to the unified JSON contract.
-- Set up logging and audit trails for every pipeline decision, including escalation and refusal events.
+## Day 1-2: Onboarding & Baseline Setup
+- Integrate the router system prompt and JSON contract into the Arize evaluation pipeline.
+- Conduct a walkthrough with Product, Engineering, and Ops to review the four pipeline stages and JSON schema.
+- Import golden-set traces and RL-environment states for initial rubric calibration.
 
-## Day 3-4: Test & Validate
-- Run the four provided test cases through the pipeline, confirming correct detection of missing fields, PII, policy violations, and unsupported integrations.
-- Validate that every output includes accurate schema_valid, policy_flag, escalate_to_human, substantive_deliverable, and checkpoint_reason fields.
-- Review audit logs with the Evals & Annotations team to ensure all escalations and refusals are justified and actionable.
+## Day 3-4: Human Checkpoint Training & Policy Drills
+- Train designated human reviewers on schema validation, policy flagging, and escalation SOPs using the four provided test cases.
+- Simulate ambiguous, PII, policy-trap, and hallucination scenarios; ensure reviewers can interpret the JSON contract and provide audit rationales.
+- Set up dashboards to track flagged, escalated, and refused cases.
 
-## Day 5: Human-in-the-Loop SOP
-- Define clear escalation rules: any null/ambiguous schema field, unverified PII/checkout, policy boundary, or unsupported integration triggers escalate_to_human: true.
-- Assign human reviewers to the escalation queue, with a 24-hour SLA for resolution.
-- Document remediation steps for each escalation type (e.g., requesting missing labels, verifying PII, rejecting unsupported integrations).
+## Day 5: Live Pilot & Feedback Loop
+- Route 50+ live production traces through the pipeline, monitoring for schema gaps, policy risks, and unsupported integrations.
+- Hold daily standups to review escalated cases, audit rationales, and remediation steps.
+- Collect feedback from AI engineers and human reviewers on workflow clarity and false positive/negative rates.
 
 ## Adoption Metrics
-- Track % of eval/annotation requests processed with zero missing/ambiguous fields.
-- Monitor escalation rates and average human review turnaround time.
-- Log all policy violations and remediation outcomes for continuous improvement.
+- Track: (1) % of traces with missing/ambiguous fields flagged, (2) % of PII/policy violations escalated, (3) reviewer agreement rate on audit rationales, and (4) time-to-remediation for flagged cases.
+- Target: >95% schema gap detection, 100% policy violation escalation, and <24h average remediation cycle.
 
-## Continuous Improvement
-- Weekly review of flagged cases and audit rationales with Product and Engineering.
-- Update rubric criteria and escalation rules based on real-world edge cases.
-- Expand integration checks as new workflows and customer requirements emerge.
+## SOP for Human Checkpoints
+- Any case with null/ambiguous fields, unverified PII, unsupported integrations, or policy risk must be escalated.
+- Human reviewers must log a checkpoint_reason and remediation steps in the audit trail.
+- Weekly review of escalated cases for rubric drift and continuous improvement.
