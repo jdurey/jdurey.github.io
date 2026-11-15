@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SE University - ASCE 7-22 Wind/Tornado Loads &amp; ACI 318-19 Shear Lug Connections PDH (Demo)</title>
+<style>
+  :root {
+    --bg:#0b1120; --panel:#111827; --panel2:#0f172a; --border:#1f2937; --text:#f3f4f6;
+    --muted:#9ca3af; --accent:#38bdf8; --green:#22c55e; --amber:#f59e0b; --red:#ef4444;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  .scorm-bar { background:#062033; border-bottom:1px solid #155e75; padding:8px 18px; font-size:12px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; color:#bae6fd; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .wrap { max-width:940px; margin:0 auto; padding:26px 20px 64px; }
+  .pill { display:inline-block; padding:4px 11px; border-radius:999px; font-size:11.5px; font-weight:700; background:rgba(56,189,248,0.14); color:var(--accent); border:1px solid rgba(56,189,248,0.35); margin-bottom:10px; }
+  h1 { font-size:24px; margin:0 0 8px; line-height:1.25; }
+  .sub { color:var(--muted); font-size:14px; margin:0 0 20px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:14px; }
+  .card h3 { margin:0 0 8px; font-size:16px; color:#e0f2fe; }
+  .card h4 { margin:14px 0 6px; font-size:14px; color:#bae6fd; }
+  .card p { margin:0 0 10px; font-size:14px; color:#d1d5db; }
+  .fm-box { background:#0c192c; border:1px solid #1e3a5f; border-radius:12px; padding:16px 18px; margin-bottom:18px; font-size:13px; color:#cbd5e1; }
+  .q-card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:16px; }
+  .q-obj { font-size:11.5px; color:var(--accent); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:700; }
+  .q-stem { font-size:15px; font-weight:600; margin:0 0 12px; }
+  .opt { display:block; width:100%; text-align:left; background:var(--panel2); border:1px solid #334155; color:var(--text); border-radius:8px; padding:10px 12px; margin-bottom:8px; cursor:pointer; font-size:13.5px; }
+  .opt.selected { border-color:var(--accent); background:rgba(56,189,248,0.12); }
+  .opt.correct { border-color:var(--green); background:rgba(34,197,94,0.14); }
+  .opt.wrong { border-color:var(--red); background:rgba(239,68,68,0.14); }
+  .rat { margin-top:8px; padding:10px 12px; border-radius:8px; font-size:13px; display:none; background:#090e1a; border:1px solid var(--border); }
+  .btn { background:var(--accent); color:#082f49; border:none; border-radius:999px; padding:10px 20px; font-weight:700; font-size:13.5px; cursor:pointer; }
+  .btn-sec { background:#1e293b; color:var(--text); border:1px solid #475569; border-radius:999px; padding:7px 14px; font-weight:600; font-size:12.5px; cursor:pointer; }
+  .section-scroll { max-height:320px; overflow-y:auto; padding-right:8px; }
+</style>
+<script>window.COURSE_DATA = {"course_id": "SEU_ASCE722_SHEARLUGS", "org_name": "SE University", "title": "SE University - ASCE 7-22 Wind/Tornado Loads & ACI 318-19 Shear Lug Connections PDH (Demo)", "credit_badge": "1.0 PDH Credit · NCEES CPC / Structural Engineering Self-Study SCORM 1.2", "source_digest": "Compiled from ASCE/SEI 7-22 Chapters 26-32 (Updated Wind Velocity Pressure Profile & New Chapter 32 Tornado Loads) and ACI 318-19 Section 17.11 / AISC Design Guide 1 (Concrete Bearing & Breakout for Welded Base-Plate Shear Lugs), modeled on SE University's catalog ('Wind Loads in ASCE 7-22' & 'Shear Lugs: Myths, Mysteries, and Misunderstandings when Dealing with Concrete Connections').", "ceu_profile": "cle_pdh", "mastery_score": 75, "pass_score": 75, "no_answer_leak_on_fail": true, "reveal_answers_on_fail": false, "objectives": [{"id": "OBJ_1", "text": "Determine Risk Category III and IV tornado-load applicability and updated Kz velocity pressure exposure coefficients under ASCE 7-22 Chapters 26 through 32."}, {"id": "OBJ_2", "text": "Calculate concrete bearing strength and concrete breakout capacity for welded steel base-plate shear lugs under ACI 318-19 Section 17.11."}, {"id": "OBJ_3", "text": "Verify load-distribution compatibility so cast-in anchor bolts and welded shear lugs are not erroneously summed directly in column base shear transfer."}], "sections": [{"title": "1. ASCE 7-22 Wind Load Revisions: Updated Kz Profiles, Elevated-Structure Rules & Chapter 32 Tornado Loads", "html": "<p>ASCE/SEI 7-22 introduced historic updates across Chapters 26 through 32. First, Chapter 32 establishes mandatory Tornado Load provisions solely for Risk Category III and Risk Category IV buildings and other structures located inside the Tornado-Prone Region (covering most of the US east of the Continental Divide), evaluated as an envelope alongside Chapter 27-30 synoptic/hurricane wind loads using tornado-specific internal pressure and directionality modifiers.<\/p><p>Second, ASCE 7-22 updated atmospheric boundary-layer gradient heights (zg) and empirical terrain exponents (updated velocity pressure coefficient Kz tables across Exposure B and C), eliminated the simplified Envelope Part 2 enclosed-simple-diaphragm shortcut tables in favor of unified Main Wind Force Resisting System (MWFRS) and Components &amp; Cladding (C&amp;C) procedures, and added explicit aerodynamic provisions for elevated coastal/floodplain structures.<\/p>"}, {"title": "2. ACI 318-19 Section 17.11 & AISC Design Guide 1: Base-Plate Shear Lug Bearing, Breakout & Stiffness Compatibility", "html": "<p>ACI 318-19 added explicit code provisions in Section 17.11 for steel shear lugs welded to column base plates and embedded into concrete pedestals/grout pockets. Engineers must check both concrete bearing on the effective shear lug projected area (excluding the grout bed thickness!) and concrete shear breakout (Vcbg) toward free pedestal edges, plus cantilever bending of the shear lug plate and double-fillet or CJP weld demand at the base-plate interface.<\/p><p>A pervasive connection myth is summing anchor-rod shear strength plus shear-lug capacity plus base-plate friction simultaneously. Because oversized base-plate holes (per AISC Table 14-2) require substantial horizontal slip before anchor rods bear (unless plate washers are welded), whereas a grouted shear lug engages immediately at stiff small deformations, engineers design the shear lug (or friction + shear lug per ACI 318-19 17.11.1.1.2 constraints) to carry the full factored shear without combining anchor-bolt shear.<\/p>"}], "quiz": [{"objective_id": "OBJ_1", "question": "Under ASCE/SEI 7-22 Chapter 32, which project requires a mandatory Tornado Load evaluation in addition to Chapters 27-30 wind design?", "options": ["A Risk Category II suburban warehouse located in Oklahoma City", "A Risk Category IV acute-care hospital or Risk Category III public high school located within the ASCE 7-22 Tornado-Prone Region", "A Risk Category I agricultural storage barn in Kansas", "Any single-family detached residence nationwide regardless of Risk Category"], "explanations": ["ASCE 7-22 Chapter 32 (Section 32.1.1) applies strictly to Risk Category III and IV structures in the Tornado-Prone Region, not Risk Category II.", "Section 32.1.1 mandates Chapter 32 tornado load determination for Risk Category III and IV buildings located in the Tornado-Prone Region.", "Risk Category I structures are excluded from Chapter 32 tornado design.", "Residential Risk Category II structures are outside the scope of mandatory ASCE 7-22 Chapter 32 provisions."], "correct": 2, "overall": "ASCE 7-22 Chapter 32 mandates tornado-load checks specifically for Risk Category III and IV buildings located within the Tornado-Prone Region."}, {"objective_id": "OBJ_2", "question": "When calculating the effective concrete bearing area (Abrg) of a welded steel shear lug beneath a 2-inch non-shrink grout pad under ACI 318-19 Section 17.11.2, which portion of the lug depth contributes to bearing resistance?", "options": ["The entire total depth of the shear lug measured from the underside of the steel base plate, including the 2-inch grout layer", "Only the embedded portion of the shear lug projecting into the structural concrete foundation below the grout bed (excluding grout thickness)", "Twice the base-plate plan area regardless of lug embedment depth", "Zero concrete bearing check is required if anchor rods are ASTM F1554 Grade 55"], "explanations": ["ACI 318-19 Section 17.11.2 excludes the grout bed thickness from effective bearing area while still accounting for the grout lever arm in lug bending.", "Effective bearing area Abrg includes only the projected lug area bearing directly against structural concrete below the grout pad, though grout thickness increases bending moment on the lug-to-base-plate weld.", "Base-plate plan area governs vertical axial bearing, not horizontal shear-lug face bearing.", "Anchor rod grade does not waive ACI 318-19 Section 17.11 bearing and concrete breakout checks on a shear lug."], "correct": 2, "overall": "ACI 318-19 excludes grout thickness from effective concrete bearing area while retaining the full lever arm across the grout layer for lug bending design."}, {"objective_id": "OBJ_3", "question": "Why do ACI 318-19 Section 17.11.1 and AISC Design Guide 1 prohibit directly adding standard-oversized-hole anchor-rod shear strength to welded shear-lug shear capacity at a column base?", "options": ["Deformation incompatibility: the stiff grouted shear lug engages and triggers concrete breakout before the base plate slips far enough across oversized holes to engage unweighted anchor rods", "Steel anchor rods dissolve chemically when placed within 12 inches of a welded shear lug", "ASCE 7-22 bans anchor rods on any column subjected to wind uplift", "Welded shear lugs resist only tension uplift and carry zero horizontal shear"], "explanations": ["Base-plate holes per AISC Table 14-2 are significantly oversized; concrete breakout at the stiff shear lug occurs at tiny displacements long before anchor rods bear in shear.", "No chemical incompatibility exists between carbon/alloy steel anchor rods and structural steel shear lugs.", "Anchor rods remain essential for uplift tension and erection stability.", "Shear lugs specifically transfer horizontal base shear into the concrete pedestal, never tension uplift."], "correct": 1, "overall": "Stiffness/slip incompatibility prevents simultaneous peak mobilization of grouted shear lugs and anchor rods in oversized base-plate holes."}, {"objective_id": "OBJ_2", "question": "A shear lug transfers horizontal shear toward a nearby free edge of a concrete pier. In addition to lug bearing, plate bending, and base-plate weld sizing, which concrete failure limit state must be checked under ACI 318-19 Section 17.11.3?", "options": ["Concrete shear breakout (Vcbg) of the pier edge in front of the shear lug, accounting for axial anchor tension effects where applicable", "Timber grain crushing perpendicular to load", "Soil liquefaction only, omitting pedestal concrete checks", "Punching shear of an elevated post-tensioned roof slab"], "explanations": ["ACI 318-19 Section 17.11.3 requires checking concrete breakout strength in shear toward free edges (and checking whether anchor tension cracks the breakout prism).", "Timber bearing provisions do not apply to reinforced concrete pedestals.", "Geotechnical checks never replace structural concrete pedestal breakout design.", "Two-way slab punching shear is distinct from pedestal edge shear breakout in front of a shear lug."], "correct": 1, "overall": "Pedestal edge proximity often governs shear-lug capacity via concrete shear breakout under ACI 318-19 Section 17.11.3."}], "verified_seat_minutes": 60.0, "tracks_session_time": true, "tracks_lesson_location": true, "anti_skip_gating": true, "randomize_options_on_retry": true, "attention_checkpoints": [{"minute_mark": 18, "prompt": "NCEES PDH Checkpoint 1 (18:00): Confirm active P.E. review of ASCE 7-22 Chapters 26-32."}, {"minute_mark": 36, "prompt": "NCEES PDH Checkpoint 2 (36:00): Confirm active P.E. review of ACI 318-19 Chapter 17 Shear Lugs."}, {"minute_mark": 54, "prompt": "NCEES PDH Checkpoint 3 (54:00): Confirm active seat-time completion before Final PDH Quiz."}]};</script>
+<script>// Deterministic ADL SCORM 1.2 Runtime Wrapper (Zero External Dependencies)
+(function(win){
+  function findAPI(w){
+    var tries = 0;
+    while (w && !w.API && w.parent && w.parent !== w && tries < 10) {
+      tries++;
+      w = w.parent;
+    }
+    return (w && w.API) ? w.API : null;
+  }
+  var api = findAPI(win) || (win.opener ? findAPI(win.opener) : null);
+  var startEpoch = Date.now();
+  var state = {
+    "cmi.core.lesson_status": "incomplete",
+    "cmi.core.score.raw": "0",
+    "cmi.core.score.min": "0",
+    "cmi.core.score.max": "100",
+    "cmi.core.lesson_location": "step_0",
+    "cmi.core.session_time": "0000:00:00.00"
+  };
+  function fmtScormTime(ms){
+    var sec = Math.max(0, Math.floor(ms / 1000));
+    var hh = String(Math.floor(sec / 3600)).padStart(4, "0");
+    var mm = String(Math.floor((sec % 3600) / 60)).padStart(2, "0");
+    var ss = String(sec % 60).padStart(2, "0");
+    return hh + ":" + mm + ":" + ss + ".00";
+  }
+  win.Scorm12 = {
+    connected: !!api,
+    state: state,
+    init: function(){
+      if (api && api.LMSInitialize) api.LMSInitialize("");
+      this.set("cmi.core.lesson_status", "incomplete");
+      this.set("cmi.core.lesson_location", "step_0");
+      this.commit();
+    },
+    set: function(k, v){
+      state[k] = String(v);
+      if (api && api.LMSSetValue) api.LMSSetValue(k, String(v));
+      this.renderBar();
+    },
+    bookmark: function(loc){
+      this.set("cmi.core.lesson_location", loc);
+      this.set("cmi.core.session_time", fmtScormTime(Date.now() - startEpoch));
+      this.commit();
+    },
+    recordScore: function(pct, mastery, allowComplete){
+      var rounded = Math.round(pct);
+      this.set("cmi.core.score.min", "0");
+      this.set("cmi.core.score.max", "100");
+      this.set("cmi.core.score.raw", String(rounded));
+      this.set("cmi.core.session_time", fmtScormTime(Date.now() - startEpoch));
+      if (pct >= mastery && allowComplete !== false) {
+        this.set("cmi.core.lesson_status", "passed");
+      } else if (pct >= mastery && allowComplete === false) {
+        this.set("cmi.core.lesson_status", "incomplete");
+      } else {
+        this.set("cmi.core.lesson_status", "failed");
+      }
+      this.commit();
+    },
+    finish: function(){
+      this.set("cmi.core.session_time", fmtScormTime(Date.now() - startEpoch));
+      if (api && api.LMSCommit) api.LMSCommit("");
+      if (api && api.LMSFinish) api.LMSFinish("");
+    },
+    commit: function(){
+      if (api && api.LMSCommit) api.LMSCommit("");
+      this.renderBar();
+    },
+    renderBar: function(){
+      var connEl = document.getElementById("scorm-conn");
+      var cmiEl = document.getElementById("scorm-cmi");
+      if (connEl) {
+        connEl.textContent = api
+          ? "SCORM 1.2 Runtime: Connected to Host LMS API"
+          : "SCORM 1.2 Runtime: Standalone Preview Mode (LMS API Simulated)";
+      }
+      if (cmiEl) {
+        cmiEl.textContent =
+          'status="' + state["cmi.core.lesson_status"] + '" | score="' + state["cmi.core.score.raw"] +
+          '" | loc="' + state["cmi.core.lesson_location"] + '" | time="' + state["cmi.core.session_time"] + '"';
+      }
+    }
+  };
+})(window);
+</script>
+</head>
+<body>
+<div class="scorm-bar">
+  <span id="scorm-conn">SCORM 1.2 Runtime: Initializing...</span>
+  <span id="scorm-cmi">status="incomplete" | score="0"</span>
+</div>
+<div class="wrap">
+  <span class="pill">1.0 PDH Credit · NCEES CPC / Structural Engineering Self-Study SCORM 1.2</span>
+  <h1>SE University - ASCE 7-22 Wind/Tornado Loads &amp; ACI 318-19 Shear Lug Connections PDH (Demo)</h1>
+  <p class="sub">Compiled from ASCE/SEI 7-22 Chapters 26-32 (Updated Wind Velocity Pressure Profile &amp; New Chapter 32 Tornado Loads) and ACI 318-19 Section 17.11 / AISC Design Guide 1 (Concrete Bearing &amp; Breakout for Welded Base-Plate Shear Lugs), modeled on SE University&#x27;s catalog (&#x27;Wind Loads in ASCE 7-22&#x27; &amp; &#x27;Shear Lugs: Myths, Mysteries, and Misunderstandings when Dealing with Concrete Connections&#x27;).</p>
+
+  <div id="frontMatterContainer"></div>
+  <div id="objectivesContainer" class="card"></div>
+  <div id="sopContainer"></div>
+  <div id="checkpointContainer"></div>
+  <div id="reviewContainer"></div>
+  <div id="quizContainer"></div>
+  <div id="evalContainer"></div>
+  <div id="certContainer"></div>
+</div>
+
+<script>
+(function(){
+  var D = window.COURSE_DATA;
+  var completedSteps = {};
+  var completedCheckpoints = {};
+  var evalCompleted = false;
+  var examPassed = false;
+  var lastScorePct = 0;
+  var picks = {};
+  var activeQuizOrder = [];
+
+  function shuffleArray(arr) {
+    var copy = arr.slice();
+    for (var i = copy.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = copy[i];
+      copy[i] = copy[j];
+      copy[j] = tmp;
+    }
+    return copy;
+  }
+
+  function initQuizOrder(shuffleOpts) {
+    activeQuizOrder = D.quiz.map(function(q, qi) {
+      var indices = q.options.map(function(_, idx) { return idx; });
+      if (shuffleOpts && D.randomize_options_on_retry) {
+        indices = shuffleArray(indices);
+      }
+      return { qi: qi, optIndices: indices };
+    });
+  }
+
+  function renderFrontMatter() {
+    var el = document.getElementById("frontMatterContainer");
+    if (!D.front_matter) return;
+    var fm = D.front_matter;
+    el.innerHTML =
+      '<div class="fm-box">' +
+      '<div style="font-weight:700;color:#38bdf8;margin-bottom:6px;text-transform:uppercase;font-size:11.5px;">Mandatory Accreditation Front-Matter &amp; Commercial Independence Disclosure</div>' +
+      '<div><strong>Faculty &amp; Peer Review Credentials:</strong> ' + fm.faculty_credentials + '</div>' +
+      '<div><strong>Financial Disclosures &amp; Mitigation:</strong> ' + fm.financial_disclosures_and_mitigation + '</div>' +
+      '<div><strong>Commercial Support:</strong> ' + fm.commercial_support_statement + '</div>' +
+      '<div><strong>Release Date:</strong> ' + fm.release_date + ' &nbsp;|&nbsp; <strong>Expiration Date:</strong> ' + fm.expiration_date + '</div>' +
+      '</div>';
+  }
+
+  function renderObjectives() {
+    var el = document.getElementById("objectivesContainer");
+    var items = (D.objectives || []).map(function(o) {
+      return '<li><strong>' + o.id + ':</strong> ' + o.text + '</li>';
+    }).join("");
+    var extraMeta = "";
+    if (D.publication_date && D.last_review_date) {
+      extraMeta = '<div style="font-size:12.5px;color:#94a3b8;margin-top:8px;">NASBA QAS Publication Date: ' + D.publication_date + ' | Last Technical Review: ' + D.last_review_date + '</div>';
+    }
+    el.innerHTML = '<h3>Observable Behavioral Learning Objectives</h3><ul style="margin:6px 0 0;padding-left:20px;font-size:14px;">' + items + '</ul>' + extraMeta;
+  }
+
+  function renderSections() {
+    var el = document.getElementById("sopContainer");
+    var htmlStr = '<h2 style="font-size:18px;margin:22px 0 10px;">Part 1 · Accredited Instructional Modules</h2>';
+    (D.sections || []).forEach(function(sec, idx) {
+      var gateBtn = D.anti_skip_gating
+        ? '<div style="margin-top:10px;"><button class="btn-sec" id="stepBtn_' + idx + '" data-step="' + idx + '">Mark Module ' + (idx + 1) + ' Completed &amp; Bookmark</button></div>'
+        : '';
+      htmlStr += '<div class="card"><h3>' + sec.title + '</h3><div class="section-scroll">' + sec.html + '</div>' + gateBtn + '</div>';
+    });
+    el.innerHTML = htmlStr;
+    if (D.anti_skip_gating) {
+      (D.sections || []).forEach(function(_, idx) {
+        var b = document.getElementById("stepBtn_" + idx);
+        if (b) {
+          b.onclick = function() {
+            completedSteps[idx] = true;
+            b.textContent = "Module " + (idx + 1) + " Verified Complete";
+            b.style.borderColor = "#22c55e";
+            window.Scorm12.bookmark("module_" + (idx + 1));
+          };
+        }
+      });
+    }
+  }
+
+  function renderCheckpoints() {
+    var el = document.getElementById("checkpointContainer");
+    var cps = D.attention_checkpoints || [];
+    if (!cps.length) return;
+    var rows = cps.map(function(cp, idx) {
+      return '<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">' +
+        '<div style="font-size:13.5px;"><strong>Minute ' + cp.minute_mark + ' Seat-Time Check:</strong> ' + cp.prompt + '</div>' +
+        '<button class="btn-sec" id="cpBtn_' + idx + '">Verify Active Attendance</button>' +
+        '</div>';
+    }).join("");
+    el.innerHTML = '<h2 style="font-size:18px;margin:22px 0 10px;">Active Seat-Time Participation Checkpoints (&lt;= 20-Min Intervals)</h2>' + rows;
+    cps.forEach(function(cp, idx) {
+      var b = document.getElementById("cpBtn_" + idx);
+      b.onclick = function() {
+        completedCheckpoints[idx] = true;
+        b.textContent = "Attendance Verified (" + cp.minute_mark + "m)";
+        b.style.borderColor = "#22c55e";
+        window.Scorm12.bookmark("checkpoint_" + cp.minute_mark);
+      };
+    });
+  }
+
+  function renderReviewQuestions() {
+    var el = document.getElementById("reviewContainer");
+    var rqs = D.review_questions || [];
+    if (!rqs.length) return;
+    var h = '<h2 style="font-size:18px;margin:22px 0 10px;">Ungraded Formative Review Questions (Immediate Per-Option Rationales)</h2>';
+    rqs.forEach(function(rq, rIdx) {
+      h += '<div class="q-card" id="rqCard_' + rIdx + '"><div class="q-obj">Ungraded Formative Check ' + (rIdx + 1) + '</div><p class="q-stem">' + rq.question + '</p>';
+      rq.options.forEach(function(opt, oIdx) {
+        h += '<button class="opt" data-rq="' + rIdx + '" data-opt="' + oIdx + '">' + String.fromCharCode(65 + oIdx) + '. ' + opt + '</button>';
+      });
+      h += '<div class="rat" id="rqRat_' + rIdx + '"></div></div>';
+    });
+    el.innerHTML = h;
+    rqs.forEach(function(rq, rIdx) {
+      var card = document.getElementById("rqCard_" + rIdx);
+      var rat = document.getElementById("rqRat_" + rIdx);
+      card.querySelectorAll(".opt").forEach(function(btn) {
+        btn.onclick = function() {
+          var oIdx = parseInt(btn.getAttribute("data-opt"), 10);
+          var isRight = (oIdx + 1) === rq.correct;
+          card.querySelectorAll(".opt").forEach(function(x) { x.classList.remove("correct", "wrong"); });
+          btn.classList.add(isRight ? "correct" : "wrong");
+          rat.style.display = "block";
+          rat.textContent = rq.explanations[oIdx];
+          window.Scorm12.bookmark("review_" + (rIdx + 1));
+        };
+      });
+    });
+  }
+
+  function renderExam() {
+    var el = document.getElementById("quizContainer");
+    var letters = ["A", "B", "C", "D"];
+    var h = '<h2 style="font-size:18px;margin:24px 0 10px;">Graded Final Mastery Assessment (' + D.mastery_score + '% Passing Threshold; Zero Answer-Key Leak on Fail)</h2>';
+    activeQuizOrder.forEach(function(slot, dispIdx) {
+      var q = D.quiz[slot.qi];
+      h += '<div class="q-card" id="qCard_' + slot.qi + '"><div class="q-obj">Final Item ' + (dispIdx + 1) + ' · Mapped Objective ' + q.objective_id + '</div><p class="q-stem">' + q.question + '</p>';
+      slot.optIndices.forEach(function(origIdx, posIdx) {
+        h += '<button class="opt" data-qi="' + slot.qi + '" data-orig="' + (origIdx + 1) + '">' + letters[posIdx] + '. ' + q.options[origIdx] + '</button>';
+      });
+      h += '<div class="rat" id="rat_' + slot.qi + '"></div></div>';
+    });
+    h += '<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px;">' +
+         '<button class="btn" id="submitExamBtn">Submit Graded Final Assessment</button>' +
+         '<button class="btn-sec" id="retryExamBtn" style="display:none;">Retry Exam (Randomized Option Order)</button>' +
+         '<span id="examScoreMsg" style="font-size:14px;font-weight:700;"></span></div>';
+    el.innerHTML = h;
+
+    el.querySelectorAll(".opt").forEach(function(btn) {
+      btn.onclick = function() {
+        var qi = parseInt(btn.getAttribute("data-qi"), 10);
+        var orig = parseInt(btn.getAttribute("data-orig"), 10);
+        picks[qi] = orig;
+        var card = document.getElementById("qCard_" + qi);
+        card.querySelectorAll(".opt").forEach(function(x) { x.classList.remove("selected"); });
+        btn.classList.add("selected");
+      };
+    });
+
+    document.getElementById("submitExamBtn").onclick = function() {
+      if (D.anti_skip_gating) {
+        var totalSteps = (D.sections || []).length;
+        var doneSteps = Object.keys(completedSteps).length;
+        var totalCps = (D.attention_checkpoints || []).length;
+        var doneCps = Object.keys(completedCheckpoints).length;
+        if (doneSteps < totalSteps || doneCps < totalCps) {
+          document.getElementById("examScoreMsg").textContent =
+            "Complete all module step-gates (" + doneSteps + "/" + totalSteps + ") and seat-time checkpoints (" + doneCps + "/" + totalCps + ") before grading.";
+          return;
+        }
+      }
+      if (Object.keys(picks).length < D.quiz.length) {
+        document.getElementById("examScoreMsg").textContent = "Please answer all " + D.quiz.length + " graded items before submitting.";
+        return;
+      }
+      var hits = 0;
+      D.quiz.forEach(function(q, qi) {
+        if (picks[qi] === q.correct) hits++;
+      });
+      var pct = (hits * 100) / D.quiz.length;
+      lastScorePct = pct;
+      if (pct >= D.mastery_score) {
+        examPassed = true;
+        D.quiz.forEach(function(q, qi) {
+          var r = document.getElementById("rat_" + qi);
+          r.style.display = "block";
+          r.textContent = "Mastery Verified: " + (q.overall || q.explanations[picks[qi] - 1]);
+        });
+        var canIssueNow = !D.evaluation_required_before_certificate || evalCompleted;
+        window.Scorm12.recordScore(pct, D.mastery_score, canIssueNow);
+        document.getElementById("examScoreMsg").textContent =
+          "Passed (" + Math.round(pct) + "%). " + (canIssueNow ? "SCORM 1.2 completion recorded." : "Complete the Post-Course Evaluation below to unlock your certificate.");
+        renderPostEvalAndCert();
+      } else {
+        examPassed = false;
+        window.Scorm12.recordScore(pct, D.mastery_score, false);
+        document.getElementById("examScoreMsg").textContent =
+          "Score: " + Math.round(pct) + "% (Below " + D.mastery_score + "% mastery). Per accreditation rules, answer keys remain withheld on failed attempts. Click Retry Exam.";
+        document.getElementById("retryExamBtn").style.display = "inline-block";
+      }
+    };
+
+    document.getElementById("retryExamBtn").onclick = function() {
+      picks = {};
+      initQuizOrder(true);
+      renderExam();
+    };
+  }
+
+  function renderPostEvalAndCert() {
+    var evalEl = document.getElementById("evalContainer");
+    var certEl = document.getElementById("certContainer");
+    if (D.evaluation_required_before_certificate && D.post_evaluation && examPassed && !evalCompleted) {
+      var qsHtml = (D.post_evaluation.questions || []).map(function(eq, idx) {
+        return '<div style="margin-bottom:10px;"><label style="font-size:13.5px;display:block;margin-bottom:4px;">' + (idx + 1) + '. ' + eq.question + '</label>' +
+          '<select id="evalSel_' + idx + '" style="background:#0f172a;color:#f8fafc;border:1px solid #334155;padding:7px 10px;border-radius:6px;width:100%;max-width:420px;">' +
+          '<option value="5">Strongly Agree / Yes (Verified Free of Commercial Bias)</option>' +
+          '<option value="4">Agree</option></select></div>';
+      }).join("");
+      evalEl.innerHTML = '<div class="card" style="margin-top:20px;border-color:#38bdf8;">' +
+        '<h3>Mandatory Post-Course Activity &amp; Bias Evaluation</h3>' + qsHtml +
+        '<button class="btn" id="submitEvalBtn">Submit Activity Evaluation &amp; Unlock Certificate</button></div>';
+      document.getElementById("submitEvalBtn").onclick = function() {
+        evalCompleted = true;
+        window.Scorm12.recordScore(lastScorePct, D.mastery_score, true);
+        window.Scorm12.finish();
+        evalEl.innerHTML = '<div class="card" style="margin-top:20px;border-color:#22c55e;"><h3>Post-Course Evaluation Recorded</h3><p>Thank you. Commercial-bias and objective-achievement survey logged.</p></div>';
+        renderPostEvalAndCert();
+      };
+      return;
+    }
+    if (examPassed && (!D.evaluation_required_before_certificate || evalCompleted)) {
+      window.Scorm12.finish();
+      certEl.innerHTML = '<div class="card" style="margin-top:20px;border-color:#22c55e;background:rgba(34,197,94,0.08);">' +
+        '<h3 style="color:#4ade80;">Certificate Unlocked · SCORM 1.2 cmi.core.lesson_status = "passed"</h3>' +
+        '<p>Course: <strong>' + D.title + '</strong> | Verified Score: <strong>' + Math.round(lastScorePct) + '%</strong></p></div>';
+    }
+  }
+
+  window.Scorm12.init();
+  renderFrontMatter();
+  renderObjectives();
+  renderSections();
+  renderCheckpoints();
+  renderReviewQuestions();
+  initQuizOrder(false);
+  renderExam();
+})();
+</script>
+</body>
+</html>
