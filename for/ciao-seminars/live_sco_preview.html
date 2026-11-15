@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CIAO Seminars - SCORM 1.2 Interactive CEU Module</title>
+<style>
+  :root {
+    --bg:#0b1120; --panel:#111827; --border:#1f2937; --text:#f3f4f6;
+    --muted:#9ca3af; --accent:#38bdf8; --green:#22c55e; --red:#ef4444;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.55; }
+  .scorm-bar { background:#062033; border-bottom:1px solid #155e75; padding:8px 18px; font-size:12px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; color:#bae6fd; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .wrap { max-width:920px; margin:0 auto; padding:26px 20px 60px; }
+  .pill { display:inline-block; padding:4px 10px; border-radius:999px; font-size:11.5px; font-weight:700; background:rgba(56,189,248,0.14); color:var(--accent); border:1px solid rgba(56,189,248,0.35); margin-bottom:10px; }
+  h1 { font-size:24px; margin:0 0 8px; line-height:1.25; }
+  .sub { color:var(--muted); font-size:14px; margin:0 0 20px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:14px; }
+  .card h3 { margin:0 0 8px; font-size:16px; color:#e0f2fe; }
+  .card p { margin:0; font-size:14px; color:#d1d5db; }
+  .q-card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:16px; }
+  .q-obj { font-size:11.5px; color:var(--accent); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:700; }
+  .q-stem { font-size:15px; font-weight:600; margin:0 0 12px; }
+  .opt { display:block; width:100%; text-align:left; background:#0f172a; border:1px solid #334155; color:var(--text); border-radius:8px; padding:10px 12px; margin-bottom:8px; cursor:pointer; font-size:13.5px; transition:border-color .15s; }
+  .opt:hover { border-color:var(--accent); }
+  .opt.correct { border-color:var(--green); background:rgba(34,197,94,0.12); }
+  .opt.wrong { border-color:var(--red); background:rgba(239,68,68,0.12); }
+  .rat { margin-top:8px; padding:10px 12px; border-radius:8px; font-size:13px; display:none; background:#090e1a; border:1px solid var(--border); }
+  .submit-bar { margin-top:18px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .btn { background:var(--accent); color:#082f49; border:none; border-radius:999px; padding:10px 20px; font-weight:700; font-size:14px; cursor:pointer; }
+  .score-out { font-size:14px; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="scorm-bar">
+  <span id="scorm-conn">SCORM 1.2 Runtime: Initializing...</span>
+  <span id="scorm-cmi">cmi.core.lesson_status="incomplete" | cmi.core.score.raw="0"</span>
+</div>
+<div class="wrap">
+  <span class="pill">0.25 ASHA / AOTA CEUs · Accredited Rehab Self-Study · Dysphagia eCourse SCORM 1.2</span>
+  <h1>CIAO Seminars - Modified Barium Swallow Interpretation &amp; VitalStim NMES Safety (ASHA / AOTA CEU Demo)</h1>
+  <p class="sub">Compiled from evidence-based videofluoroscopic swallowing (VFSS/MBS) kinematics and neuromuscular electrical stimulation (NMES) contraindication standards, modeled on CIAO Seminars&#x27; eCourse catalog (&#x27;MBS: The Clear Picture&#x27; &amp; &#x27;VitalStim Therapy and Beyond&#x27;). Demonstrates deterministic rehab protocol-to-SCORM 1.2 + IMS QTI 3.0 compilation with 3-family distractor verification.</p>
+
+  <h2 style="font-size:17px;margin:22px 0 10px;">Part 1 · Source Regulatory / Clinical Digest</h2>
+  <div class="card"><h3>1. Modified Barium Swallow (MBS) Physiological Impairment vs. Bolus Clearance</h3><p>Videofluoroscopic swallowing evaluation identifies biomechanical pathophysiology across oral, pharyngeal, and esophageal phases rather than functioning as a pass/fail diet test. Clinicians distinguish penetration from silent aspiration (PAS Score 8, bolus entering below the vocal folds with zero cough response) and link residue patterns (valleculae vs. pyriform sinuses) to specific hyolaryngeal or pharyngoesophageal segment impairments.</p></div>
+<div class="card"><h3>2. Neuromuscular Electrical Stimulation (NMES / VitalStim) Electrode Placement &amp; Contraindications</h3><p>Adjunctive dysphagia NMES pairs motor-level sensory-motor recruitment of suprahyoid and infrahyoid musculature with active volitional Effortful or Mendelsohn swallows. Clinicians screen strictly for implanted demand cardiac pacemakers/ICDs, carotid sinus placement, active anterior neck malignancy, or absent volitional swallow initiation before applying anterior cervical current.</p></div>
+
+  <h2 style="font-size:17px;margin:26px 0 10px;">Part 2 · Calibrated QTI 3.0 / SCORM 1.2 Mastery Check (70% Passing Threshold)</h2>
+  <div id="quiz-root"></div>
+
+  <div class="submit-bar">
+    <button class="btn" onclick="gradeAndCommit()">Commit Final SCORM 1.2 Score to LMS</button>
+    <span class="score-out" id="score-box">Select an answer on all 3 items to record completion.</span>
+  </div>
+</div>
+
+<script>
+const ITEMS = [{"id": "ciao-qti-001", "objective": "Correlate pyriform sinus residue and reduced UES opening on MBS with targeted biomechanical rehab.", "stem": "On lateral Modified Barium Swallow (MBS) imaging with thin and mildly thick barium, a post-stroke patient demonstrates reduced anterior-superior hyolaryngeal excursion, incomplete upper esophageal sphincter (UES) traction opening, and post-swallow pyriform sinus residue leading to post-swallow aspiration (PAS 8). Which physiological intervention directly targets the primary impairment?", "choices": [{"id": "A", "label": "Implement Mendelsohn maneuver and Shaker/CTAR suprahyoid strengthening trials (after verifying compensatory chin-tuck/head-turn response under fluoroscopy) to increase hyolaryngeal traction on the UES.", "correct": true, "rationale": "Correct. Reduced anterior-superior hyolaryngeal excursion impairs mechanical traction opening of the cricopharyngeus/UES, causing pyriform sinus residue that responds to Mendelsohn and suprahyoid exercises."}, {"id": "B", "label": "Prescribe labial seal and buccal tension exercises exclusively to eliminate pyriform sinus pooling.", "correct": false, "rationale": "Incorrect. Labial and buccal exercises address anterior oral spillage and sulci pocketing, not pharyngeal hyolaryngeal traction or UES opening."}, {"id": "C", "label": "Clear the patient for regular thin liquids at bedside because no audible cough occurred during the MBS exam.", "correct": false, "rationale": "Incorrect. PAS 8 indicates silent aspiration below the true vocal folds without a protective cough reflex, making bedside cough absence clinically deceptive."}, {"id": "D", "label": "Diagnose primary lower esophageal sphincter achalasia from lateral cervical fluoroscopy alone without esophageal screening.", "correct": false, "rationale": "Incorrect. Pyriform sinus retention reflects pharyngeal/UES mechanics, and distal esophageal motility disorders require dedicated esophageal/manometric evaluation."}]}, {"id": "ciao-qti-002", "objective": "Identify absolute precautions and contraindications prior to anterior cervical dysphagia NMES.", "stem": "An inpatient SLP/OT dysphagia clinician is evaluating a 74-year-old patient with severe pharyngeal dysphagia for VitalStim neuromuscular electrical stimulation (NMES). Which medical history finding represents a critical precaution/contraindication against placing active NMES electrodes over the anterior neck?", "choices": [{"id": "A", "label": "Presence of an implanted demand cardiac pacemaker/automated implantable cardioverter-defibrillator (AICD) or electrode placement directly over the carotid sinus.", "correct": true, "rationale": "Correct. Electrical current across the anterior neck risks electromagnetic interference with demand cardiac devices and baroreceptor-mediated bradycardia/hypotension if placed over the carotid sinus."}, {"id": "B", "label": "Mildly reduced tongue-base retraction documented on videofluoroscopy two days prior.", "correct": false, "rationale": "Incorrect. Reduced pharyngeal/suprahyoid biomechanics confirmed via instrumental assessment is an appropriate clinical target when paired with active swallowing exercise."}, {"id": "C", "label": "Use of IDDSI Level 2 mildly thick liquids during supervised therapeutic bolus trials.", "correct": false, "rationale": "Incorrect. Combining instrumentally safe IDDSI bolus trials with active swallowing during NMES supports task-specific neuroplasticity."}, {"id": "D", "label": "Intact cognitive-communicative alertness allowing the patient to report sensory tingling vs. motor grab thresholds.", "correct": false, "rationale": "Incorrect. Reliable patient feedback facilitates safe amplitude titration from sensory tingling to motor recruitment."}]}, {"id": "ciao-qti-003", "objective": "Apply neuroplastic task-specificity principles during NMES-assisted dysphagia therapy.", "stem": "Why do evidence-based dysphagia rehabilitation protocols pair motor-level NMES stimulation with simultaneous volitional swallowing tasks (e.g., Effortful Swallow on safe bolus trials) rather than applying passive electrical stimulation while the patient rests quietly?", "choices": [{"id": "A", "label": "Experience-dependent neuroplasticity ('specificity' and 'use it and improve it') requires cortical swallow-network drive synchronized with peripheral Type II/Type I muscle recruitment, and passive hyoid depression at rest without volitional elevation can work against airway protection.", "correct": true, "rationale": "Correct. Pairing volitional swallowing effort against NMES resistance drives central-peripheral swallow reorganization and trains functional hyolaryngeal elevation."}, {"id": "B", "label": "Passive stimulation at rest permanently denervates cranial nerve XII motor nuclei within a single 30-minute session.", "correct": false, "rationale": "Incorrect. Passive NMES does not denervate hypoglossal nuclei; its limitation is lack of task-specific central swallow patterning."}, {"id": "C", "label": "ASHA CEU billing rules prohibit recording session minutes unless at least 40 bolus swallows occur per minute.", "correct": false, "rationale": "Incorrect. Swallow repetition targets are governed by patient fatigue, respiratory coordination, and motor-learning pacing rather than an arbitrary 40-per-minute quota."}, {"id": "D", "label": "Surface NMES selectively stimulates smooth muscle peristalsis in the distal thoracic esophagus during quiet rest.", "correct": false, "rationale": "Incorrect. Anterior cervical surface NMES recruits striated pharyngeal/extrinsic laryngeal muscles, not distal thoracic smooth muscle."}]}];
+const picked = {};
+
+function findScormApi(win) {
+  let tries = 0;
+  while (win && !win.API && win.parent && win.parent !== win && tries < 10) {
+    tries++;
+    win = win.parent;
+  }
+  return (win && win.API) ? win.API : null;
+}
+const REAL_API = findScormApi(window) || (window.opener ? findScormApi(window.opener) : null);
+const cmiState = { "cmi.core.lesson_status": "incomplete", "cmi.core.score.raw": "0", "cmi.core.score.min": "0", "cmi.core.score.max": "100" };
+const SCORM = {
+  init() {
+    if (REAL_API && REAL_API.LMSInitialize) REAL_API.LMSInitialize("");
+    document.getElementById('scorm-conn').textContent = REAL_API
+      ? 'SCORM 1.2 Runtime: Connected to Host LMS API'
+      : 'SCORM 1.2 Runtime: Standalone Preview Mode (LMS API Simulated)';
+    this.renderTelemetry();
+  },
+  set(k, v) {
+    cmiState[k] = String(v);
+    if (REAL_API && REAL_API.LMSSetValue) REAL_API.LMSSetValue(k, String(v));
+    this.renderTelemetry();
+  },
+  commit() {
+    if (REAL_API && REAL_API.LMSCommit) REAL_API.LMSCommit("");
+  },
+  renderTelemetry() {
+    document.getElementById('scorm-cmi').textContent =
+      `cmi.core.lesson_status="${cmiState['cmi.core.lesson_status']}" | cmi.core.score.raw="${cmiState['cmi.core.score.raw']}"`;
+  }
+};
+
+function renderQuiz() {
+  const root = document.getElementById('quiz-root');
+  ITEMS.forEach((it, idx) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `<div class="q-obj">Item ${idx + 1} · ${it.id} · ${it.objective}</div><p class="q-stem">${it.stem}</p>`;
+    const rat = document.createElement('div');
+    rat.className = 'rat';
+    rat.id = 'rat-' + idx;
+    it.choices.forEach(ch => {
+      const b = document.createElement('button');
+      b.className = 'opt';
+      b.dataset.q = idx;
+      b.dataset.cid = ch.id;
+      b.textContent = ch.id + '. ' + ch.label;
+      b.onclick = () => selectOpt(idx, ch, card, rat);
+      card.appendChild(b);
+    });
+    card.appendChild(rat);
+    root.appendChild(card);
+  });
+}
+
+function selectOpt(qIdx, ch, card, rat) {
+  picked[qIdx] = ch;
+  card.querySelectorAll('.opt').forEach(b => {
+    b.classList.remove('correct', 'wrong');
+    if (b.dataset.cid === ch.id) b.classList.add(ch.correct ? 'correct' : 'wrong');
+  });
+  rat.style.display = 'block';
+  rat.style.borderColor = ch.correct ? '#22c55e' : '#ef4444';
+  rat.textContent = ch.rationale;
+}
+
+function gradeAndCommit() {
+  const answered = Object.keys(picked).length;
+  if (answered < ITEMS.length) {
+    document.getElementById('score-box').textContent = `Please answer all ${ITEMS.length} items (${answered}/${ITEMS.length} completed).`;
+    return;
+  }
+  let right = 0;
+  Object.values(picked).forEach(ch => { if (ch.correct) right++; });
+  const pct = Math.round((right / ITEMS.length) * 100);
+  const status = pct >= 70 ? 'passed' : 'failed';
+  SCORM.set('cmi.core.score.raw', pct);
+  SCORM.set('cmi.core.lesson_status', status);
+  SCORM.commit();
+  const box = document.getElementById('score-box');
+  box.style.color = pct >= 70 ? '#22c55e' : '#f59e0b';
+  box.textContent = `LMS Commit Complete: ${pct}% (${right}/${ITEMS.length}) -> cmi.core.lesson_status="${status}"`;
+}
+
+SCORM.init();
+renderQuiz();
+</script>
+</body>
+</html>

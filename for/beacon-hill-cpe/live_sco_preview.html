@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beacon Hill Financial Educators - SCORM 1.2 Interactive CEU Module</title>
+<style>
+  :root {
+    --bg:#0b1120; --panel:#111827; --border:#1f2937; --text:#f3f4f6;
+    --muted:#9ca3af; --accent:#38bdf8; --green:#22c55e; --red:#ef4444;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.55; }
+  .scorm-bar { background:#062033; border-bottom:1px solid #155e75; padding:8px 18px; font-size:12px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; color:#bae6fd; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .wrap { max-width:920px; margin:0 auto; padding:26px 20px 60px; }
+  .pill { display:inline-block; padding:4px 10px; border-radius:999px; font-size:11.5px; font-weight:700; background:rgba(56,189,248,0.14); color:var(--accent); border:1px solid rgba(56,189,248,0.35); margin-bottom:10px; }
+  h1 { font-size:24px; margin:0 0 8px; line-height:1.25; }
+  .sub { color:var(--muted); font-size:14px; margin:0 0 20px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:14px; }
+  .card h3 { margin:0 0 8px; font-size:16px; color:#e0f2fe; }
+  .card p { margin:0; font-size:14px; color:#d1d5db; }
+  .q-card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:16px; }
+  .q-obj { font-size:11.5px; color:var(--accent); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:700; }
+  .q-stem { font-size:15px; font-weight:600; margin:0 0 12px; }
+  .opt { display:block; width:100%; text-align:left; background:#0f172a; border:1px solid #334155; color:var(--text); border-radius:8px; padding:10px 12px; margin-bottom:8px; cursor:pointer; font-size:13.5px; transition:border-color .15s; }
+  .opt:hover { border-color:var(--accent); }
+  .opt.correct { border-color:var(--green); background:rgba(34,197,94,0.12); }
+  .opt.wrong { border-color:var(--red); background:rgba(239,68,68,0.12); }
+  .rat { margin-top:8px; padding:10px 12px; border-radius:8px; font-size:13px; display:none; background:#090e1a; border:1px solid var(--border); }
+  .submit-bar { margin-top:18px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .btn { background:var(--accent); color:#082f49; border:none; border-radius:999px; padding:10px 20px; font-weight:700; font-size:14px; cursor:pointer; }
+  .score-out { font-size:14px; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="scorm-bar">
+  <span id="scorm-conn">SCORM 1.2 Runtime: Initializing...</span>
+  <span id="scorm-cmi">cmi.core.lesson_status="incomplete" | cmi.core.score.raw="0"</span>
+</div>
+<div class="wrap">
+  <span class="pill">2.0 CPE Credits · NASBA QAS Self-Study · CPA / CFP / IRS EA SCORM 1.2</span>
+  <h1>Beacon Hill Financial Educators - Form 1040 Schedule C Passive Loss &amp; Private Equity Waterfall CPE (QAS Self-Study Demo)</h1>
+  <p class="sub">Compiled from IRS Publication 925 / IRC Sec. 469 passive activity rules and ILPA private equity waterfall standards, modeled on Beacon Hill Financial Educators&#x27; catalog (&#x27;1040 Workshop&#x27; &amp; &#x27;Private Equity Mastery&#x27;). Demonstrates deterministic tax-guide-to-SCORM 1.2 + IMS QTI 3.0 compilation with 3-family distractor verification.</p>
+
+  <h2 style="font-size:17px;margin:22px 0 10px;">Part 1 · Source Regulatory / Clinical Digest</h2>
+  <div class="card"><h3>1. Form 1040 Material Participation &amp; IRC Sec. 469 Rental Real Estate Exceptions</h3><p>Under IRC Sec. 469, passive activity losses generally offset only passive income unless the taxpayer satisfies one of the seven Temp. Reg. 1.469-5T material participation tests or qualifies under the $25,000 active-participation rental allowance (phasing out at $100,000 to $150,000 MAGI) or Sec. 469(c)(7) real estate professional rules (&gt;750 hours and &gt;50% of personal services).</p></div>
+<div class="card"><h3>2. Private Equity European vs. American Deal-by-Deal Distribution Waterfalls</h3><p>In a whole-fund (European) waterfall, Limited Partners receive 100% of contributed capital across all realized and unrealized deals plus the preferred return hurdle (typically 8% compounded) before the General Partner collects catch-up and 20% carried interest. American deal-by-deal waterfalls accelerate carry on early winners, requiring GP clawback escrows to protect LPs against subsequent write-downs.</p></div>
+
+  <h2 style="font-size:17px;margin:26px 0 10px;">Part 2 · Calibrated QTI 3.0 / SCORM 1.2 Mastery Check (70% Passing Threshold)</h2>
+  <div id="quiz-root"></div>
+
+  <div class="submit-bar">
+    <button class="btn" onclick="gradeAndCommit()">Commit Final SCORM 1.2 Score to LMS</button>
+    <span class="score-out" id="score-box">Select an answer on all 3 items to record completion.</span>
+  </div>
+</div>
+
+<script>
+const ITEMS = [{"id": "bhfe-qti-001", "objective": "Compute the allowable IRC Sec. 469(i) rental real estate loss deduction after MAGI phase-out on Form 1040.", "stem": "A married couple filing jointly actively participates in a residential rental property generating a $22,000 net passive loss and reports Modified Adjusted Gross Income (MAGI) of $128,000 (with no other passive income and neither spouse qualifying as a real estate professional). How much of the rental loss may offset nonpassive W-2 wages in the current tax year?", "choices": [{"id": "A", "label": "$11,000 deductible on Schedule E; the remaining $11,000 passive loss is suspended on Form 8582 and carried forward.", "correct": true, "rationale": "Correct. Excess MAGI over $100,000 is $28,000; 50% of $28,000 reduces the $25,000 cap by $14,000 to an $11,000 maximum allowance, suspending the remaining $11,000."}, {"id": "B", "label": "$22,000 deductible in full because total MAGI remains below the $150,000 complete phase-out ceiling.", "correct": false, "rationale": "Incorrect. The $25,000 allowance phases out ratably by 50 cents per dollar of MAGI between $100,000 and $150,000 rather than dropping off as a cliff at $150,000."}, {"id": "C", "label": "$8,000 deductible because the $28,000 excess MAGI reduces the $22,000 actual rental loss dollar-for-dollar above $114,000.", "correct": false, "rationale": "Incorrect. The 50% phase-out reduces the $25,000 statutory cap first, not the taxpayer's $22,000 realized loss."}, {"id": "D", "label": "$0 deductible unless at least one spouse logs 750 hours under IRC Sec. 469(c)(7).", "correct": false, "rationale": "Incorrect. Active participation (a lower standard than the 750-hour real estate professional test) qualifies taxpayers with MAGI below $150,000 for the partial Sec. 469(i) allowance."}]}, {"id": "bhfe-qti-002", "objective": "Distinguish European whole-fund distribution waterfalls from American deal-by-deal carry mechanics.", "stem": "During due diligence for a CFP/CPA client evaluating a private equity fund with an 8% preferred hurdle and 20% carried interest, why does a European whole-fund waterfall expose Limited Partners to lower clawback risk than an American deal-by-deal waterfall?", "choices": [{"id": "A", "label": "The General Partner receives zero carried interest until LPs recover 100% of aggregate contributed capital (including unexited investments and fees) plus the 8% hurdle across the entire fund.", "correct": true, "rationale": "Correct. Returning all contributed capital and preferred return at the whole-fund level prevents early deal-level carry overpayments when later portfolio exits underperform."}, {"id": "B", "label": "European waterfalls prohibit GP catch-up tranches and cap lifetime carried interest at 8% of net realized gains.", "correct": false, "rationale": "Incorrect. European waterfalls routinely include an 80/20 or 100% GP catch-up tranche once whole-fund capital and the 8% LP hurdle have been returned."}, {"id": "C", "label": "European waterfalls tax all GP carried interest at ordinary IRC Sec. 1061 short-term rates regardless of holding period.", "correct": false, "rationale": "Incorrect. Waterfall priority governs LP/GP cash distribution timing, whereas IRC Sec. 1061 governs the three-year holding period for long-term capital gain treatment."}, {"id": "D", "label": "American waterfalls defer all LP distributions until final fund liquidation in Year 10.", "correct": false, "rationale": "Incorrect. Both waterfall structures distribute proceeds upon exits; American waterfalls pay GP carry per deal prior to full fund-level capital recovery."}]}, {"id": "bhfe-qti-003", "objective": "Apply NASBA QAS Self-Study and Circular 230 conflict-of-interest standards in CPA tax engagements.", "stem": "Two equal LLC members ask their CPA to prepare both partners' personal Form 1040 returns while advocating opposing purchase-price allocations under IRC Sec. 1060 during a buyout. Under Treasury Circular 230 Sec. 10.29, when may the CPA represent both taxpayers?", "choices": [{"id": "A", "label": "Only if the CPA reasonably believes competent and diligent representation can be provided to each affected client, the representation is not prohibited by law, and each client gives informed written consent within 30 days.", "correct": true, "rationale": "Correct. Circular 230 Sec. 10.29 requires objective competence belief, legality, and signed informed consent from each affected client confirmed in writing within 30 days (retained for 36 months)."}, {"id": "B", "label": "Immediately upon recording oral consent in the workpapers, provided both clients receive identical hourly billing rates.", "correct": false, "rationale": "Incorrect. Circular 230 Sec. 10.29(b)(3) strictly requires each affected client to waive the conflict via informed consent confirmed in writing."}, {"id": "C", "label": "Whenever the LLC operating agreement names the CPA as tax matters representative, overriding individual consent rules.", "correct": false, "rationale": "Incorrect. Entity-level engagement clauses do not waive an active conflict between adverse individual Form 1040 clients without separate informed written consents."}, {"id": "D", "label": "Never under any circumstance, even when the allocation terms are already fixed and both clients sign written waivers.", "correct": false, "rationale": "Incorrect. Circular 230 permits waivable conflicts when competent representation remains feasible and timely written informed consents are obtained."}]}];
+const picked = {};
+
+function findScormApi(win) {
+  let tries = 0;
+  while (win && !win.API && win.parent && win.parent !== win && tries < 10) {
+    tries++;
+    win = win.parent;
+  }
+  return (win && win.API) ? win.API : null;
+}
+const REAL_API = findScormApi(window) || (window.opener ? findScormApi(window.opener) : null);
+const cmiState = { "cmi.core.lesson_status": "incomplete", "cmi.core.score.raw": "0", "cmi.core.score.min": "0", "cmi.core.score.max": "100" };
+const SCORM = {
+  init() {
+    if (REAL_API && REAL_API.LMSInitialize) REAL_API.LMSInitialize("");
+    document.getElementById('scorm-conn').textContent = REAL_API
+      ? 'SCORM 1.2 Runtime: Connected to Host LMS API'
+      : 'SCORM 1.2 Runtime: Standalone Preview Mode (LMS API Simulated)';
+    this.renderTelemetry();
+  },
+  set(k, v) {
+    cmiState[k] = String(v);
+    if (REAL_API && REAL_API.LMSSetValue) REAL_API.LMSSetValue(k, String(v));
+    this.renderTelemetry();
+  },
+  commit() {
+    if (REAL_API && REAL_API.LMSCommit) REAL_API.LMSCommit("");
+  },
+  renderTelemetry() {
+    document.getElementById('scorm-cmi').textContent =
+      `cmi.core.lesson_status="${cmiState['cmi.core.lesson_status']}" | cmi.core.score.raw="${cmiState['cmi.core.score.raw']}"`;
+  }
+};
+
+function renderQuiz() {
+  const root = document.getElementById('quiz-root');
+  ITEMS.forEach((it, idx) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `<div class="q-obj">Item ${idx + 1} · ${it.id} · ${it.objective}</div><p class="q-stem">${it.stem}</p>`;
+    const rat = document.createElement('div');
+    rat.className = 'rat';
+    rat.id = 'rat-' + idx;
+    it.choices.forEach(ch => {
+      const b = document.createElement('button');
+      b.className = 'opt';
+      b.dataset.q = idx;
+      b.dataset.cid = ch.id;
+      b.textContent = ch.id + '. ' + ch.label;
+      b.onclick = () => selectOpt(idx, ch, card, rat);
+      card.appendChild(b);
+    });
+    card.appendChild(rat);
+    root.appendChild(card);
+  });
+}
+
+function selectOpt(qIdx, ch, card, rat) {
+  picked[qIdx] = ch;
+  card.querySelectorAll('.opt').forEach(b => {
+    b.classList.remove('correct', 'wrong');
+    if (b.dataset.cid === ch.id) b.classList.add(ch.correct ? 'correct' : 'wrong');
+  });
+  rat.style.display = 'block';
+  rat.style.borderColor = ch.correct ? '#22c55e' : '#ef4444';
+  rat.textContent = ch.rationale;
+}
+
+function gradeAndCommit() {
+  const answered = Object.keys(picked).length;
+  if (answered < ITEMS.length) {
+    document.getElementById('score-box').textContent = `Please answer all ${ITEMS.length} items (${answered}/${ITEMS.length} completed).`;
+    return;
+  }
+  let right = 0;
+  Object.values(picked).forEach(ch => { if (ch.correct) right++; });
+  const pct = Math.round((right / ITEMS.length) * 100);
+  const status = pct >= 70 ? 'passed' : 'failed';
+  SCORM.set('cmi.core.score.raw', pct);
+  SCORM.set('cmi.core.lesson_status', status);
+  SCORM.commit();
+  const box = document.getElementById('score-box');
+  box.style.color = pct >= 70 ? '#22c55e' : '#f59e0b';
+  box.textContent = `LMS Commit Complete: ${pct}% (${right}/${ITEMS.length}) -> cmi.core.lesson_status="${status}"`;
+}
+
+SCORM.init();
+renderQuiz();
+</script>
+</body>
+</html>

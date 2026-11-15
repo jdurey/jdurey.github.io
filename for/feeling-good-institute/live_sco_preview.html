@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feeling Good Institute - SCORM 1.2 Interactive CEU Module</title>
+<style>
+  :root {
+    --bg:#0b1120; --panel:#111827; --border:#1f2937; --text:#f3f4f6;
+    --muted:#9ca3af; --accent:#38bdf8; --green:#22c55e; --red:#ef4444;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.55; }
+  .scorm-bar { background:#062033; border-bottom:1px solid #155e75; padding:8px 18px; font-size:12px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; color:#bae6fd; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .wrap { max-width:920px; margin:0 auto; padding:26px 20px 60px; }
+  .pill { display:inline-block; padding:4px 10px; border-radius:999px; font-size:11.5px; font-weight:700; background:rgba(56,189,248,0.14); color:var(--accent); border:1px solid rgba(56,189,248,0.35); margin-bottom:10px; }
+  h1 { font-size:24px; margin:0 0 8px; line-height:1.25; }
+  .sub { color:var(--muted); font-size:14px; margin:0 0 20px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:14px; }
+  .card h3 { margin:0 0 8px; font-size:16px; color:#e0f2fe; }
+  .card p { margin:0; font-size:14px; color:#d1d5db; }
+  .q-card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:16px; }
+  .q-obj { font-size:11.5px; color:var(--accent); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:700; }
+  .q-stem { font-size:15px; font-weight:600; margin:0 0 12px; }
+  .opt { display:block; width:100%; text-align:left; background:#0f172a; border:1px solid #334155; color:var(--text); border-radius:8px; padding:10px 12px; margin-bottom:8px; cursor:pointer; font-size:13.5px; transition:border-color .15s; }
+  .opt:hover { border-color:var(--accent); }
+  .opt.correct { border-color:var(--green); background:rgba(34,197,94,0.12); }
+  .opt.wrong { border-color:var(--red); background:rgba(239,68,68,0.12); }
+  .rat { margin-top:8px; padding:10px 12px; border-radius:8px; font-size:13px; display:none; background:#090e1a; border:1px solid var(--border); }
+  .submit-bar { margin-top:18px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .btn { background:var(--accent); color:#082f49; border:none; border-radius:999px; padding:10px 20px; font-weight:700; font-size:14px; cursor:pointer; }
+  .score-out { font-size:14px; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="scorm-bar">
+  <span id="scorm-conn">SCORM 1.2 Runtime: Initializing...</span>
+  <span id="scorm-cmi">cmi.core.lesson_status="incomplete" | cmi.core.score.raw="0"</span>
+</div>
+<div class="wrap">
+  <span class="pill">3.0 CE Credits · APA / ASWB ACE / NBCC Self-Study · TalentLMS SCORM 1.2</span>
+  <h1>Feeling Good Institute - TEAM-CBT Assessment Resistance &amp; Deliberate Practice Empathy Skills (APA / ASWB CE Demo)</h1>
+  <p class="sub">Compiled from evidence-based TEAM-CBT clinical protocols, modeled on Feeling Good Institute&#x27;s TalentLMS catalog (&#x27;Core Skills for Effective Therapy&#x27; &amp; &#x27;Deliberate Practice Hub: Empathy and Disarming Skills&#x27;). Demonstrates deterministic clinical training-to-SCORM 1.2 + IMS QTI 3.0 compilation with 3-family distractor verification.</p>
+
+  <h2 style="font-size:17px;margin:22px 0 10px;">Part 1 · Source Regulatory / Clinical Digest</h2>
+  <div class="card"><h3>1. TEAM-CBT Five Secrets of Effective Communication &amp; the Disarming Technique</h3><p>Before introducing cognitive restructuring or behavioral exposure methods, TEAM-CBT prioritizes accurate empathy using the Five Secrets of Effective Communication. In the Disarming Technique, the clinician locates verifiable truth inside a frustrated or critical client statement (even when distorted) rather than defending clinical expertise or prematurely debating cognitive distortions.</p></div>
+<div class="card"><h3>2. Paradoxical Agenda Setting (Assessment of Resistance) Prior to Methods</h3><p>In TEAM-CBT, jumping straight into symptom-reduction techniques when outcome or process resistance is present triggers &#x27;yes-but&#x27; stalemate loops. Clinicians use Magic Button, Positive Reframing, and Externalization of Resistance so the client voices their own values-driven reasons for change before selecting cognitive or exposure methods.</p></div>
+
+  <h2 style="font-size:17px;margin:26px 0 10px;">Part 2 · Calibrated QTI 3.0 / SCORM 1.2 Mastery Check (70% Passing Threshold)</h2>
+  <div id="quiz-root"></div>
+
+  <div class="submit-bar">
+    <button class="btn" onclick="gradeAndCommit()">Commit Final SCORM 1.2 Score to LMS</button>
+    <span class="score-out" id="score-box">Select an answer on all 3 items to record completion.</span>
+  </div>
+</div>
+
+<script>
+const ITEMS = [{"id": "fgi-qti-001", "objective": "Apply the TEAM-CBT Disarming Technique when a client criticizes therapy homework or clinician empathy.", "stem": "At the start of Session 3, an anxious client says: 'Those mood logs were a complete waste of my week, and honestly it feels like you are just reading from a checklist instead of listening to me.' Which therapist response accurately executes the TEAM-CBT Disarming Technique?", "choices": [{"id": "A", "label": "'You are making a really important point - the mood logs felt tedious this week, and when I jumped to forms too fast it left you feeling unheard rather than supported. Tell me more about what felt most off so I can really get it right.'", "correct": true, "rationale": "Correct. Effective disarming validates the genuine grain of truth in the client's criticism without defensiveness and pairs thought/feeling empathy with gentle inquiry."}, {"id": "B", "label": "'Let's examine that statement together on a Daily Mood Log, because 'complete waste' sounds like all-or-nothing thinking and mind-reading.'", "correct": false, "rationale": "Incorrect. Labeling cognitive distortions during an alliance rupture violates TEAM order (Empathy before Methods) and intensifies defensiveness."}, {"id": "C", "label": "'I hear that you are frustrated, though randomized trials show written homework doubles CBT recovery rates when clients stick with it.'", "correct": false, "rationale": "Incorrect. Adding 'though/but' to cite research invalidates the client's lived experience and turns empathy into persuasion."}, {"id": "D", "label": "'Perhaps cognitive behavioral therapy is not the right modality for you right now, so let's pause all structured tools indefinitely.'", "correct": false, "rationale": "Incorrect. Passive withdrawal abandons the collaborative TEAM framework instead of repairing the alliance through accurate empathy."}]}, {"id": "fgi-qti-002", "objective": "Execute Paradoxical Agenda Setting to melt outcome resistance in chronic depression or anxiety.", "stem": "During Agenda Setting with a perfectionistic professional seeking relief from generalized worry, the client repeatedly responds with 'yes, but if I stop worrying I will miss a critical deadline.' What is the core clinical move in TEAM-CBT Assessment of Resistance?", "choices": [{"id": "A", "label": "Honor the protective advantages of the client's worry (conscientiousness, vigilance, high standards) and invite the client to argue for why lowering worry might still be worthwhile before attempting any anxiety-reduction method.", "correct": true, "rationale": "Correct. Positive reframing and sitting with open hands shift the clinician out of persuasion so the client articulates intrinsic motivation to reduce excess worry."}, {"id": "B", "label": "Immediately assign a 60-minute interoceptive exposure hierarchy to extinguish somatic anxiety symptoms before resistance hardens.", "correct": false, "rationale": "Incorrect. Launching exposure methods before resolving outcome and process resistance produces homework non-adherence and premature dropout."}, {"id": "C", "label": "Prove to the client with workplace performance statistics that chronic worry impairs executive function and causes missed deadlines.", "correct": false, "rationale": "Incorrect. Debating the client triggers psychological reactance ('salesman vs. reluctant buyer') and reinforces their defense of worrying."}, {"id": "D", "label": "Skip Brief Mood Survey tracking whenever resistance appears so pre- and post-session symptom scores do not discourage the client.", "correct": false, "rationale": "Incorrect. Routine session-by-session Testing (the 'T' in TEAM) remains foundational for detecting alliance dips and symptom change."}]}, {"id": "fgi-qti-003", "objective": "Interpret Brief Mood Survey (Testing) discrepancies between symptom reduction and therapeutic alliance scores.", "stem": "Post-session Testing reveals a client's depression score dropped from 14 to 8, yet their Helpful/Empathy rating for the session fell to 12 out of 20. According to TEAM-CBT measurement-based care guidelines, what should the clinician prioritize first?", "choices": [{"id": "A", "label": "Warmly thank the client for their honesty on the Empathy scale, explore what felt missed or rushed in the session using disarming and thought/feeling empathy, and repair the rupture before celebrating symptom drops.", "correct": true, "rationale": "Correct. Any Empathy score below near-perfect (20/20) signals an alliance rupture that predicts future relapse or dropout unless openly explored with curiosity and disarming."}, {"id": "B", "label": "Proceed directly to relapse-prevention planning since a 6-point depression reduction confirms the cognitive method worked.", "correct": false, "rationale": "Incorrect. Unaddressed alliance ruptures undermine sustained recovery even when single-session symptom scores briefly improve."}, {"id": "C", "label": "Average the depression and empathy subscores into a composite index and intervene only if both metrics worsen simultaneously.", "correct": false, "rationale": "Incorrect. Symptom severity and therapeutic alliance measure distinct clinical constructs and must never be collapsed into a single blended score."}, {"id": "D", "label": "Explain that tough cognitive interventions naturally lower warmth scores when therapists challenge core beliefs.", "correct": false, "rationale": "Incorrect. Explaining away low alliance ratings blames the client rather than taking responsibility for empathetic attunement."}]}];
+const picked = {};
+
+function findScormApi(win) {
+  let tries = 0;
+  while (win && !win.API && win.parent && win.parent !== win && tries < 10) {
+    tries++;
+    win = win.parent;
+  }
+  return (win && win.API) ? win.API : null;
+}
+const REAL_API = findScormApi(window) || (window.opener ? findScormApi(window.opener) : null);
+const cmiState = { "cmi.core.lesson_status": "incomplete", "cmi.core.score.raw": "0", "cmi.core.score.min": "0", "cmi.core.score.max": "100" };
+const SCORM = {
+  init() {
+    if (REAL_API && REAL_API.LMSInitialize) REAL_API.LMSInitialize("");
+    document.getElementById('scorm-conn').textContent = REAL_API
+      ? 'SCORM 1.2 Runtime: Connected to Host LMS API'
+      : 'SCORM 1.2 Runtime: Standalone Preview Mode (LMS API Simulated)';
+    this.renderTelemetry();
+  },
+  set(k, v) {
+    cmiState[k] = String(v);
+    if (REAL_API && REAL_API.LMSSetValue) REAL_API.LMSSetValue(k, String(v));
+    this.renderTelemetry();
+  },
+  commit() {
+    if (REAL_API && REAL_API.LMSCommit) REAL_API.LMSCommit("");
+  },
+  renderTelemetry() {
+    document.getElementById('scorm-cmi').textContent =
+      `cmi.core.lesson_status="${cmiState['cmi.core.lesson_status']}" | cmi.core.score.raw="${cmiState['cmi.core.score.raw']}"`;
+  }
+};
+
+function renderQuiz() {
+  const root = document.getElementById('quiz-root');
+  ITEMS.forEach((it, idx) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `<div class="q-obj">Item ${idx + 1} · ${it.id} · ${it.objective}</div><p class="q-stem">${it.stem}</p>`;
+    const rat = document.createElement('div');
+    rat.className = 'rat';
+    rat.id = 'rat-' + idx;
+    it.choices.forEach(ch => {
+      const b = document.createElement('button');
+      b.className = 'opt';
+      b.dataset.q = idx;
+      b.dataset.cid = ch.id;
+      b.textContent = ch.id + '. ' + ch.label;
+      b.onclick = () => selectOpt(idx, ch, card, rat);
+      card.appendChild(b);
+    });
+    card.appendChild(rat);
+    root.appendChild(card);
+  });
+}
+
+function selectOpt(qIdx, ch, card, rat) {
+  picked[qIdx] = ch;
+  card.querySelectorAll('.opt').forEach(b => {
+    b.classList.remove('correct', 'wrong');
+    if (b.dataset.cid === ch.id) b.classList.add(ch.correct ? 'correct' : 'wrong');
+  });
+  rat.style.display = 'block';
+  rat.style.borderColor = ch.correct ? '#22c55e' : '#ef4444';
+  rat.textContent = ch.rationale;
+}
+
+function gradeAndCommit() {
+  const answered = Object.keys(picked).length;
+  if (answered < ITEMS.length) {
+    document.getElementById('score-box').textContent = `Please answer all ${ITEMS.length} items (${answered}/${ITEMS.length} completed).`;
+    return;
+  }
+  let right = 0;
+  Object.values(picked).forEach(ch => { if (ch.correct) right++; });
+  const pct = Math.round((right / ITEMS.length) * 100);
+  const status = pct >= 70 ? 'passed' : 'failed';
+  SCORM.set('cmi.core.score.raw', pct);
+  SCORM.set('cmi.core.lesson_status', status);
+  SCORM.commit();
+  const box = document.getElementById('score-box');
+  box.style.color = pct >= 70 ? '#22c55e' : '#f59e0b';
+  box.textContent = `LMS Commit Complete: ${pct}% (${right}/${ITEMS.length}) -> cmi.core.lesson_status="${status}"`;
+}
+
+SCORM.init();
+renderQuiz();
+</script>
+</body>
+</html>
