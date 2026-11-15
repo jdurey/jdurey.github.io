@@ -1,31 +1,34 @@
 ---
-title: About
+title: "About Joshua Durey (Josh Durey)"
+description: "Joshua Durey (Josh Durey) builds self-checking agentic workflows, AI readiness audits, and cross-family LLM quality gates."
 ---
 
-I build AI systems for teams that have to trust the output, and I check that the output is actually trustworthy. Those two halves rarely live in the same person, and the gap between them is where most AI adoption stalls.
+I'm Joshua Durey, and most colleagues call me Josh.
 
-My training is an MA in Applied Linguistics, so I treat prompts, rubrics, and model outputs as testable specs. Before going independent, I ran multi-agent curriculum and assessment QC on contract for an AI-education company: governing 52,000+ agent runs, auditing rubrics, and watching where a model's confidence and a real person's reality came apart. That is where I learned what a broken workflow looks like before it shows up in front of a customer, and what shipping the wrong answer costs.
+I build agentic workflows for teams that have to trust the output, and then I wire the quality gates that prove the work holds up. Those two jobs rarely sit in one person. Most AI pilots stall right in that gap.
 
-So the work I do now is horizontal. The domain was education. The skill is getting AI to do real work and proving it holds up.
+## How teaching and linguistics turned into agentic workflows
 
-## What I do
+Earlier in my career, I spent fifteen years in international schools across Asia and the US. Along the way, I earned an MA in Applied Linguistics at the University of Birmingham. Search my name from years ago and you'll still see old school talks and teaching courses.
 
-- **Workflow audits.** I find the steps in a team's workflow actually worth handing to AI, ranked by payoff and risk, so effort goes where it pays. Here's [how I run one](/work/ai-workflow-audit/).
-- **Agentic systems.** I build workflows that check their own output before a human sees it. Here's [one that reviews itself](/work/agentic-workflow-demo/).
-- **LLM quality control.** Runnable harnesses that catch the failures an accuracy dashboard misses, including a judge that waves through broken work. Here's [the QC framework](/work/llm-qc-rubric/) and [the judge-trust proof of concept](/work/judge-trust/).
+That background turned out to be the right training when teams started handing real work to language models, because applied linguistics treats prompts, rubrics, and model replies as testable specs rather than guesswork.
 
-## How I work
+Before going out on my own under **Human Creative**, I governed 52,167 multi-agent `.jsonl` runs on contract for an AI-education company. That meant building 30+ Python hook gates, multi-vendor judge panels, and quiz compilers. Watching where a sure-sounding model and a real user's reality came apart taught me how to catch silent bugs early.
 
-- I instrument, I don't assert. A guardrail you haven't watched fail closed is a guess.
-- If it isn't reproducible, it didn't happen. Every result links to runnable code.
-- Adoption is the goal. A clever system nobody trusts enough to use still isn't finished.
+Today I work across ops, support, compliance, and training teams. Teaching was the proving ground, and reliable multi-agent systems are the craft.
+
+## What I build and lead
+
+- **Workflow audits.** I map how work moves across desks and score tasks by payoff and error cost. Read the [workflow audit playbook](/guides/ai-workflow-audit-checklist/) or inspect the [audit harness](/work/ai-workflow-audit/).
+- **Self-reviewing agentic pipelines.** I break mega-prompts into narrow steps with Python hooks, 6-rung cost routing, and cross-vendor critics. Read the [agentic workflow guide](/guides/self-reviewing-agentic-workflows/) or try the [live demo](/work/agentic-workflow-demo/).
+- **LLM quality gates & SOP-to-SCORM compilers.** I ship runnable test suites (`judge-trust`, `telemetry-gates`, `verdict-integrity`) and [SOP-to-SCORM 1.2 compilers](/sop-to-lms/) at 0.0% false pass.
 
 ## Working together
 
-I'm open to remote roles in applied AI enablement, full-time, fractional, or focused consulting. If you're putting AI into a real workflow and you need to know it works before a customer does, that's my lane.
+I'm a US Citizen based in Seoul, working 100% remotely in English with US and APAC teams. Teams hire me for full-time roles (W-2 EOR via Deel or Remote, or US LLC contract), fractional leadership, or [two-week workflow sprints](/hire/).
 
-- **Live 3-Min AI Twin:** [jdurey.github.io/interview](https://jdurey.github.io/interview/)
-- **Book a 20-Min Call:** [cal.com/joshua-durey-wqgvgp/20-min-scope-call](https://cal.com/joshua-durey-wqgvgp/20-min-scope-call)
-- **Email:** [josh.durey@gmail.com](mailto:josh.durey@gmail.com)
-- **LinkedIn:** [linkedin.com/in/joshua-durey](https://www.linkedin.com/in/joshua-durey/)
-- **GitHub:** [github.com/jdurey](https://github.com/jdurey)
+- Test your JD or workflow at [jdurey.github.io/#diagnostic](https://jdurey.github.io/#diagnostic).
+- Request a free prototype at [jdurey.github.io/#commission-prototype](https://jdurey.github.io/#commission-prototype).
+- Meet my 3-minute AI twin at [jdurey.github.io/interview](https://jdurey.github.io/interview/).
+- Book a 20-minute call at [cal.com/joshua-durey-wqgvgp/20-min-scope-call](https://cal.com/joshua-durey-wqgvgp/20-min-scope-call).
+- Email [josh.durey@gmail.com](mailto:josh.durey@gmail.com), or find me on [LinkedIn](https://www.linkedin.com/in/joshua-durey/) and [GitHub](https://github.com/jdurey).
