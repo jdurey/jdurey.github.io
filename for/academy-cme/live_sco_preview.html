@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>American Academy of CME - SCORM 1.2 Interactive CEU Module</title>
+<style>
+  :root {
+    --bg:#0b1120; --panel:#111827; --border:#1f2937; --text:#f3f4f6;
+    --muted:#9ca3af; --accent:#38bdf8; --green:#22c55e; --red:#ef4444;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.55; }
+  .scorm-bar { background:#062033; border-bottom:1px solid #155e75; padding:8px 18px; font-size:12px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; color:#bae6fd; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .wrap { max-width:920px; margin:0 auto; padding:26px 20px 60px; }
+  .pill { display:inline-block; padding:4px 10px; border-radius:999px; font-size:11.5px; font-weight:700; background:rgba(56,189,248,0.14); color:var(--accent); border:1px solid rgba(56,189,248,0.35); margin-bottom:10px; }
+  h1 { font-size:24px; margin:0 0 8px; line-height:1.25; }
+  .sub { color:var(--muted); font-size:14px; margin:0 0 20px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:14px; }
+  .card h3 { margin:0 0 8px; font-size:16px; color:#e0f2fe; }
+  .card p { margin:0; font-size:14px; color:#d1d5db; }
+  .q-card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:16px; }
+  .q-obj { font-size:11.5px; color:var(--accent); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:700; }
+  .q-stem { font-size:15px; font-weight:600; margin:0 0 12px; }
+  .opt { display:block; width:100%; text-align:left; background:#0f172a; border:1px solid #334155; color:var(--text); border-radius:8px; padding:10px 12px; margin-bottom:8px; cursor:pointer; font-size:13.5px; transition:border-color .15s; }
+  .opt:hover { border-color:var(--accent); }
+  .opt.correct { border-color:var(--green); background:rgba(34,197,94,0.12); }
+  .opt.wrong { border-color:var(--red); background:rgba(239,68,68,0.12); }
+  .rat { margin-top:8px; padding:10px 12px; border-radius:8px; font-size:13px; display:none; background:#090e1a; border:1px solid var(--border); }
+  .submit-bar { margin-top:18px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .btn { background:var(--accent); color:#082f49; border:none; border-radius:999px; padding:10px 20px; font-weight:700; font-size:14px; cursor:pointer; }
+  .score-out { font-size:14px; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="scorm-bar">
+  <span id="scorm-conn">SCORM 1.2 Runtime: Initializing...</span>
+  <span id="scorm-cmi">cmi.core.lesson_status="incomplete" | cmi.core.score.raw="0"</span>
+</div>
+<div class="wrap">
+  <span class="pill">0.5 AMA PRA Category 1 / ANCC / ACPE Credit · Jointly Accredited Enduring Material</span>
+  <h1>American Academy of CME - Interprofessional Heart Failure &amp; Antimicrobial Stewardship Vignettes (ACCME/ACPE/ANCC Demo)</h1>
+  <p class="sub">Compiled from clinical practice guidelines in Cardiology and Infectious Disease aligned with American Academy of CME&#x27;s Jointly Accredited interprofessional model (physicians, nurses, pharmacists). Enforces ACCME Standards for Integrity and Independence (strict generic pharmacologic naming, zero commercial bias, and Moore&#x27;s Level 4 clinical competence vignettes).</p>
+
+  <h2 style="font-size:17px;margin:22px 0 10px;">Part 1 · Source Regulatory / Playbook Digest</h2>
+  <div class="card">
+          <h3>1. Guideline-Directed Medical Therapy (GDMT) Sequencing &amp; Monitoring in HFrEF</h3>
+          <p>In hospitalized patients stabilized after acute decompensated heart failure with reduced ejection fraction (LVEF &lt;= 40%), interprofessional care teams (cardiology, inpatient nursing, clinical pharmacy) coordinate four-pillar generic GDMT initiation (angiotensin receptor-neprilysin inhibitor or ACEi/ARB, evidence-based beta-blocker, mineralocorticoid receptor antagonist, and SGLT2 inhibitor) with structured 7-to-14-day renal/potassium follow-up.</p>
+        </div>
+<div class="card">
+          <h3>2. ACCME Content Validity &amp; Non-Promotional Assessment Standards</h3>
+          <p>Accredited clinical vignettes must use generic non-proprietary drug names exclusively, balance benefit-risk trade-offs with peer-reviewed evidence, and map every distractor rationale to a measurable interprofessional clinical competency.</p>
+        </div>
+
+  <h2 style="font-size:17px;margin:26px 0 10px;">Part 2 · Calibrated QTI 3.0 / SCORM 1.2 Mastery Check (70% Passing Threshold)</h2>
+  <div id="quiz-root"></div>
+
+  <div class="submit-bar">
+    <button class="btn" onclick="gradeAndCommit()">Commit Final SCORM 1.2 Score to LMS</button>
+    <span class="score-out" id="score-box">Select an answer on all 3 items to record completion.</span>
+    <a href="./for/academy-cme/" style="display:none">Back</a>
+  </div>
+</div>
+
+<script>
+const ITEMS = [{"id": "aacme-qti-001", "objective": "Coordinate interprofessional GDMT initiation and electrolyte safety monitoring in HFrEF.", "stem": "A 67-year-old patient hospitalized for acute decompensated HFrEF (LVEF 30%) is euvolemic after intravenous loop diuresis, with blood pressure 108/68 mmHg, eGFR 44 mL/min/1.73m2, and serum potassium 4.6 mEq/L on carvedilol and sacubitril-valsartan. Prior to discharge, which collaborative plan best aligns with current heart failure guidelines?", "choices": [{"id": "A", "label": "Initiate an SGLT2 inhibitor and low-dose spironolactone prior to discharge, with clinical pharmacy medication reconciliation and a nursing/lab BMP check scheduled within 7 days.", "correct": true, "rationale": "Correct. With eGFR > 30 mL/min/1.73m2 and potassium < 5.0 mEq/L in a hemodynamically stable euvolemic patient, completing four-pillar generic GDMT with early 7-day electrolyte and renal monitoring improves post-discharge survival and readmission outcomes."}, {"id": "B", "label": "Defer both SGLT2 inhibitor and mineralocorticoid receptor antagonist initiation for 3 months until outpatient LVEF repeat echocardiography.", "correct": false, "rationale": "Incorrect. Delaying in-hospital GDMT optimization substantially lowers long-term uptake and increases 30-to-90-day heart failure readmission risk."}, {"id": "C", "label": "Discontinue sacubitril-valsartan immediately initiated on admission because baseline eGFR is below 60 mL/min/1.73m2.", "correct": false, "rationale": "Incorrect. Moderate chronic kidney disease (eGFR 44) is not a contraindication to sacubitril-valsartan when potassium and blood pressure remain stable."}, {"id": "D", "label": "Start high-dose spironolactone 50 mg daily plus oral potassium chloride supplementation at discharge without lab follow-up for 6 weeks.", "correct": false, "rationale": "Incorrect. Starting 50 mg daily with supplemental potassium at eGFR 44 and baseline K+ 4.6 creates severe hyperkalemia risk and violates early lab monitoring standards."}]}, {"id": "aacme-qti-002", "objective": "Enforce ACCME Standards for Integrity and Independence in accredited CE item authoring.", "stem": "An AI drafting pipeline converts a cardiology symposium transcript into pre/post-test items. Which draft stem requires immediate editorial rejection under ACCME Standards for Integrity and Independence in Accredited Continuing Education?", "choices": [{"id": "A", "label": "A stem referring exclusively to a single sponsor's proprietary brand name without generic pharmacologic naming or balanced class alternatives.", "correct": true, "rationale": "Correct. Accredited clinical education must use generic non-proprietary names whenever possible and avoid promotional framing favoring a commercial interest's branded agent."}, {"id": "B", "label": "A patient vignette reporting eGFR, serum potassium, and generic drug class options across interprofessional care roles.", "correct": false, "rationale": "Incorrect. Clinical laboratory values and generic pharmacologic classes meet ACCME content-validity and Moore's Level 4 competence standards."}, {"id": "C", "label": "An item pairing a clinical guideline recommendation with explicit adverse-event monitoring thresholds.", "correct": false, "rationale": "Incorrect. Presenting balanced efficacy and safety monitoring criteria strengthens clinical validity."}, {"id": "D", "label": "A post-test item measuring nurse-pharmacist-physician discharge handoff coordination after intravenous-to-oral diuretic transition.", "correct": false, "rationale": "Incorrect. Interprofessional transition-of-care vignettes directly support Joint Accreditation team-based competencies."}]}, {"id": "aacme-qti-003", "objective": "Apply antimicrobial stewardship de-escalation in hospitalized community-acquired pneumonia.", "stem": "A 59-year-old non-ICU inpatient treated empirically with intravenous ceftriaxone and azithromycin for community-acquired pneumonia is afebrile for 36 hours, tolerating oral intake, with negative MRSA nasal PCR and respiratory/blood cultures growing penicillin-susceptible Streptococcus pneumoniae. What is the optimal stewardship team action?", "choices": [{"id": "A", "label": "De-escalate to targeted oral amoxicillin therapy and align total antibiotic duration to 5 days given clinical stability.", "correct": true, "rationale": "Correct. Culture-directed IV-to-PO narrow-spectrum beta-lactam de-escalation with a 5-day total course in clinically stable patients reduces C. difficile and resistance risk."}, {"id": "B", "label": "Continue broad-spectrum intravenous ceftriaxone for a mandatory 14-day inpatient course despite clinical stability.", "correct": false, "rationale": "Incorrect. Prolonged broad-spectrum IV therapy in uncomplicated, clinically stable pneumococcal CAP increases line complications and antimicrobial resistance without benefit."}, {"id": "C", "label": "Add intravenous vancomycin empirically prior to discharge to prevent post-viral secondary infection.", "correct": false, "rationale": "Incorrect. Adding empiric anti-MRSA coverage with a negative MRSA screen and confirmed susceptible pathogen violates core stewardship principles."}, {"id": "D", "label": "Switch to oral fluoroquinolone monotherapy for 10 days to broaden gram-negative coverage.", "correct": false, "rationale": "Incorrect. Escalating to a fluoroquinolone when narrow-spectrum amoxicillin is active introduces avoidable tendon, CNS, and C. difficile toxicity."}]}];
+const picked = {};
+
+// Standards-compliant SCORM 1.2 API discovery + standalone browser simulator
+function findScormApi(win) {
+  let tries = 0;
+  while (win && !win.API && win.parent && win.parent !== win && tries < 10) {
+    tries++;
+    win = win.parent;
+  }
+  return (win && win.API) ? win.API : null;
+}
+const REAL_API = findScormApi(window) || (window.opener ? findScormApi(window.opener) : null);
+const cmiState = { "cmi.core.lesson_status": "incomplete", "cmi.core.score.raw": "0", "cmi.core.score.min": "0", "cmi.core.score.max": "100" };
+const SCORM = {
+  init() {
+    if (REAL_API && REAL_API.LMSInitialize) REAL_API.LMSInitialize("");
+    document.getElementById('scorm-conn').textContent = REAL_API
+      ? 'SCORM 1.2 Runtime: Connected to Host LMS API'
+      : 'SCORM 1.2 Runtime: Standalone Preview Mode (LMS API Simulated)';
+    this.renderTelemetry();
+  },
+  set(k, v) {
+    cmiState[k] = String(v);
+    if (REAL_API && REAL_API.LMSSetValue) REAL_API.LMSSetValue(k, String(v));
+    this.renderTelemetry();
+  },
+  commit() {
+    if (REAL_API && REAL_API.LMSCommit) REAL_API.LMSCommit("");
+  },
+  renderTelemetry() {
+    document.getElementById('scorm-cmi').textContent =
+      `cmi.core.lesson_status="${cmiState['cmi.core.lesson_status']}" | cmi.core.score.raw="${cmiState['cmi.core.score.raw']}"`;
+  }
+};
+
+function renderQuiz() {
+  const root = document.getElementById('quiz-root');
+  ITEMS.forEach((it, idx) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `<div class="q-obj">Item ${idx + 1} · ${it.id} · ${it.objective}</div><p class="q-stem">${it.stem}</p>`;
+    const rat = document.createElement('div');
+    rat.className = 'rat';
+    rat.id = 'rat-' + idx;
+    it.choices.forEach(ch => {
+      const b = document.createElement('button');
+      b.className = 'opt';
+      b.dataset.q = idx;
+      b.dataset.cid = ch.id;
+      b.textContent = ch.id + '. ' + ch.label;
+      b.onclick = () => selectOpt(idx, ch, card, rat);
+      card.appendChild(b);
+    });
+    card.appendChild(rat);
+    root.appendChild(card);
+  });
+}
+
+function selectOpt(qIdx, ch, card, rat) {
+  picked[qIdx] = ch;
+  card.querySelectorAll('.opt').forEach(b => {
+    b.classList.remove('correct', 'wrong');
+    if (b.dataset.cid === ch.id) b.classList.add(ch.correct ? 'correct' : 'wrong');
+  });
+  rat.style.display = 'block';
+  rat.style.borderColor = ch.correct ? '#22c55e' : '#ef4444';
+  rat.textContent = ch.rationale;
+}
+
+function gradeAndCommit() {
+  const answered = Object.keys(picked).length;
+  if (answered < ITEMS.length) {
+    document.getElementById('score-box').textContent = `Please answer all ${ITEMS.length} items (${answered}/${ITEMS.length} completed).`;
+    return;
+  }
+  let right = 0;
+  Object.values(picked).forEach(ch => { if (ch.correct) right++; });
+  const pct = Math.round((right / ITEMS.length) * 100);
+  const status = pct >= 70 ? 'passed' : 'failed';
+  SCORM.set('cmi.core.score.raw', pct);
+  SCORM.set('cmi.core.lesson_status', status);
+  SCORM.commit();
+  const box = document.getElementById('score-box');
+  box.style.color = pct >= 70 ? '#22c55e' : '#f59e0b';
+  box.textContent = `LMS Commit Complete: ${pct}% (${right}/${ITEMS.length}) -> cmi.core.lesson_status="${status}"`;
+}
+
+SCORM.init();
+renderQuiz();
+</script>
+</body>
+</html>

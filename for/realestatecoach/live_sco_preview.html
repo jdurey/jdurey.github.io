@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RealEstateCoach.com - SCORM 1.2 Interactive CEU Module</title>
+<style>
+  :root {
+    --bg:#0b1120; --panel:#111827; --border:#1f2937; --text:#f3f4f6;
+    --muted:#9ca3af; --accent:#38bdf8; --green:#22c55e; --red:#ef4444;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.55; }
+  .scorm-bar { background:#062033; border-bottom:1px solid #155e75; padding:8px 18px; font-size:12px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; color:#bae6fd; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .wrap { max-width:920px; margin:0 auto; padding:26px 20px 60px; }
+  .pill { display:inline-block; padding:4px 10px; border-radius:999px; font-size:11.5px; font-weight:700; background:rgba(56,189,248,0.14); color:var(--accent); border:1px solid rgba(56,189,248,0.35); margin-bottom:10px; }
+  h1 { font-size:24px; margin:0 0 8px; line-height:1.25; }
+  .sub { color:var(--muted); font-size:14px; margin:0 0 20px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:14px; }
+  .card h3 { margin:0 0 8px; font-size:16px; color:#e0f2fe; }
+  .card p { margin:0; font-size:14px; color:#d1d5db; }
+  .q-card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:16px; }
+  .q-obj { font-size:11.5px; color:var(--accent); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:700; }
+  .q-stem { font-size:15px; font-weight:600; margin:0 0 12px; }
+  .opt { display:block; width:100%; text-align:left; background:#0f172a; border:1px solid #334155; color:var(--text); border-radius:8px; padding:10px 12px; margin-bottom:8px; cursor:pointer; font-size:13.5px; transition:border-color .15s; }
+  .opt:hover { border-color:var(--accent); }
+  .opt.correct { border-color:var(--green); background:rgba(34,197,94,0.12); }
+  .opt.wrong { border-color:var(--red); background:rgba(239,68,68,0.12); }
+  .rat { margin-top:8px; padding:10px 12px; border-radius:8px; font-size:13px; display:none; background:#090e1a; border:1px solid var(--border); }
+  .submit-bar { margin-top:18px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .btn { background:var(--accent); color:#082f49; border:none; border-radius:999px; padding:10px 20px; font-weight:700; font-size:14px; cursor:pointer; }
+  .score-out { font-size:14px; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="scorm-bar">
+  <span id="scorm-conn">SCORM 1.2 Runtime: Initializing...</span>
+  <span id="scorm-cmi">cmi.core.lesson_status="incomplete" | cmi.core.score.raw="0"</span>
+</div>
+<div class="wrap">
+  <span class="pill">1.0 CE Hour · DigitalChalk SCORM 1.2 + QTI 3.0 · Agency Compliance &amp; New Agent Sales</span>
+  <h1>RealEstateCoach.com - Written Buyer-Broker Agreements &amp; Listing Objection Scenarios (DigitalChalk SCORM 1.2 Demo)</h1>
+  <p class="sub">Compiled from RealEstateCoach.com&#x27;s public training focus (&#x27;New Agent Sales Training&#x27; &amp; &#x27;List &amp; Sell Real Estate Like Crazy!&#x27;) and post-settlement written buyer-representation compliance rules. Packages coaching playbooks into DigitalChalk-ready SCORM 1.2 + QTI 3.0 interactive scenario assessments.</p>
+
+  <h2 style="font-size:17px;margin:22px 0 10px;">Part 1 · Source Regulatory / Playbook Digest</h2>
+  <div class="card">
+          <h3>1. Mandatory Written Buyer Agreement Prior to Touring</h3>
+          <p>Before taking a prospective buyer on an in-person or live virtual property tour, agents must execute a written buyer-representation or touring agreement that states the specific, objectively ascertainable compensation amount or rate, prohibits open-ended fee ranges, and discloses that broker commissions are not set by law and are fully negotiable.</p>
+        </div>
+<div class="card">
+          <h3>2. Fair Housing Guardrails During Neighborhood Coaching</h3>
+          <p>When prospects ask whether an area is &#x27;family-friendly&#x27; or &#x27;safe&#x27;, compliant agents avoid demographic characterizations or subjective safety steering and instead point clients to objective municipal, transit, and third-party public data sources.</p>
+        </div>
+
+  <h2 style="font-size:17px;margin:26px 0 10px;">Part 2 · Calibrated QTI 3.0 / SCORM 1.2 Mastery Check (70% Passing Threshold)</h2>
+  <div id="quiz-root"></div>
+
+  <div class="submit-bar">
+    <button class="btn" onclick="gradeAndCommit()">Commit Final SCORM 1.2 Score to LMS</button>
+    <span class="score-out" id="score-box">Select an answer on all 3 items to record completion.</span>
+    <a href="./for/realestatecoach/" style="display:none">Back</a>
+  </div>
+</div>
+
+<script>
+const ITEMS = [{"id": "rec-qti-001", "objective": "Execute compliant written buyer agreements prior to residential property tours.", "stem": "A relocating buyer calls from outside an open house and asks you to unlock a vacant listing down the street in 20 minutes. You have not signed a representation agreement yet. Which step keeps the tour compliant?", "choices": [{"id": "A", "label": "Execute a signed written touring or buyer-representation agreement specifying an exact, negotiable fee term (even $0 for a single-day tour agreement) before entering the property.", "correct": true, "rationale": "Correct. A signed written agreement with a specific, non-open-ended compensation term and negotiability disclosure must precede any live property tour."}, {"id": "B", "label": "Unlock the home immediately as a Ministerial Act and have the buyer sign the representation form before submitting an offer.", "correct": false, "rationale": "Incorrect. Touring a prospective buyer inside a listing triggers the pre-tour written agreement requirement well before offer submission."}, {"id": "C", "label": "Have the buyer sign a quick form stating your fee will be 'whatever cooperative compensation the seller offers between 2% and 3%'.", "correct": false, "rationale": "Incorrect. Open-ended ranges or 'whatever the seller offers' clauses fail the objectively ascertainable compensation rule."}, {"id": "D", "label": "Record a verbal consent text message from the buyer confirming your brokerage disclosures and follow up with paperwork that evening.", "correct": false, "rationale": "Incorrect. Informal text acknowledgments without the required written agreement clauses and negotiability language do not satisfy pre-tour compliance."}]}, {"id": "rec-qti-002", "objective": "Handle commission-negotiability questions accurately during listing consultations.", "stem": "During a listing appointment, the seller asks: 'Isn't the standard brokerage commission in our county fixed at 6%?' What is the legally compliant, high-trust response?", "choices": [{"id": "A", "label": "Clarify immediately that real estate commissions are never fixed by law or MLS rule and are 100% negotiable, then walk through your specific marketing scope and service tiers.", "correct": true, "rationale": "Correct. Stating plainly that fees are never standardized or set by law avoids antitrust violations while anchoring your fee discussion in concrete seller services."}, {"id": "B", "label": "Confirm that most top brokerages in the county charge 6% so pricing lower could discourage buyer agents from showing the home.", "correct": false, "rationale": "Incorrect. Implying local fee uniformity or warning of coordinated showing boycotts creates severe antitrust and steering exposure."}, {"id": "C", "label": "Tell the seller the local association sets a 3% minimum on the listing side while the buyer side is optional.", "correct": false, "rationale": "Incorrect. Associations and MLS boards never set minimum commission rates; stating otherwise is a material misrepresentation."}, {"id": "D", "label": "Defer the fee conversation until after the seller signs the exclusive listing agreement and photography is scheduled.", "correct": false, "rationale": "Incorrect. Compensation terms and negotiability disclosures must be agreed in writing as part of the listing contract itself."}]}, {"id": "rec-qti-003", "objective": "Maintain Fair Housing Act compliance when buyers ask subjective neighborhood questions.", "stem": "A buyer couple asks during a consultation: 'Which elementary school zones have the best families and lowest crime?' Which response protects both the client and Fair Housing compliance?", "choices": [{"id": "A", "label": "Explain Fair Housing boundaries clearly, ask for their objective housing criteria (commute time, lot size, price), and share direct links to official municipal crime maps and state school report cards.", "correct": true, "rationale": "Correct. Redirecting to objective housing features and verifiable public data empowers the buyer's independent choice without demographic steering."}, {"id": "B", "label": "Recommend two suburban subdivisions where most of your relocating families with young children chose to buy last quarter.", "correct": false, "rationale": "Incorrect. Directing buyers based on familial status demographics constitutes unlawful steering under the Fair Housing Act."}, {"id": "C", "label": "Rank the neighborhoods personally from 'A' to 'D' for safety based on local word of mouth.", "correct": false, "rationale": "Incorrect. Subjective agent safety rankings act as unlawful proxies for protected-class neighborhood composition."}, {"id": "D", "label": "Refuse to answer any location questions and tell the buyers you can only unlock specific street addresses they email you.", "correct": false, "rationale": "Incorrect. Agents can and should provide objective market data and links to authoritative public resources while explaining Fair Housing rules."}]}];
+const picked = {};
+
+// Standards-compliant SCORM 1.2 API discovery + standalone browser simulator
+function findScormApi(win) {
+  let tries = 0;
+  while (win && !win.API && win.parent && win.parent !== win && tries < 10) {
+    tries++;
+    win = win.parent;
+  }
+  return (win && win.API) ? win.API : null;
+}
+const REAL_API = findScormApi(window) || (window.opener ? findScormApi(window.opener) : null);
+const cmiState = { "cmi.core.lesson_status": "incomplete", "cmi.core.score.raw": "0", "cmi.core.score.min": "0", "cmi.core.score.max": "100" };
+const SCORM = {
+  init() {
+    if (REAL_API && REAL_API.LMSInitialize) REAL_API.LMSInitialize("");
+    document.getElementById('scorm-conn').textContent = REAL_API
+      ? 'SCORM 1.2 Runtime: Connected to Host LMS API'
+      : 'SCORM 1.2 Runtime: Standalone Preview Mode (LMS API Simulated)';
+    this.renderTelemetry();
+  },
+  set(k, v) {
+    cmiState[k] = String(v);
+    if (REAL_API && REAL_API.LMSSetValue) REAL_API.LMSSetValue(k, String(v));
+    this.renderTelemetry();
+  },
+  commit() {
+    if (REAL_API && REAL_API.LMSCommit) REAL_API.LMSCommit("");
+  },
+  renderTelemetry() {
+    document.getElementById('scorm-cmi').textContent =
+      `cmi.core.lesson_status="${cmiState['cmi.core.lesson_status']}" | cmi.core.score.raw="${cmiState['cmi.core.score.raw']}"`;
+  }
+};
+
+function renderQuiz() {
+  const root = document.getElementById('quiz-root');
+  ITEMS.forEach((it, idx) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `<div class="q-obj">Item ${idx + 1} · ${it.id} · ${it.objective}</div><p class="q-stem">${it.stem}</p>`;
+    const rat = document.createElement('div');
+    rat.className = 'rat';
+    rat.id = 'rat-' + idx;
+    it.choices.forEach(ch => {
+      const b = document.createElement('button');
+      b.className = 'opt';
+      b.dataset.q = idx;
+      b.dataset.cid = ch.id;
+      b.textContent = ch.id + '. ' + ch.label;
+      b.onclick = () => selectOpt(idx, ch, card, rat);
+      card.appendChild(b);
+    });
+    card.appendChild(rat);
+    root.appendChild(card);
+  });
+}
+
+function selectOpt(qIdx, ch, card, rat) {
+  picked[qIdx] = ch;
+  card.querySelectorAll('.opt').forEach(b => {
+    b.classList.remove('correct', 'wrong');
+    if (b.dataset.cid === ch.id) b.classList.add(ch.correct ? 'correct' : 'wrong');
+  });
+  rat.style.display = 'block';
+  rat.style.borderColor = ch.correct ? '#22c55e' : '#ef4444';
+  rat.textContent = ch.rationale;
+}
+
+function gradeAndCommit() {
+  const answered = Object.keys(picked).length;
+  if (answered < ITEMS.length) {
+    document.getElementById('score-box').textContent = `Please answer all ${ITEMS.length} items (${answered}/${ITEMS.length} completed).`;
+    return;
+  }
+  let right = 0;
+  Object.values(picked).forEach(ch => { if (ch.correct) right++; });
+  const pct = Math.round((right / ITEMS.length) * 100);
+  const status = pct >= 70 ? 'passed' : 'failed';
+  SCORM.set('cmi.core.score.raw', pct);
+  SCORM.set('cmi.core.lesson_status', status);
+  SCORM.commit();
+  const box = document.getElementById('score-box');
+  box.style.color = pct >= 70 ? '#22c55e' : '#f59e0b';
+  box.textContent = `LMS Commit Complete: ${pct}% (${right}/${ITEMS.length}) -> cmi.core.lesson_status="${status}"`;
+}
+
+SCORM.init();
+renderQuiz();
+</script>
+</body>
+</html>
