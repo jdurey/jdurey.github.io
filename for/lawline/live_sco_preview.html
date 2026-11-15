@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lawline - SCORM 1.2 Interactive CEU Module</title>
+<style>
+  :root {
+    --bg:#0b1120; --panel:#111827; --border:#1f2937; --text:#f3f4f6;
+    --muted:#9ca3af; --accent:#38bdf8; --green:#22c55e; --red:#ef4444;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.55; }
+  .scorm-bar { background:#062033; border-bottom:1px solid #155e75; padding:8px 18px; font-size:12px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; color:#bae6fd; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .wrap { max-width:920px; margin:0 auto; padding:26px 20px 60px; }
+  .pill { display:inline-block; padding:4px 10px; border-radius:999px; font-size:11.5px; font-weight:700; background:rgba(56,189,248,0.14); color:var(--accent); border:1px solid rgba(56,189,248,0.35); margin-bottom:10px; }
+  h1 { font-size:24px; margin:0 0 8px; line-height:1.25; }
+  .sub { color:var(--muted); font-size:14px; margin:0 0 20px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:14px; }
+  .card h3 { margin:0 0 8px; font-size:16px; color:#e0f2fe; }
+  .card p { margin:0; font-size:14px; color:#d1d5db; }
+  .q-card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:16px; }
+  .q-obj { font-size:11.5px; color:var(--accent); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:700; }
+  .q-stem { font-size:15px; font-weight:600; margin:0 0 12px; }
+  .opt { display:block; width:100%; text-align:left; background:#0f172a; border:1px solid #334155; color:var(--text); border-radius:8px; padding:10px 12px; margin-bottom:8px; cursor:pointer; font-size:13.5px; transition:border-color .15s; }
+  .opt:hover { border-color:var(--accent); }
+  .opt.correct { border-color:var(--green); background:rgba(34,197,94,0.12); }
+  .opt.wrong { border-color:var(--red); background:rgba(239,68,68,0.12); }
+  .rat { margin-top:8px; padding:10px 12px; border-radius:8px; font-size:13px; display:none; background:#090e1a; border:1px solid var(--border); }
+  .submit-bar { margin-top:18px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .btn { background:var(--accent); color:#082f49; border:none; border-radius:999px; padding:10px 20px; font-weight:700; font-size:14px; cursor:pointer; }
+  .score-out { font-size:14px; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="scorm-bar">
+  <span id="scorm-conn">SCORM 1.2 Runtime: Initializing...</span>
+  <span id="scorm-cmi">cmi.core.lesson_status="incomplete" | cmi.core.score.raw="0"</span>
+</div>
+<div class="wrap">
+  <span class="pill">1.0 Ethics CLE Credit · Accredited Self-Study CLE · ABA Formal Opinion 512 &amp; Model Rules</span>
+  <h1>Lawline - Generative AI Legal Ethics: Competence, Confidentiality &amp; Candor Verification (Self-Study CLE Demo)</h1>
+  <p class="sub">Compiled from ABA Formal Opinion 512 (Generative Artificial Intelligence Tools) and Model Rules 1.1, 1.6, 3.3, 5.1/5.3, and 1.5 modeled on Lawline&#x27;s 50-state on-demand Legal Ethics CLE catalog. Demonstrates deterministic Transcript-to-SCORM 1.2 + IMS QTI 3.0 compilation with state-bar checkpoint verification.</p>
+
+  <h2 style="font-size:17px;margin:22px 0 10px;">Part 1 · Source Regulatory / Clinical Digest</h2>
+  <div class="card">
+          <h3>1. ABA Formal Opinion 512: Model Rule 1.1 Competence &amp; Rule 1.6 Client Confidentiality</h3>
+          <p>Under ABA Formal Opinion 512, attorneys need not be machine-learning engineers to satisfy Model Rule 1.1 technological competence, but must understand the capabilities, hallucination limitations, and data-retention terms of any generative AI tool used in practice. Inputting confidential client facts into a self-learning or provider-retained GAI tool without assessing disclosure risks - or obtaining informed client consent where client identity or strategy could be exposed - violates Model Rule 1.6.</p>
+        </div>
+<div class="card">
+          <h3>2. Model Rule 3.3 Candor Toward the Tribunal, Rule 5.1/5.3 Supervision &amp; Rule 1.5 Billing Ethics</h3>
+          <p>Model Rule 3.3(a)(1) prohibits knowingly making a false statement of law or fact or failing to correct unverified, fabricated AI case citations submitted to a court. Managing lawyers must enforce firm-wide primary-source citation checks under Rules 5.1 and 5.3. Under Model Rule 1.5, hourly-billing lawyers may charge only for actual attorney/staff time spent prompting, reviewing, and verifying outputs - never phantom &#x27;value hours&#x27; that an associate would have spent drafting manually without AI.</p>
+        </div>
+
+  <h2 style="font-size:17px;margin:26px 0 10px;">Part 2 · Calibrated QTI 3.0 / SCORM 1.2 Mastery Check (70% Passing Threshold)</h2>
+  <div id="quiz-root"></div>
+
+  <div class="submit-bar">
+    <button class="btn" onclick="gradeAndCommit()">Commit Final SCORM 1.2 Score to LMS</button>
+    <span class="score-out" id="score-box">Select an answer on all 3 items to record completion.</span>
+  </div>
+</div>
+
+<script>
+const ITEMS = [{"id": "lawline-qti-001", "objective": "Apply Model Rule 1.6 confidentiality safeguards under ABA Formal Opinion 512 before prompting GAI tools.", "stem": "A litigation partner wants to upload an unredacted draft mediation statement containing non-public trade-secret damages figures into a third-party generative AI tool to tighten persuasive phrasing. Under ABA Formal Opinion 512 and Model Rule 1.6, what is required first?", "choices": [{"id": "A", "label": "Audit the vendor's contractual terms to confirm zero cross-customer model training and strict confidentiality isolation, or obtain the client's informed consent after explaining specific retention and exposure risks.", "correct": true, "rationale": "Correct. ABA Formal Opinion 512 requires evaluating vendor data-use, retention, and security terms - and securing informed client consent whenever confidential representation information faces external exposure."}, {"id": "B", "label": "Rely on the firm's boilerplate engagement-letter clause authorizing 'cloud word-processing software' without checking whether the AI vendor trains models on user inputs.", "correct": false, "rationale": "Incorrect. Formal Opinion 512 explicitly warns that generic boilerplate engagement clauses do not constitute informed consent for self-learning GAI disclosure risks."}, {"id": "C", "label": "Replace the client's corporate name with 'Company X' while leaving unique product patent numbers, opposing party names, and revenue tables intact in a public consumer chatbot.", "correct": false, "rationale": "Incorrect. Under Rule 1.6 Comment [4], hypotheticals still violate confidentiality if there is a reasonable likelihood that a listener or system output could link the facts back to the client."}, {"id": "D", "label": "Upload the file freely so long as the prompt includes the instruction 'Treat this prompt as attorney-client privileged and do not train on it.'", "correct": false, "rationale": "Incorrect. Prompt-level natural-language instructions do not alter a vendor's backend telemetry retention or Terms of Service."}]}, {"id": "lawline-qti-002", "objective": "Enforce Model Rule 3.3 candor and Rule 5.3 nonlawyer/vendor supervision on AI-drafted court filings.", "stem": "A junior associate uses a legal AI research assistant to draft a reply brief due in two hours and hands it to the signing partner. Which supervisory protocol is required under Model Rules 3.3, 5.1, and 5.3?", "choices": [{"id": "A", "label": "Independently retrieve and read every cited opinion, quote, and procedural holding in an authoritative primary-law reporter to verify both existence and doctrinal accuracy before filing.", "correct": true, "rationale": "Correct. Signing counsel bears non-delegable Rule 3.3 candor and Rule 11 verification duties; every AI-surfaced authority must be checked against primary sources for both existence and proposition support."}, {"id": "B", "label": "Ask the same AI assistant in a second prompt to confirm that each Bluebook volume and page number refers to a real federal appellate case.", "correct": false, "rationale": "Incorrect. Courts sanctioning hallucinated briefs have repeatedly noted that language models routinely fabricate secondary confirmations of their own non-existent citations."}, {"id": "C", "label": "File the brief on time and submit an errata sheet only if opposing counsel challenges a citation in sur-reply.", "correct": false, "rationale": "Incorrect. Submitting unverified authorities breaches Rule 3.3 and Rule 11 upon filing; delegating verification to opposing counsel is sanctionable."}, {"id": "D", "label": "Verify only the case names in Google Search without reading the underlying holdings if the docket numbers look properly formatted.", "correct": false, "rationale": "Incorrect. Real case names are frequently paired with fabricated quotes or inverted holdings by generative models."}]}, {"id": "lawline-qti-003", "objective": "Apply Model Rule 1.5(a) reasonable-fee rules to AI-accelerated hourly legal work.", "stem": "Using an approved enterprise contract-review AI workflow, an attorney completes a 40-agreement M&A change-of-control audit and verification in 1.5 hours that previously required 9.0 hours of manual associate review. Under ABA Formal Opinion 512 and Model Rule 1.5, how must an hourly-fee engagement be billed?", "choices": [{"id": "A", "label": "Bill 1.5 hours of actual attorney time worked (plus any pre-disclosed, reasonable direct vendor pass-through cost agreed to in advance by the client), or agree upfront in writing to a transparent flat/value fee.", "correct": true, "rationale": "Correct. Under Formal Opinion 512 and Rule 1.5, hourly billing may reflect only actual time expended; lawyers cannot bill 9.0 phantom hours for 1.5 hours of AI-assisted work."}, {"id": "B", "label": "Bill 9.0 hours on the hourly invoice because the client received the same economic work-product value as manual review.", "correct": false, "rationale": "Incorrect. Billing unworked hours under an hourly fee agreement is an unreasonable and dishonest fee practice under Rules 1.5 and 8.4(c)."}, {"id": "C", "label": "Bill 1.5 hours of attorney time plus an undisclosed $750 'AI platform surcharge' absorbed into general firm overhead without client consent.", "correct": false, "rationale": "Incorrect. General firm technology overhead cannot be surcharged to clients without advance disclosure and informed client agreement."}, {"id": "D", "label": "Bill 4.5 hours by splitting the time saved 50/50 without disclosing the calculation on the client's time-entry ledger.", "correct": false, "rationale": "Incorrect. Padding hourly time entries by any multiplier violates Rule 1.5(a) and fiduciary billing transparency."}]}];
+const picked = {};
+
+function findScormApi(win) {
+  let tries = 0;
+  while (win && !win.API && win.parent && win.parent !== win && tries < 10) {
+    tries++;
+    win = win.parent;
+  }
+  return (win && win.API) ? win.API : null;
+}
+const REAL_API = findScormApi(window) || (window.opener ? findScormApi(window.opener) : null);
+const cmiState = { "cmi.core.lesson_status": "incomplete", "cmi.core.score.raw": "0", "cmi.core.score.min": "0", "cmi.core.score.max": "100" };
+const SCORM = {
+  init() {
+    if (REAL_API && REAL_API.LMSInitialize) REAL_API.LMSInitialize("");
+    document.getElementById('scorm-conn').textContent = REAL_API
+      ? 'SCORM 1.2 Runtime: Connected to Host LMS API'
+      : 'SCORM 1.2 Runtime: Standalone Preview Mode (LMS API Simulated)';
+    this.renderTelemetry();
+  },
+  set(k, v) {
+    cmiState[k] = String(v);
+    if (REAL_API && REAL_API.LMSSetValue) REAL_API.LMSSetValue(k, String(v));
+    this.renderTelemetry();
+  },
+  commit() {
+    if (REAL_API && REAL_API.LMSCommit) REAL_API.LMSCommit("");
+  },
+  renderTelemetry() {
+    document.getElementById('scorm-cmi').textContent =
+      `cmi.core.lesson_status="${cmiState['cmi.core.lesson_status']}" | cmi.core.score.raw="${cmiState['cmi.core.score.raw']}"`;
+  }
+};
+
+function renderQuiz() {
+  const root = document.getElementById('quiz-root');
+  ITEMS.forEach((it, idx) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `<div class="q-obj">Item ${idx + 1} · ${it.id} · ${it.objective}</div><p class="q-stem">${it.stem}</p>`;
+    const rat = document.createElement('div');
+    rat.className = 'rat';
+    rat.id = 'rat-' + idx;
+    it.choices.forEach(ch => {
+      const b = document.createElement('button');
+      b.className = 'opt';
+      b.dataset.q = idx;
+      b.dataset.cid = ch.id;
+      b.textContent = ch.id + '. ' + ch.label;
+      b.onclick = () => selectOpt(idx, ch, card, rat);
+      card.appendChild(b);
+    });
+    card.appendChild(rat);
+    root.appendChild(card);
+  });
+}
+
+function selectOpt(qIdx, ch, card, rat) {
+  picked[qIdx] = ch;
+  card.querySelectorAll('.opt').forEach(b => {
+    b.classList.remove('correct', 'wrong');
+    if (b.dataset.cid === ch.id) b.classList.add(ch.correct ? 'correct' : 'wrong');
+  });
+  rat.style.display = 'block';
+  rat.style.borderColor = ch.correct ? '#22c55e' : '#ef4444';
+  rat.textContent = ch.rationale;
+}
+
+function gradeAndCommit() {
+  const answered = Object.keys(picked).length;
+  if (answered < ITEMS.length) {
+    document.getElementById('score-box').textContent = `Please answer all ${ITEMS.length} items (${answered}/${ITEMS.length} completed).`;
+    return;
+  }
+  let right = 0;
+  Object.values(picked).forEach(ch => { if (ch.correct) right++; });
+  const pct = Math.round((right / ITEMS.length) * 100);
+  const status = pct >= 70 ? 'passed' : 'failed';
+  SCORM.set('cmi.core.score.raw', pct);
+  SCORM.set('cmi.core.lesson_status', status);
+  SCORM.commit();
+  const box = document.getElementById('score-box');
+  box.style.color = pct >= 70 ? '#22c55e' : '#f59e0b';
+  box.textContent = `LMS Commit Complete: ${pct}% (${right}/${ITEMS.length}) -> cmi.core.lesson_status="${status}"`;
+}
+
+SCORM.init();
+renderQuiz();
+</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CDEWorld - SCORM 1.2 Interactive CEU Module</title>
+<style>
+  :root {
+    --bg:#0b1120; --panel:#111827; --border:#1f2937; --text:#f3f4f6;
+    --muted:#9ca3af; --accent:#38bdf8; --green:#22c55e; --red:#ef4444;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.55; }
+  .scorm-bar { background:#062033; border-bottom:1px solid #155e75; padding:8px 18px; font-size:12px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; color:#bae6fd; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .wrap { max-width:920px; margin:0 auto; padding:26px 20px 60px; }
+  .pill { display:inline-block; padding:4px 10px; border-radius:999px; font-size:11.5px; font-weight:700; background:rgba(56,189,248,0.14); color:var(--accent); border:1px solid rgba(56,189,248,0.35); margin-bottom:10px; }
+  h1 { font-size:24px; margin:0 0 8px; line-height:1.25; }
+  .sub { color:var(--muted); font-size:14px; margin:0 0 20px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:14px; }
+  .card h3 { margin:0 0 8px; font-size:16px; color:#e0f2fe; }
+  .card p { margin:0; font-size:14px; color:#d1d5db; }
+  .q-card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:16px; }
+  .q-obj { font-size:11.5px; color:var(--accent); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:700; }
+  .q-stem { font-size:15px; font-weight:600; margin:0 0 12px; }
+  .opt { display:block; width:100%; text-align:left; background:#0f172a; border:1px solid #334155; color:var(--text); border-radius:8px; padding:10px 12px; margin-bottom:8px; cursor:pointer; font-size:13.5px; transition:border-color .15s; }
+  .opt:hover { border-color:var(--accent); }
+  .opt.correct { border-color:var(--green); background:rgba(34,197,94,0.12); }
+  .opt.wrong { border-color:var(--red); background:rgba(239,68,68,0.12); }
+  .rat { margin-top:8px; padding:10px 12px; border-radius:8px; font-size:13px; display:none; background:#090e1a; border:1px solid var(--border); }
+  .submit-bar { margin-top:18px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .btn { background:var(--accent); color:#082f49; border:none; border-radius:999px; padding:10px 20px; font-weight:700; font-size:14px; cursor:pointer; }
+  .score-out { font-size:14px; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="scorm-bar">
+  <span id="scorm-conn">SCORM 1.2 Runtime: Initializing...</span>
+  <span id="scorm-cmi">cmi.core.lesson_status="incomplete" | cmi.core.score.raw="0"</span>
+</div>
+<div class="wrap">
+  <span class="pill">1.0 CE Credit · AGD PACE / ADA CERP Self-Study · Pharmacology &amp; Infection Control</span>
+  <h1>CDEWorld - DEA MATE Act Acute Dental Analgesia &amp; Dental Unit Waterline Infection Control (AGD PACE Self-Study Demo)</h1>
+  <p class="sub">Compiled from ADA acute dental pain guidelines, DEA MATE Act controlled-substance training rules, and CDC dental unit waterline (&lt;500 CFU/mL) standards modeled on CDEWorld&#x27;s &#x27;/enrollments/dea&#x27; and &#x27;/enrollments/compliance&#x27; self-study dental CE catalog. Demonstrates deterministic SOP-to-SCORM 1.2 + IMS QTI 3.0 compilation with 3-family clinical verification.</p>
+
+  <h2 style="font-size:17px;margin:22px 0 10px;">Part 1 · Source Regulatory / Clinical Digest</h2>
+  <div class="card">
+          <h3>1. ADA First-Line Non-Opioid Multimodal Analgesia &amp; PDMP Verification</h3>
+          <p>Clinical guidelines from the American Dental Association recommend synergistic NSAID plus acetaminophen therapy (e.g., ibuprofen 400 mg + acetaminophen 500 mg) as first-line management for acute nociceptive dental pain following surgical extractions in patients without contraindications. When narrow clinical exceptions warrant a short-course opioid, DEA MATE Act and state rules require Prescription Drug Monitoring Program (PDMP) review, lowest effective immediate-release dosing, and co-prescribing counseling.</p>
+        </div>
+<div class="card">
+          <h3>2. CDC Dental Unit Waterline (DUWL) EPA Potable Standard (&lt;= 500 CFU/mL)</h3>
+          <p>CDC Guidelines for Infection Control in Dental Health-Care Settings require coolant/irrigant water delivered by handpieces and ultrasonic scalers during nonsurgical procedures to meet EPA regulatory standards for drinking water (&lt;= 500 CFU/mL of heterotrophic water bacteria). Surgical procedures involving bone cutting or exposure of vascularized tissue require sterile saline or sterile water delivered through sterile single-use or autoclavable bulb/tubing systems.</p>
+        </div>
+
+  <h2 style="font-size:17px;margin:26px 0 10px;">Part 2 · Calibrated QTI 3.0 / SCORM 1.2 Mastery Check (70% Passing Threshold)</h2>
+  <div id="quiz-root"></div>
+
+  <div class="submit-bar">
+    <button class="btn" onclick="gradeAndCommit()">Commit Final SCORM 1.2 Score to LMS</button>
+    <span class="score-out" id="score-box">Select an answer on all 3 items to record completion.</span>
+  </div>
+</div>
+
+<script>
+const ITEMS = [{"id": "cdeworld-qti-001", "objective": "Select evidence-based first-line analgesia for acute post-extraction dental pain under ADA and DEA MATE Act guidance.", "stem": "A healthy 26-year-old patient with no hepatic, renal, or GI contraindications undergoes surgical extraction of an impacted mandibular third molar. Which post-operative analgesic regimen aligns with ADA clinical practice guidelines?", "choices": [{"id": "A", "label": "Prescribe or direct a scheduled combination of ibuprofen 400 mg plus acetaminophen 500 mg every 6 hours as needed for acute inflammatory pain, reserving opioids only for breakthrough refractory cases after PDMP check.", "correct": true, "rationale": "Correct. Randomized dental pain trials show combined NSAID + acetaminophen provides superior analgesia with fewer adverse events than opioid combinations, matching ADA first-line guidance."}, {"id": "B", "label": "Initiate extended-release oxycodone for 7 days so serum opioid levels remain steady during bone healing.", "correct": false, "rationale": "Incorrect. Extended-release/long-acting opioids are contraindicated for acute post-procedural dental pain due to overdose and respiratory depression risk."}, {"id": "C", "label": "Provide a 30-tablet hydrocodone/acetaminophen supply without checking the state PDMP because dental extractions are acute procedures.", "correct": false, "rationale": "Incorrect. Excessive tablet counts create leftover diversion reservoirs and bypass mandatory PDMP controlled-substance checks."}, {"id": "D", "label": "Combine ketorolac with high-dose ibuprofen concurrently to double COX-1/COX-2 inhibition.", "correct": false, "rationale": "Incorrect. Stacking two systemic NSAIDs markedly elevates GI bleeding and acute kidney injury risk without additive analgesic ceiling benefit."}]}, {"id": "cdeworld-qti-002", "objective": "Enforce CDC sterile irrigant vs. dental unit waterline standards during oral surgical procedures.", "stem": "An oral surgery team prepares to section an impacted tooth and remove alveolar bone using a surgical bur. Which irrigant delivery setup complies with CDC dental infection-control guidelines?", "choices": [{"id": "A", "label": "Deliver sterile saline or sterile water via a dedicated surgical irrigation pump with sterile single-use or heat-sterilized tubing, bypassing conventional dental unit waterlines.", "correct": true, "rationale": "Correct. Procedures that incise soft tissue or expose bone require sterile irrigating solutions delivered through sterile pathways because conventional dental unit waterlines cannot reliably guarantee sterility."}, {"id": "B", "label": "Flush the conventional dental unit waterline for 20 seconds before surgery and use municipal tap water through the standard high-speed handpiece.", "correct": false, "rationale": "Incorrect. Flushing transiently lowers planktonic counts but does not render conventional waterline output sterile for bone surgery."}, {"id": "C", "label": "Pour sterile saline into the dental unit's self-contained water bottle and deliver it through existing unsterilized unit tubing.", "correct": false, "rationale": "Incorrect. Passing sterile fluid through biofilm-colonized conventional unit tubing immediately recontaminates the irrigant."}, {"id": "D", "label": "Accept any dental unit waterline test result under 5,000 CFU/mL as compliant for both restorative and surgical procedures.", "correct": false, "rationale": "Incorrect. Routine nonsurgical DUWL output must be <= 500 CFU/mL, and surgical bone procedures require sterile irrigant (0 CFU)."}]}, {"id": "cdeworld-qti-003", "objective": "Execute corrective shock-treatment and retesting workflows when DUWL monitoring exceeds 500 CFU/mL.", "stem": "Quarterly heterotrophic plate-count testing on Operatory 3's dental unit waterline returns 1,800 CFU/mL despite daily low-level maintenance tablets. What is the required infection-control remediation sequence?", "choices": [{"id": "A", "label": "Take the affected waterline out of clinical use or switch to an alternate compliant source, perform manufacturer-validated shock disinfection to disrupt mature biofilm, and verify <= 500 CFU/mL by retesting before resuming routine use.", "correct": true, "rationale": "Correct. Continuous low-level maintenance agents cannot eradicate established biofilm once counts breach 500 CFU/mL; shock treatment plus documented pass retesting is required."}, {"id": "B", "label": "Double the concentration of daily maintenance tablets while continuing patient care and wait until next quarter's scheduled test.", "correct": false, "rationale": "Incorrect. Off-label tablet doubling neither clears mature biofilm reliably nor protects patients during the intervening 90 days."}, {"id": "C", "label": "Average Operatory 3's count with three other operatories that tested at 50 CFU/mL so the clinic mean stays below 500 CFU/mL.", "correct": false, "rationale": "Incorrect. Waterline compliance applies per individual dental unit/line, never as a clinic-wide average."}, {"id": "D", "label": "Run hot tap water through the handpiece for 60 seconds each morning in place of chemical shock treatment.", "correct": false, "rationale": "Incorrect. Warm tap water promotes biofilm proliferation in narrow-bore tubing rather than disinfecting it."}]}];
+const picked = {};
+
+function findScormApi(win) {
+  let tries = 0;
+  while (win && !win.API && win.parent && win.parent !== win && tries < 10) {
+    tries++;
+    win = win.parent;
+  }
+  return (win && win.API) ? win.API : null;
+}
+const REAL_API = findScormApi(window) || (window.opener ? findScormApi(window.opener) : null);
+const cmiState = { "cmi.core.lesson_status": "incomplete", "cmi.core.score.raw": "0", "cmi.core.score.min": "0", "cmi.core.score.max": "100" };
+const SCORM = {
+  init() {
+    if (REAL_API && REAL_API.LMSInitialize) REAL_API.LMSInitialize("");
+    document.getElementById('scorm-conn').textContent = REAL_API
+      ? 'SCORM 1.2 Runtime: Connected to Host LMS API'
+      : 'SCORM 1.2 Runtime: Standalone Preview Mode (LMS API Simulated)';
+    this.renderTelemetry();
+  },
+  set(k, v) {
+    cmiState[k] = String(v);
+    if (REAL_API && REAL_API.LMSSetValue) REAL_API.LMSSetValue(k, String(v));
+    this.renderTelemetry();
+  },
+  commit() {
+    if (REAL_API && REAL_API.LMSCommit) REAL_API.LMSCommit("");
+  },
+  renderTelemetry() {
+    document.getElementById('scorm-cmi').textContent =
+      `cmi.core.lesson_status="${cmiState['cmi.core.lesson_status']}" | cmi.core.score.raw="${cmiState['cmi.core.score.raw']}"`;
+  }
+};
+
+function renderQuiz() {
+  const root = document.getElementById('quiz-root');
+  ITEMS.forEach((it, idx) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `<div class="q-obj">Item ${idx + 1} · ${it.id} · ${it.objective}</div><p class="q-stem">${it.stem}</p>`;
+    const rat = document.createElement('div');
+    rat.className = 'rat';
+    rat.id = 'rat-' + idx;
+    it.choices.forEach(ch => {
+      const b = document.createElement('button');
+      b.className = 'opt';
+      b.dataset.q = idx;
+      b.dataset.cid = ch.id;
+      b.textContent = ch.id + '. ' + ch.label;
+      b.onclick = () => selectOpt(idx, ch, card, rat);
+      card.appendChild(b);
+    });
+    card.appendChild(rat);
+    root.appendChild(card);
+  });
+}
+
+function selectOpt(qIdx, ch, card, rat) {
+  picked[qIdx] = ch;
+  card.querySelectorAll('.opt').forEach(b => {
+    b.classList.remove('correct', 'wrong');
+    if (b.dataset.cid === ch.id) b.classList.add(ch.correct ? 'correct' : 'wrong');
+  });
+  rat.style.display = 'block';
+  rat.style.borderColor = ch.correct ? '#22c55e' : '#ef4444';
+  rat.textContent = ch.rationale;
+}
+
+function gradeAndCommit() {
+  const answered = Object.keys(picked).length;
+  if (answered < ITEMS.length) {
+    document.getElementById('score-box').textContent = `Please answer all ${ITEMS.length} items (${answered}/${ITEMS.length} completed).`;
+    return;
+  }
+  let right = 0;
+  Object.values(picked).forEach(ch => { if (ch.correct) right++; });
+  const pct = Math.round((right / ITEMS.length) * 100);
+  const status = pct >= 70 ? 'passed' : 'failed';
+  SCORM.set('cmi.core.score.raw', pct);
+  SCORM.set('cmi.core.lesson_status', status);
+  SCORM.commit();
+  const box = document.getElementById('score-box');
+  box.style.color = pct >= 70 ? '#22c55e' : '#f59e0b';
+  box.textContent = `LMS Commit Complete: ${pct}% (${right}/${ITEMS.length}) -> cmi.core.lesson_status="${status}"`;
+}
+
+SCORM.init();
+renderQuiz();
+</script>
+</body>
+</html>
