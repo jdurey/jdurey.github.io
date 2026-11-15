@@ -1,30 +1,19 @@
-# Figma AI Evaluation Router: Week-1 Rollout Playbook
+# Figma AI Evaluation Router: Week-1 Rollout Plan
 
-## Objective
-Deploy the AI Output Evaluation Router to enforce structured, rubric-based, and policy-compliant evaluation of all AI-generated actions and plugin outputs in Figma's design workflows.
+## Goal
+Score AI canvas and plugin outputs with a clear rubric before changes ship. Catch bad schemas and prompt traps early.
 
-## Day 1-2: Setup & Integration
-- Integrate the router agent as a middleware in Figma's AI workflow endpoints (e.g., plugin actions, AI-powered suggestions).
-- Configure the router to intercept all AI outputs, normalizing Figma-specific fields (plugin names, design object references, user intents).
-- Set up golden-set rubric criteria for core workflows (plugin usage, export actions, design suggestions) and calibrate LLM-as-judge scoring.
+## Days 1-2: Wire the Check
+- Point the router at staging plugin and prompt logs.
+- Map Figma fields like layer IDs, selection scope, and user intent into one JSON check.
+- Set golden-set pass bars with AI Insights and compare automated scores against human ratings. Fix drift first.
 
-## Day 3-4: Human Checkpoint & Policy Gate Training
-- Train the team on schema validation: flagging missing, null, or ambiguous fields (e.g., unspecified plugin versions, ambiguous selections).
-- Establish escalation rules: any PII, checkout, or ambiguous request triggers policy_flag and escalate_to_human.
-- Run live drills using the provided test cases, ensuring the router emits only contract-compliant JSON and holds or refuses risky requests.
+## Days 3-4: Human Review Drills
+- Flag missing layer targets or vague prompts right away.
+- Route billing, account data, or unclear actions to a human reviewer (`escalate_to_human: true`).
+- Run the four sample cases with engineers so everyone sees how bad payloads stop.
 
-## Day 5: Governance & Audit Trail
-- Review all escalated cases for audit trail completeness and checkpoint rationale.
-- Validate that no unsupported integrations or hallucinated plugins are processed.
-- Confirm that all prompt-injection and reward-gaming attempts are correctly flagged and refused.
-
-## Adoption Metrics
-- Track the percentage of AI outputs routed through the evaluation pipeline versus naive acceptance.
-- Monitor the rate of human escalations, policy flags, and schema validation failures.
-- Measure reviewer agreement on rubric scores and audit rationales.
-- Target: 100% contract-compliant JSON emission, zero unflagged policy violations, and >95% reviewer agreement within the first week.
-
-## Ongoing
-- Update rubrics and plugin lists as Figma's ecosystem evolves.
-- Periodically audit escalated cases for new edge cases or policy drift.
-- Share reusable methods and checkpoint rationales with the broader AI Research and Modeling Platform teams.
+## Day 5: Audit & Sign-Off
+- Check every held case for a plain reason code.
+- Block fake plugin names and prompt-override tricks.
+- Track human-vs-judge agreement each Friday. Aim for 95% agreement and zero unflagged leaks.

@@ -1,31 +1,18 @@
-# Abnormal AI Enablement Pipeline: Week-1 Ops Playbook
+# Abnormal AI Enablement Pipeline: Week-1 Rollout Plan
 
-## Objective
-Rapidly deploy a structured, role-based enablement workflow for all field, technical, and partner-facing teams, ensuring every onboarding, upskilling, and certification action is governed by JSON contract, human checkpoints, and policy compliance.
+## Goal
+Give AEs, SEs, and partners live practice on multi-product Behavioral AI deals. Catch pitch gaps early.
 
-## Day 1-2: Intake & Schema Validation
-- Enablement Ops team launches the Intake Bot to collect role, region, and product context for each new user or partner.
-- Intake Bot normalizes entries to Abnormal AI’s taxonomy (AE, CSM, Channel Partner, etc.) and flags any missing or ambiguous fields for human review.
-- All requests are routed via the JSON contract, with incomplete or ambiguous fields triggering escalate_to_human: true.
+## Days 1-2: Role Tracks
+- Load core scenarios for email, identity, and AI security into the sandbox.
+- Map certification checks by role so AEs, SEs, and partners practice the exact calls they run.
+- Calibrate pass bars with sales managers. Keep feedback short.
 
-## Day 3-4: Learning Path Assignment & Policy Gate
-- Routing Engine assigns onboarding or upskilling modules based on validated schema.
-- Policy gates check for PII, unsupported integrations, or compliance boundaries (e.g., batch onboarding with external PII triggers policy_flag: true and escalation).
-- All escalations are logged with checkpoint_reason for audit.
+## Days 3-4: Live Deal Drills
+- Have each rep run two discovery drills, and managers review scores the same afternoon.
+- Hold any unverified roadmap claim, pricing guess, or customer PII for manager sign-off.
+- Review flagged answers in standup. Update coaching cards fast.
 
-## Day 5: Scenario-Based Assessment & Certification
-- Assessment Copilot delivers hands-on labs and pitch simulations tailored to each role and product.
-- All certification assessments are scored against rubric; any reward-gaming, answer-leak, or ambiguous responses are flagged for human review.
-- Human checkpoints are mandatory for policy_flag: true or escalate_to_human: true cases.
-
-## Day 6-7: Feedback Loop & Analytics
-- Enablement Analytics Dashboard aggregates completion, certification, and adoption metrics.
-- Weekly review of flagged cases, adoption blockers, and field feedback triggers just-in-time content updates.
-
-## Adoption Metrics
-- Track onboarding completion rates, certification pass/fail, time-to-field-readiness, and number of escalated cases.
-- Monitor field performance uplift (multi-product attach, platform story proficiency) and feedback loop closure rates.
-
-## Human Checkpoint Rules
-- Any ambiguous, incomplete, or unsupported schema triggers escalate_to_human: true.
-- All policy_flag: true cases (PII, compliance, reward-gaming) require human review and audit rationale before proceeding.
+## Day 5: Readiness Metrics
+- Check pass rates across North America, EMEA, and APJ.
+- Tie drill scores to first-meeting conversion and multi-product attach. Refresh drills at every launch.
