@@ -155,6 +155,31 @@
   .overlay-card strong {
     color: var(--fg);
   }
+  .haru-hud-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .65rem;
+    margin-bottom: .55rem;
+    flex-wrap: wrap;
+  }
+  .haru-pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .05em;
+    padding: .18rem .58rem;
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--accent) 16%, var(--bg-soft));
+    border: 1px solid color-mix(in oklch, var(--accent) 55%, var(--border));
+    color: var(--fg);
+  }
+  .haru-wave {
+    display: block;
+    width: 100%;
+    height: 44px;
+    margin: .2rem 0 .45rem;
+  }
   .complete-view {
     justify-content: center;
     align-items: center;
@@ -329,7 +354,7 @@
     <div class="interview-grid">
       <div class="stage-card">
         <div class="stage-topbar">
-          <span>CARA-4.1 Realtime · Cloned Voice · Mic Only (No Camera)</span>
+          <span id="topbar-spec">CARA-4.1 Realtime · Cloned Voice · Mic Only (No Camera)</span>
           <div class="stage-badges">
             <span id="live-badge" class="pill-live" hidden>Live</span>
             <span id="timer-badge" class="pill-timer" data-warn="false">03:00 cap</span>
@@ -343,6 +368,18 @@
             <img class="poster-bg" src="/interview/portrait.jpg" alt="Portrait of Josh Durey">
             <div class="overlay-card">
               <p><strong>3-minute live voice + video screen.</strong> Your browser will ask for microphone access when you click Start; your camera is never used. Interrupt anytime just like a normal call.</p>
+            </div>
+          </div>
+
+          <div id="haru-voice-overlay" class="video-overlay" hidden>
+            <img class="poster-bg" src="/interview/portrait.jpg" alt="Portrait of Josh Durey">
+            <div class="overlay-card">
+              <div class="haru-hud-bar">
+                <span class="haru-pill">Haru-4B Full-Duplex · 7.5Hz Continuous Audio</span>
+                <span id="haru-step-pill" class="haru-pill">M5 Ultra · ~22ms/step</span>
+              </div>
+              <canvas id="haru-wave-canvas" class="haru-wave" width="448" height="44"></canvas>
+              <p id="haru-live-caption">Listening and speaking simultaneously on Mac Studio (M5 Ultra MLX)...</p>
             </div>
           </div>
 
@@ -360,6 +397,7 @@
 
         <div class="controls-row">
           <button id="start-btn" type="button" class="btn btn-primary" disabled>Warming Session...</button>
+          <button id="haru-mode-btn" type="button" class="btn" hidden>Full-Duplex Voice (M5 Ultra)</button>
           <button id="stop-btn" type="button" class="btn btn-danger" hidden>End Session</button>
           <a id="book-cta" class="btn" href="https://cal.com/joshua-durey-wqgvgp/20-min-scope-call" target="_blank" rel="noopener">Book a 20-Min Call</a>
         </div>
@@ -389,8 +427,9 @@
           <span class="receipt-tag">System Guardrails</span>
           <h2>How this twin is wired</h2>
           <ul class="spec-list">
-            <li><strong>Server-minted token:</strong> Cloudflare Worker mints a 1-hour session token; API keys never ship to the client.</li>
-            <li><strong>3:00 hard cap:</strong> Enforced both in the UI timer and server-side on the persona, with auto-stop on inactive tabs.</li>
+            <li><strong>Server-minted token:</strong> Cloudflare Worker mints a 1-hour session token; API keys and tunnel origins never ship to the client.</li>
+            <li><strong>M5 Ultra full-duplex failover:</strong> Backed by a LoRA-grounded <a href="/work/haru-4b-m5-ultra/">Haru-4B MLX voice twin</a> (22ms/step) if cloud video minutes fill up.</li>
+            <li><strong>3:00 hard cap:</strong> Enforced both in the UI timer and server-side on both engines, with auto-stop on inactive tabs.</li>
             <li><strong>Fail-closed scope:</strong> Grounded strictly on verified public case studies; compensation and client NDA questions escalate to live calendar booking.</li>
           </ul>
         </div>

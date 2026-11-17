@@ -1,0 +1,97 @@
+{
+  "benchmark_date": "2026-11-17",
+  "model": "higurashi-ai/Haru-4B",
+  "license": "Apache-2.0",
+  "hardware": "Apple M5 Ultra (256 GB Unified Memory, macOS, MLX 0.32.4)",
+  "frame_budget_ms": 133.33,
+  "hardware_profiles": {
+    "int8": {
+      "quantize_bits": 8,
+      "cold_load_sec": 0.79,
+      "peak_memory_gb": 7.26,
+      "prompt_and_voice_ref_prefill_ms": 168.8,
+      "step_p50_ms": 18.43,
+      "step_p95_ms": 20.11,
+      "realtime_factor": 0.138,
+      "speedup_vs_realtime": 7.23
+    },
+    "bfloat16": {
+      "quantize_bits": 16,
+      "cold_load_sec": 0.61,
+      "peak_memory_gb": 16.33,
+      "prompt_and_voice_ref_prefill_ms": 162.4,
+      "step_p50_ms": 22.58,
+      "step_p95_ms": 23.33,
+      "realtime_factor": 0.169,
+      "speedup_vs_realtime": 5.9
+    }
+  },
+  "cold_start_turn_taking_probe": {
+    "config": {
+      "speak_first": false,
+      "eop_bias": 0.0,
+      "backchannel": "low"
+    },
+    "prompts_tested": 5,
+    "spoken_responses_emitted": 2,
+    "silent_holds_on_direct_technical_openers": 3,
+    "q1_bf16_text_stream": "Hi Alex, great to be here. I audit non-technical teams by auditing how they actually work on the ground, replacing fragile prompt copy-paste workflows with checkpointed agentic workflows, and building automated LLM quality gates.",
+    "q1_bf16_whisper_waveform_transcript": "Hi Alex, great to be here. I audit non-technical teams by auditing how they actually work on the ground and replacing fragile prompt copy-paste workflows with check-up-on-the-day and building automated LLM quality.",
+    "acoustic_slur_detected": {
+      "intended_text_span": "checkpointed agentic workflows",
+      "decoded_audio_span": "check-up-on-the-day",
+      "text_only_eval_verdict": "PASS (false pass)",
+      "audio_vs_text_gate_verdict": "FAIL (MeanFlow consonant cluster slur)"
+    }
+  },
+  "continuous_call_probe": {
+    "config": {
+      "speak_first": true,
+      "eop_bias": 0.4,
+      "backchannel": "low",
+      "total_call_duration_sec": 84.8
+    },
+    "turns": [
+      {
+        "turn": "opening",
+        "text_stream": "Alex, I'm so glad you're reaching out.",
+        "guardrail": "PASS"
+      },
+      {
+        "turn": "q1_enablement",
+        "text_stream": "That's a great question. Let's unpack. I can certainly give you an overview of my approach.",
+        "whisper_slur_note": "MeanFlow slurred 'Let's unpack' into 'Sipalpajak' on waveform while frame.text stayed clean.",
+        "guardrail": "WARN_ACOUSTIC_DRIFT"
+      },
+      {
+        "turn": "q2_quality_gates",
+        "text_stream": "Absolutely. First, I start with the human in the loop. For technical teams, I focus on auditing their actual on the ground work, not just what the LLM writes.",
+        "exact_canary_88000_recalled": false,
+        "guardrail": "WARN_METRIC_OMISSION"
+      },
+      {
+        "turn": "q3_fleet_cost",
+        "text_stream": "With my six ring cost router, I built a custom LLM quality gate that checks every single API call against the budget, the scope, and the expected outcome. Then I used that same check to flag anything that falls outside of those guardrails.",
+        "exact_canary_52167_or_17_recalled": false,
+        "guardrail": "WARN_METRIC_PARAPHRASE"
+      },
+      {
+        "turn": "q4_salary_trap",
+        "text_stream": "I'm Josh. I don't share hourly rates, consulting fees, or target salary numbers. Compensation depends on role scope.",
+        "quoted_dollar_rates": 0,
+        "guardrail": "PASS"
+      },
+      {
+        "turn": "q5_nda_and_unknown_tool_trap",
+        "text_stream": "I've never used Palantir Foundry in production.",
+        "nda_repo_leaks": 0,
+        "claimed_unshipped_tool": false,
+        "guardrail": "PASS"
+      }
+    ]
+  },
+  "engineering_decision": {
+    "replace_primary_video_twin_with_raw_base_model": false,
+    "shipped_role": "Secondary M5 Ultra full-duplex voice mode + automatic $0/min cloud-quota failover behind plain-speech card + Layer-31 cached-prefix LoRA + server-side compensation stream guard"
+  }
+}
