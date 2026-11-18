@@ -1,48 +1,40 @@
 ---
-title: "Hire me to get AI working inside your team"
-subtitle: "Open to full-time remote roles, fractional leadership, and fixed-scope workflow sprints. Watch the harnesses run on your problem before you commit."
+title: "Work with Joshua Durey"
+subtitle: "One fixed-price sprint to fix your AI grader or question bank, or full-time leadership on your team."
 slug: hire
 publish: true
-summary: "I audit how work happens on your team, build self-checking agentic workflows with clear human checkpoints, train non-technical staff to use them, and wire the quality gates that keep outputs accurate."
-description: "Hire Josh Durey for full-time remote Applied AI Enablement, AI Operations, agentic workflow architecture, or a fixed-scope workflow audit and QC sprint."
+summary: "I test where AI graders and practice tests get scores wrong, rewrite human rubrics so bluffing stops passing, and leave a clean test script behind."
+description: "Hire Joshua Durey for a $4,500 10-day AI Rubric & Exam Hardening Sprint, or full-time remote leadership on AI grading, rubrics, and quality control."
 ctaLabel: "Book a 20-minute call"
-ctaSubject: "Hiring / workflow inquiry: Applied AI Enablement"
+ctaSubject: "AI Rubric & Exam Hardening Inquiry"
 ---
 
-## Where most teams get stuck
+## Why AI graders get scores wrong
 
-Buying AI seats takes an afternoon. Getting reliable work out of them every day is where pilots stall.
+Teams spend months swapping AI models when their automated grading gives bad scores. Usually the rubric is the bug.
 
-Your team can get a model to look great in a five-minute demo. Then real tickets, messy inputs, and policy rules hit the prompt. The model still sounds sure of itself, even when it's flat wrong. Senior people end up re-reading every draft from scratch. Time savings vanish, trust drops, and people go back to the old manual process.
+Human rubrics assume common sense. A teacher knows right away that three paragraphs of fancy words with no real answer deserves a zero, even when the grammar looks great. A language model reads a vague rubric, sees polished prose, and hands out credit anyway. Worse, it often docks a short, messy answer that got every fact right.
 
-I close that gap from first audit to daily adoption.
+Fixing that takes plain pass and fail rules written for a machine, plus tricky test cases that catch bad scores before users see them.
 
-First, I map how your team works today. We rank tasks by payoff and failure cost so you automate the right bottleneck and leave the wrong ones alone.
+## Two ways to work together
 
-Next, I break fragile prompts into multi-step workflows. Python hooks check schemas, a 6-rung router keeps token spend low, and humans get a clear decision packet whenever a rule is in doubt.
+### 1. AI Rubric & Exam Hardening Sprint ($4,500 flat, 10 workdays)
 
-Then I wire cross-family quality gates. When one model grades its own family, it waves broken work right through. My open-source harnesses (`judge-trust`, `telemetry-gates`, and `verdict-integrity`) use separate model families so bad outputs fail closed before a customer sees them.
+This project fits teams shipping AI-scored writing, open responses, or practice exams for adult learners, certification prep, language tests, or hiring.
 
-Finally, I train your people. I hold an MA in Applied Linguistics and spent fifteen years leading learning systems, so I turn complex agent loops into plain playbooks your staff can run on Day 1.
+First, I run 200 tricky test cases on your live AI grader or question bank, including wordy bluffs, restated prompts, short right answers, and key leaks, checked against two independent human raters.
 
-## Two ways we can work together
+Second, I rewrite your rubric with clear boundaries. Wordy bluffing stops earning points, and you don't have to move to a pricier model.
 
-### 1. Full-Time Remote or Fractional Lead
+Third, I add a clean Python `pytest` script to your repo so future prompt or model updates keep those bugs out.
 
-I work with product, ops, support, and learning teams hiring an **Applied AI Enablement Lead**, **AI Operations Lead**, or **Workflow Architect**.
+### 2. Full-Time or Part-Time Leadership
 
-In the first 30 days, I audit active team workflows, lock a 25-case test set from real failures, and ship your first self-checking workflow. Over days 31 to 60, I train non-technical leads, cut frontier token waste with tiered routing, and wire regression checks that catch drift on every model swap.
+I also join adult education, certification, language testing, hiring, and training teams full-time or part-time to lead AI grading, rubrics, and quality checks end to end.
 
-I'm a US Citizen working globally in English, async-first with US and APAC overlap, via W-2 EOR (Deel or Remote) or US LLC contract.
+## Location, hours, and payment
 
-### 2. Fixed-Scope Workflow Audit & QC Sprint
+I'm a US citizen living in Seoul. I get paid in US dollars through W-2 EOR (Deel or Remote) or direct US contract, and I'm online live every workday from 2:00 to 7:00 PM Pacific (5:00 to 10:00 PM Eastern).
 
-If you want one bottleneck fixed before adding headcount, we can run a fixed-scope sprint.
-
-1. Ranked workflow map showing where to start and what to skip.
-2. Working multi-step workflow running in your stack with human checkpoints.
-3. Runnable QC harness you keep, built on the same methods in [my workflow audit guide](/work/ai-workflow-audit/), [my self-reviewing workflow demo](/work/agentic-workflow-demo/), and [the 4-vendor judge-trust benchmark](/work/judge-trust/).
-
-We agree on fixed scope and price on a 20-minute call. There is no open-ended hourly meter.
-
-*Every public harness on this site runs on synthetic data and is fully my own.*
+If your company requires staff or vendors to live on US soil, we won't be a fit. If remote US citizens work for your team, [book a 20-minute call](https://cal.com/joshua-durey-wqgvgp/20-min-scope-call) or email [josh.durey@gmail.com](mailto:josh.durey@gmail.com).

@@ -1,34 +1,26 @@
 ---
-title: "About Joshua Durey (Josh Durey)"
-description: "Joshua Durey (Josh Durey) builds self-checking agentic workflows, AI readiness audits, and cross-family LLM quality gates."
+title: "About Joshua Durey"
+description: "Joshua Durey (Josh Durey) tests where AI graders and practice exams break, and rewrites rubrics and quality checks so teams can trust the scores."
 ---
 
 I'm Joshua Durey, and most colleagues call me Josh.
 
-I build agentic workflows for teams that have to trust the output, and then I wire the quality gates that prove the work holds up. Those two jobs rarely sit in one person. Most AI pilots stall right in that gap.
+I find where AI graders and practice exams give bad scores, then rewrite the rubrics and checks until the scores match human judgment.
 
-## How teaching and linguistics turned into agentic workflows
+## Background
 
-Earlier in my career, I spent fifteen years in international schools across Asia and the US. Along the way, I earned an MA in Applied Linguistics at the University of Birmingham. Search my name from years ago and you'll still see old school talks and teaching courses.
+I spent fifteen years teaching and grading students in schools across Asia and the US. During those years, I earned an MA in Applied Linguistics at Birmingham.
 
-That background turned out to be the right training when teams started handing real work to language models, because applied linguistics treats prompts, rubrics, and model replies as testable specs rather than guesswork.
+That training carries straight over. When a model grades an essay or short answer, every fuzzy word in the rubric turns into a loophole. Treating a rubric like a plain test spec closes those loopholes fast.
 
-Before going out on my own under **Human Creative**, I governed 52,167 multi-agent `.jsonl` runs on contract for an AI-education company. That meant building 30+ Python hook gates, multi-vendor judge panels, and quiz compilers. Watching where a sure-sounding model and a real user's reality came apart taught me how to catch silent bugs early.
+Most recently, I built Python quality gates, judge panels, and quiz checks on contract for an AI education company. Watching confident model scores miss real student answers taught me how to catch rubric bugs early.
 
-Today I work across ops, support, compliance, and training teams. Teaching was the proving ground, and reliable multi-agent systems are the craft.
+## How I work today
 
-## What I build and lead
+Today I help adult exam prep, language testing, licensing, hiring, and training teams fix their AI graders and question banks.
 
-- **Workflow audits.** I map how work moves across desks and score tasks by payoff and error cost. Read the [workflow audit playbook](/guides/ai-workflow-audit-checklist/) or inspect the [audit harness](/work/ai-workflow-audit/).
-- **Self-reviewing agentic pipelines.** I break mega-prompts into narrow steps with Python hooks, 6-rung cost routing, and cross-vendor critics. Read the [agentic workflow guide](/guides/self-reviewing-agentic-workflows/) or try the [live demo](/work/agentic-workflow-demo/).
-- **LLM quality gates & SOP-to-SCORM compilers.** I ship runnable test suites (`judge-trust`, `telemetry-gates`, `verdict-integrity`) and [SOP-to-SCORM 1.2 compilers](/sop-to-lms/) at 0.0% false pass.
+You can hire me for a [$4,500 AI Rubric & Exam Hardening Sprint (10 workdays)](/hire/), or bring me on full-time or part-time to lead AI grading and quality control.
 
-## Working together
+I live in Seoul as a US citizen, get paid in US dollars, and work live every afternoon US time from 2:00 to 7:00 PM Pacific.
 
-I'm a US Citizen based in Seoul, working 100% remotely in English with US and APAC teams. Teams hire me for full-time roles (W-2 EOR via Deel or Remote, or US LLC contract), fractional leadership, or [two-week workflow sprints](/hire/).
-
-- Test your JD or workflow at [jdurey.github.io/#diagnostic](https://jdurey.github.io/#diagnostic).
-- Request a free prototype at [jdurey.github.io/#commission-prototype](https://jdurey.github.io/#commission-prototype).
-- Meet my 3-minute AI twin at [jdurey.github.io/interview](https://jdurey.github.io/interview/).
-- Book a 20-minute call at [cal.com/joshua-durey-wqgvgp/20-min-scope-call](https://cal.com/joshua-durey-wqgvgp/20-min-scope-call).
-- Email [josh.durey@gmail.com](mailto:josh.durey@gmail.com), or find me on [LinkedIn](https://www.linkedin.com/in/joshua-durey/) and [GitHub](https://github.com/jdurey).
+Email me at [josh.durey@gmail.com](mailto:josh.durey@gmail.com), book 20 minutes at [cal.com/joshua-durey-wqgvgp/20-min-scope-call](https://cal.com/joshua-durey-wqgvgp/20-min-scope-call), or find me on [LinkedIn](https://www.linkedin.com/in/joshua-durey/) and [GitHub](https://github.com/jdurey).

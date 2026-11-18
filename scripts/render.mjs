@@ -19,13 +19,10 @@ function nav(site, active) {
   return `<nav class="site-nav">
     <a class="brand" href="/">${esc(site.name)}<span class="brand-dot">.</span></a>
     <div class="nav-links">
+      ${link("/hire/", "Hire ($4,500 Sprint)", "hire")}
       ${link("/work/", "Work", "work")}
       ${link("/guides/", "Playbooks", "guides")}
-      ${link("/sop-to-lms/", "SOP-to-LMS", "sop-to-lms")}
-      ${link("/skills/", "Skills", "skills")}
-      ${link("/interview/", "Interview", "interview")}
       ${link("/about/", "About", "about")}
-      ${site.offerUrl ? link(site.offerUrl, "Hire", "hire") + "\n      " : ""}<a href="https://whop.com/human-creative-benchmark-studio/" target="_blank" rel="noopener" data-funnel-cta="nav_whop_hub">B2B Kits</a>
       <a href="${esc(site.links.github)}" rel="me">GitHub</a>
     </div>
   </nav>`;
@@ -79,20 +76,19 @@ ${ld}
 ${body}
 </main>
 <footer class="site-footer">
-  <div>${esc(site.name)} · Applied AI Enablement</div>
+  <div>${esc(site.name)} · AI Grading, Rubrics &amp; Quality Control</div>
   <div class="foot-links">
     <a href="mailto:${esc(site.links.email)}">Email</a>
     ${site.links.cal ? `<a href="${esc(site.links.cal)}" target="_blank" rel="noopener">Book a call</a>` : ""}
-    <a href="/guides/">Playbooks</a>
-    <a href="/sop-to-lms/">SOP-to-LMS</a>
-    <a href="https://whop.com/human-creative-benchmark-studio/" target="_blank" rel="noopener">B2B Storefront</a>
-    <a href="/interview/">AI Twin</a>
+    <a href="/hire/">Hire ($4,500 Sprint)</a>
+    <a href="/work/">Work</a>
+    <a href="/about/">About</a>
     <a href="/llms.txt">LLMs.txt</a>
     <a href="/feed.xml">Atom</a>
     <a href="${esc(site.links.github)}" rel="me">GitHub</a>
     ${site.links.linkedin ? `<a href="${esc(site.links.linkedin)}" rel="me">LinkedIn</a>` : ""}
   </div>
-  <div class="foot-meta">Built ${esc(site.buildDate)} · regenerated nightly · <a href="${esc(site.links.repo)}">source</a></div>
+  <div class="foot-meta">US Citizen in Seoul · Live 2:00-7:00 PM Pacific · Built ${esc(site.buildDate)}</div>
 </footer>
 <script type="module" src="/assets/site.js"></script>
 <script type="module" src="/assets/funnel.js"></script>
@@ -101,22 +97,22 @@ ${body}
 }
 
 function proofStrip() {
-  return `<section class="proof-strip" aria-label="Verified production telemetry">
+  return `<section class="proof-strip" aria-label="Experience and open-source verification metrics">
   <div class="proof-stat">
-    <strong>52,167</strong>
-    <span>Multi-agent .jsonl sessions governed with 30+ Python hook gates and 2s SHA merge receipts.</span>
+    <strong>15 yrs</strong>
+    <span>Classroom teaching, real student grading, and an MA in Applied Linguistics.</span>
   </div>
   <div class="proof-stat">
     <strong>88,000</strong>
-    <span>Production API calls audited across 12 models, catching 324 unflagged length truncations.</span>
+    <span>API calls audited in my open-source telemetry harness, catching 324 silent cutoffs.</span>
   </div>
   <div class="proof-stat">
-    <strong>$17</strong>
-    <span>Total spend across 23,740 calls via a 6-rung policy and cost router at 0% false-pass.</span>
+    <strong>0.0%</strong>
+    <span>False-pass rate on seeded rubric defects using cross-family judge panels.</span>
   </div>
   <div class="proof-stat">
-    <strong>56</strong>
-    <span>Open-source workflow, quality-gate, and rubric harnesses published with runnable receipts.</span>
+    <strong>$4,500</strong>
+    <span>Flat 10-workday sprint to test 200 cases, rewrite your rubric, and add CI checks.</span>
   </div>
 </section>`;
 }
@@ -216,149 +212,57 @@ function funnelWorkbench(site) {
 </section>`;
 }
 
-function selfServeB2bKitsSection(site) {
+function singleStandOfferSection(site) {
   const calUrl = site.links.cal ? esc(site.links.cal) : `mailto:${esc(site.links.email)}`;
-  return `<section id="b2b-kits" class="b2b-kits-section" aria-label="Self-Serve B2B Enterprise Source Kits, Amazon Paperback, Video Masterclasses, and Async Founder Sprints">
+  return `<section id="offer-summary" class="b2b-kits-section" aria-label="Work with Joshua Durey">
   <div class="section-head">
     <div>
-      <p class="eyebrow" style="margin-bottom:0.35rem">Instant Self-Serve Source Kits · Live Amazon Paperback · Fixed-Scope Founder Sprints</p>
-      <h2 style="margin:0">Run the production harnesses in your own VPC or certify your team today</h2>
+      <p class="eyebrow" style="margin-bottom:0.35rem">One Specialty · One Clear Price · Plain Terms</p>
+      <h2 style="margin:0">Two ways to work with me</h2>
     </div>
-    <a class="more" href="https://whop.com/human-creative-benchmark-studio/" target="_blank" rel="noopener" data-funnel-cta="home_whop_storefront_hub">Storefront Hub (Human Creative &amp; Benchmark Studio) -&gt;</a>
+    <a class="more" href="/hire/">Full scope &amp; terms -&gt;</a>
   </div>
-  <p class="muted" style="max-width:78ch;margin-top:.35rem">Download clean-room Python source kits and full 14-lecture video &amp; code-lab masterclasses instantly via Whop, order the physical corporate L&amp;D playbook on Amazon ($24.99), or book a 20-minute scope call for a turnkey fixed-scope sprint. (Companion Udemy storefront releases are completing standard 2-3 day instructor identity verification.)</p>
-  <div class="b2b-kits-grid">
+  <p class="muted" style="max-width:74ch;margin-top:.35rem">US citizen living in Seoul, paid in USD (W-2 EOR through Deel or Remote, or direct US contract), online live every workday from 2:00 to 7:00 PM Pacific.</p>
+  <div class="b2b-kits-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));">
     <article class="b2b-kit-card is-featured-kit">
       <div>
         <div class="b2b-kit-head">
-          <span class="tag tag-systems">Corporate L&amp;D Kit · LIVE</span>
-          <span class="b2b-kit-price">$99 · Instant Download</span>
+          <span class="tag tag-eval">Fixed-Price Project · 10 Workdays</span>
+          <span class="b2b-kit-price">$4,500 Flat</span>
         </div>
-        <h3>Corporate L&amp;D Zero-Hallucination SOP-to-SCORM &amp; Video Factory</h3>
-        <p>Compile SOPs, SOC-2 runbooks, and help docs into blind-verified SCORM 1.2, QTI 1.2, 300-DPI PDFs, and 1080p video inside your own environment.</p>
+        <h3>AI Rubric &amp; Exam Hardening Sprint</h3>
+        <p>For adult certification, language testing, licensing, hiring, and training teams whose AI grader rewards wordy bluffing or misses simple right answers.</p>
         <ul class="b2b-kit-bullets">
-          <li>4-vendor blind-solver verification gate (0% policy drift)</li>
-          <li>ADL SCORM 1.2 + QTI 1.2 + 1080p caption pipeline source</li>
-          <li>Includes instant access to the <strong>14-lecture (65-min) Video &amp; Code-Lab Masterclass</strong> + pairs with the $24.99 Amazon Paperback</li>
+          <li>200 tricky test cases checked against two independent human raters</li>
+          <li>Machine-ready rubric rewrite with clear pass and fail rules</li>
+          <li>Clean Python <code>pytest</code> check in your repo so old bugs stay fixed</li>
         </ul>
       </div>
       <div class="b2b-kit-actions">
-        <a class="btn btn-sm btn-checkout" href="https://whop.com/checkout/plan_y1ACgqNYGtul8/" target="_blank" rel="noopener" data-funnel-cta="home_whop_sop_99">Instant Kit + 65m Video ($99) -&gt;</a>
-        <a class="btn btn-sm btn-primary" href="https://www.amazon.com/dp/B0HRQFWFPR" target="_blank" rel="noopener" data-funnel-cta="home_amazon_kdp_corp_2499">Amazon Paperback ($24.99 LIVE) -&gt;</a>
-        <a class="btn btn-sm" href="/sop-to-lms/" data-funnel-cta="home_sop_demo">Live SCORM Demo</a>
-        <a class="btn btn-sm" href="/guides/sop-to-scorm-ai-pipeline/">Architecture Playbook</a>
-      </div>
-    </article>
-
-    <article class="b2b-kit-card is-featured-kit">
-      <div>
-        <div class="b2b-kit-head">
-          <span class="tag tag-eval">AI Eval &amp; Routing Kit · LIVE</span>
-          <span class="b2b-kit-price">$79 · Instant Download</span>
-        </div>
-        <h3>Enterprise AI Eval, 6-Rung Cost Router &amp; REA AgentEnv Pro Kit</h3>
-        <p>Production Python harnesses for 4-vendor cross-family LLM judge evals, deterministic 6-rung model routing, and reproducible AgentEnv stress-testing.</p>
-        <ul class="b2b-kit-bullets">
-          <li>Eliminates single-judge self-bias and silent truncations</li>
-          <li>6-rung policy and cost router with SHA-256 audit receipts</li>
-          <li>Includes instant access to the <strong>14-lecture (64+ min) Production LLM Evals &amp; Cost Routing Masterclass</strong> + 40-question exam bank</li>
-        </ul>
-      </div>
-      <div class="b2b-kit-actions">
-        <a class="btn btn-sm btn-checkout" href="https://whop.com/checkout/plan_lGsdWjQsePkvO/" target="_blank" rel="noopener" data-funnel-cta="home_whop_eval_79">Instant Eval &amp; Router Kit ($79) -&gt;</a>
-        <a class="btn btn-sm" href="https://whop.com/human-creative-benchmark-studio/enterprise-ai-eval-rea-pro-kit" target="_blank" rel="noopener" data-funnel-cta="home_whop_eval_spec">Vault Spec</a>
-        <a class="btn btn-sm" href="/guides/llm-judge-calibration-and-qc/">Judge QC Playbook</a>
+        <a class="btn btn-sm btn-primary" href="${calUrl}" target="_blank" rel="noopener">Book a 20-Min Call</a>
+        <a class="btn btn-sm" href="/hire/">Read Full Sprint Details</a>
       </div>
     </article>
 
     <article class="b2b-kit-card">
       <div>
         <div class="b2b-kit-head">
-          <span class="tag tag-enablement">Done-For-You B2B Pilot</span>
-          <span class="b2b-kit-price">$2.5k-$10k · Fixed Scope</span>
+          <span class="tag tag-enablement">Full-Time or Part-Time</span>
+          <span class="b2b-kit-price">Remote · US Overlap</span>
         </div>
-        <h3>Async Founder &amp; Enterprise Enablement Sprints</h3>
-        <p>Want turnkey delivery instead of self-serve code? Commission a fixed-scope workflow audit, multi-vendor eval gate, or multi-SOP LMS catalog buildout.</p>
+        <h3>AI Grading, Rubric &amp; Quality Control Lead</h3>
+        <p>Join your product, assessment, or learning team to own AI grading accuracy, practice-bank verification, and multi-model quality checks end to end.</p>
         <ul class="b2b-kit-bullets">
-          <li>Custom Day-1 prototype at <code>/for/&lt;your-org&gt;/</code> before kickoff</li>
-          <li>Runnable QC harness + non-technical team playbooks</li>
-          <li>Fixed scope and price with zero open-ended hourly billing</li>
+          <li>15 years teaching and grading real students + MA in Applied Linguistics</li>
+          <li>Production Python quality gates and cross-family judge panels</li>
+          <li>Live daily overlap from 2:00 to 7:00 PM Pacific (5:00 to 10:00 PM Eastern)</li>
         </ul>
       </div>
       <div class="b2b-kit-actions">
-        <a class="btn btn-sm btn-primary" href="${calUrl}" target="_blank" rel="noopener" data-funnel-cta="home_b2b_sprint_cal">Book 20-Min Scope Call</a>
-        <a class="btn btn-sm" href="/guides/fixed-scope-ai-workflow-sprint/">2-Week Sprint Spec</a>
+        <a class="btn btn-sm btn-primary" href="mailto:${esc(site.links.email)}?subject=Role%20Inquiry%20-%20AI%20Grading%20%26%20Quality">Email ${esc(site.links.email)}</a>
+        <a class="btn btn-sm" href="/about/">About Joshua Durey</a>
       </div>
     </article>
-  </div>
-
-  <div class="b2b-kits-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:0.95rem">
-    <article class="b2b-kit-card is-featured-kit">
-      <div>
-        <div class="b2b-kit-head">
-          <span class="tag tag-enablement">Amazon KDP Paperback · LIVE</span>
-          <span class="b2b-kit-price">$24.99 · ISBN 9798142559005</span>
-        </div>
-        <h3>AI for Corporate Training &amp; Instructional Design Playbook</h3>
-        <p>Physical print reference (<em>The UbD Glass-Box Playbook for Zero-Hallucination SOP-to-SCORM, QTI &amp; Video Pipelines</em>, ASIN <code>B0HRQFWFPR</code>) covering deterministic SOP-to-LMS compilation and 4-vendor blind-solver QA.</p>
-      </div>
-      <div class="b2b-kit-actions">
-        <a class="btn btn-sm btn-primary" href="https://www.amazon.com/dp/B0HRQFWFPR" target="_blank" rel="noopener" data-funnel-cta="amazon_card_corp_ld_2499">Buy on Amazon ($24.99 LIVE) -&gt;</a>
-        <a class="btn btn-sm" href="/sop-to-lms/" data-funnel-cta="amazon_card_sop_demo">Interactive SCORM Demo</a>
-      </div>
-    </article>
-
-    <article class="b2b-kit-card">
-      <div>
-        <div class="b2b-kit-head">
-          <span class="tag tag-systems">Udemy Instructor Hub · 31,500+ Learners</span>
-          <span class="b2b-kit-price">2-3 Day ID Check · Instant Access via Whop</span>
-        </div>
-        <h3>AI Corporate Training &amp; Production LLM Evals Cohort</h3>
-        <p>Taught to 31,500+ learners worldwide on Udemy. Our new 14-lecture <em>SOP-to-SCORM Video Factory</em>, <em>Production LLM Evals</em> masterclass, and 40-question certification exams are completing Udemy's standard 2-3 day instructor identity verification, with full instant access available today inside the Whop Vaults.</p>
-      </div>
-      <div class="b2b-kit-actions">
-        <a class="btn btn-sm btn-primary" href="https://whop.com/human-creative-benchmark-studio/" target="_blank" rel="noopener" data-funnel-cta="udemy_card_instant_whop">Instant Video + Code Access (Whop) -&gt;</a>
-        <a class="btn btn-sm" href="https://www.udemy.com/user/joshuadurey/" target="_blank" rel="noopener" data-funnel-cta="udemy_instructor_profile">Udemy Instructor Profile</a>
-      </div>
-    </article>
-  </div>
-</section>`;
-}
-
-function funnelArchitectureSection() {
-  return `<section class="funnel-arch" aria-label="How this agentic hiring funnel works">
-  <div class="section-head">
-    <h2>How this hiring funnel runs itself</h2>
-    <span class="mono-dim">The funnel is a live work sample</span>
-  </div>
-  <p class="muted" style="max-width:74ch;margin-top:.2rem">Most candidates claim they build multi-agent workflows on a static PDF resume. Every step on this site runs on the same checkpointed automation architecture I build for teams.</p>
-  <div class="arch-steps">
-    <div class="arch-step">
-      <div class="arch-num">Stage 01 · Edge AI</div>
-      <h3>3-Vendor Triage</h3>
-      <p>Mistral 24B, Llama 3.3 70B, and Qwen 2.5 32B decompose your JD or workflow at the edge with zero exposed API keys.</p>
-    </div>
-    <div class="arch-step">
-      <div class="arch-num">Stage 02 · KV Queue</div>
-      <h3>Intent &amp; Attribution</h3>
-      <p>Cloudflare KV logs structured intake, UTM source, honeypot bot checks, and first-party prototype engagement.</p>
-    </div>
-    <div class="arch-step">
-      <div class="arch-num">Stage 03 · Orchestrator</div>
-      <h3>Autonomous Dispatch</h3>
-      <p>A scheduled Python worker polls queued leads, verifies DNS MX records, and compiles a role-matched build spec.</p>
-    </div>
-    <div class="arch-step">
-      <div class="arch-num">Stage 04 · Agent Build</div>
-      <h3>4-Stage DAG + Jury</h3>
-      <p>An automated runner executes realistic cases across 3 judge families and passes a 65-test CI publish firewall.</p>
-    </div>
-    <div class="arch-step">
-      <div class="arch-num">Stage 05 · Human Gate</div>
-      <h3>Prototype + Live Call</h3>
-      <p>Delivers your live <code>/for/&lt;org&gt;/</code> kit and role-matched CV automatically. I step in when you book a live call.</p>
-    </div>
   </div>
 </section>`;
 }
@@ -375,71 +279,24 @@ function card(cs, index = 0) {
 
 function omnistoreCatalogJsonLd(site) {
   const base = String(site.url || "https://jdurey.github.io").replace(/\/$/, "") + "/";
-  const authorPerson = {
-    "@type": "Person",
-    name: site.name || "Josh Durey",
-    alternateName: "Joshua Durey",
-    url: base,
-  };
   return [
     {
       "@context": "https://schema.org",
-      "@type": "Book",
-      name: "AI for Corporate Training & Instructional Design: The UbD Glass-Box Playbook for Zero-Hallucination SOP-to-SCORM, QTI & Video Pipelines",
+      "@type": "Service",
+      name: "AI Rubric & Exam Hardening Sprint",
       description:
-        "Enterprise L&D architecture paperback covering deterministic SOP-to-SCORM 1.2 compilation, multi-model verification rubrics, and audit-ready LMS rollouts.",
-      isbn: "9798142559005",
-      gtin13: "9798142559005",
-      sku: "B0HRQFWFPR",
-      bookFormat: "https://schema.org/Paperback",
-      author: authorPerson,
-      url: "https://www.amazon.com/dp/B0HRQFWFPR",
+        "10-workday fixed-price audit and rubric rewrite testing 200 cases on your AI grader or practice bank against two human raters, with a Python pytest check in your repo.",
+      provider: {
+        "@type": "Person",
+        name: "Joshua Durey",
+        alternateName: "Josh Durey",
+        url: base,
+      },
       offers: {
         "@type": "Offer",
-        price: "24.99",
+        price: "4500.00",
         priceCurrency: "USD",
-        availability: "https://schema.org/InStock",
-        url: "https://www.amazon.com/dp/B0HRQFWFPR",
-      },
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      name: "Corporate L&D Zero-Hallucination SOP-to-SCORM & Video Factory",
-      description:
-        "Self-serve enterprise compiler and 14-lecture video masterclass turning SOPs and compliance policies into blind-verified SCORM 1.2 packages, QTI 1.2 banks, 300-DPI PDFs, and 1080p modules.",
-      sku: "plan_y1ACgqNYGtul8",
-      brand: {
-        "@type": "Brand",
-        name: "Human Creative",
-      },
-      url: "https://whop.com/checkout/plan_y1ACgqNYGtul8/",
-      offers: {
-        "@type": "Offer",
-        price: "99.00",
-        priceCurrency: "USD",
-        availability: "https://schema.org/InStock",
-        url: "https://whop.com/checkout/plan_y1ACgqNYGtul8/",
-      },
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      name: "Enterprise AI Eval, 6-Rung Cost Router & REA AgentEnv Pro Kit",
-      description:
-        "Production Python harnesses and 14-lecture masterclass for 4-vendor cross-family LLM judge evaluation, deterministic 6-rung cost routing, and reproducible AgentEnv stress-testing.",
-      sku: "plan_lGsdWjQsePkvO",
-      brand: {
-        "@type": "Brand",
-        name: "Human Creative",
-      },
-      url: "https://whop.com/checkout/plan_lGsdWjQsePkvO/",
-      offers: {
-        "@type": "Offer",
-        price: "79.00",
-        priceCurrency: "USD",
-        availability: "https://schema.org/InStock",
-        url: "https://whop.com/checkout/plan_lGsdWjQsePkvO/",
+        url: `${base}hire/`,
       },
     },
   ];
@@ -449,20 +306,19 @@ export function homePage({ site, featured, recent, guides = [] }) {
   const body = `
 <section class="hero">
   <div class="hero-copy">
-    <p class="eyebrow">Applied AI · Agentic Workflows · LLM QC</p>
+    <p class="eyebrow">Joshua Durey · AI Grading, Rubrics &amp; Quality Control</p>
     <h1>${esc(site.heroHeadline)}</h1>
     <p class="lede">${site.thesisHtml}</p>
     <div class="cta">
-      <a class="btn btn-primary" href="#diagnostic" data-funnel-cta="hero_diagnostic">Test your JD or workflow</a>
-      <a class="btn" href="/interview/" data-funnel-cta="hero_interview">Interview AI Josh (3m)</a>
-      <a class="btn" href="${site.offerUrl ? esc(site.offerUrl) : "#commission-prototype"}" data-funnel-cta="hero_hire">For hiring teams</a>
-      ${site.links.cal ? `<a class="btn" href="${esc(site.links.cal)}" target="_blank" rel="noopener" data-funnel-cta="hero_cal">Book 20-min call</a>` : ""}
+      <a class="btn btn-primary" href="/hire/">See the $4,500 Rubric Sprint</a>
+      ${site.links.cal ? `<a class="btn" href="${esc(site.links.cal)}" target="_blank" rel="noopener">Book a 20-min call</a>` : ""}
+      <a class="btn" href="/about/">About Joshua Durey</a>
     </div>
   </div>
   <div class="hero-instrument" aria-hidden="true">
     <div class="instrument-head">
-      <span>3-vendor gate</span>
-      <span>fail-closed</span>
+      <span>rubric check</span>
+      <span>2-rater anchored</span>
     </div>
     <div class="instrument-scan">
       <span></span><span></span><span></span><span></span>
@@ -473,9 +329,9 @@ export function homePage({ site, featured, recent, guides = [] }) {
       <span></span><span></span><span class="hot"></span><span></span>
     </div>
     <div class="instrument-readout">
-      <span>agent runs</span>
-      <strong>52,167</strong>
-      <span>false-pass</span>
+      <span>sprint scope</span>
+      <strong>200 cases</strong>
+      <span>bluff pass</span>
       <strong>0.0%</strong>
     </div>
   </div>
@@ -483,18 +339,7 @@ export function homePage({ site, featured, recent, guides = [] }) {
 
 ${proofStrip()}
 
-${funnelWorkbench(site)}
-
-${selfServeB2bKitsSection(site)}
-
-${funnelArchitectureSection()}
-
-${guides.length ? `<section class="featured">
-  <div class="section-head"><h2>Executive playbooks &amp; hiring guides</h2><a class="more" href="/guides/">All 8 playbooks →</a></div>
-  <div class="cards">
-    ${guides.slice(0, 4).map((g, i) => card(g, i)).join("\n")}
-  </div>
-</section>` : ""}
+${singleStandOfferSection(site)}
 
 <section class="featured">
   <div class="section-head"><h2>Selected work</h2><a class="more" href="/work/">All work →</a></div>
@@ -504,8 +349,8 @@ ${guides.length ? `<section class="featured">
 </section>
 
 <section class="changelog">
-  <h2>Changelog</h2>
-  <p class="muted">What I shipped recently. This page regenerates every night from the lab.</p>
+  <h2>Recent notes &amp; harnesses</h2>
+  <p class="muted">Open-source checks and experiments from my workbench.</p>
   <ul class="log">
     ${recent
       .map(
@@ -654,15 +499,15 @@ export function aboutPage({ site, bodyHtml, canonicalPath = "/about/", pageTitle
               name: "Who is Joshua Durey (Josh Durey)?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Joshua Durey (Josh Durey) is an Applied AI Enablement Lead, Agentic Workflow Architect, and founder of Human Creative. He audits operational workflows for AI readiness, orchestrates self-checking multi-agent pipelines with deterministic Python hook gates, builds SOP-to-SCORM 1.2 enterprise training compilers, and runs cross-family LLM quality control.",
+                text: "Joshua Durey (Josh Durey) tests where AI graders and AI-made practice exams get scores wrong, and rewrites rubrics and quality checks so adult learning, certification, language testing, and hiring teams can trust the scores.",
               },
             },
             {
               "@type": "Question",
-              name: "How did Joshua Durey transition from international education into agentic AI orchestration?",
+              name: "What is Joshua Durey's background?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "After fifteen years in international schools and curriculum leadership and earning an MA in Applied Linguistics from the University of Birmingham, Joshua Durey governed 52,167 multi-agent sessions, 30+ Python hook gates, and multi-vendor LLM evaluation rubrics on contract for an AI-education company before launching Human Creative to build horizontal agentic workflows for operations, support, compliance, and L&D teams.",
+                text: "Joshua Durey spent fifteen years teaching and grading students in schools across Asia and the US, earned an MA in Applied Linguistics from the University of Birmingham, and built Python quality gates, multi-model judge panels, and quiz checks on contract for an AI education company.",
               },
             },
             {
@@ -670,7 +515,7 @@ export function aboutPage({ site, bodyHtml, canonicalPath = "/about/", pageTitle
               name: "How can companies hire or work with Joshua Durey?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Joshua Durey is a US Citizen working 100% remotely in English with US and APAC overlap via full-time remote roles (W-2 EOR or US LLC contract), fractional AI leadership, or fixed-scope two-week workflow sprints at jdurey.github.io/hire/.",
+                text: "Joshua Durey is a US Citizen living in Seoul, paid in USD (W-2 EOR through Deel or Remote, or direct US contract), online live every workday from 2:00 to 7:00 PM Pacific, available for a $4,500 10-day AI Rubric & Exam Hardening Sprint or full-time/part-time leadership at jdurey.github.io/hire/.",
               },
             },
           ],
@@ -678,7 +523,7 @@ export function aboutPage({ site, bodyHtml, canonicalPath = "/about/", pageTitle
       : null;
   const body = `
 <section class="page-head">
-  <p class="eyebrow">Applied AI Enablement · Agentic Workflow Orchestration · LLM QC</p>
+  <p class="eyebrow">Joshua Durey · AI Grading, Rubrics &amp; Quality Control</p>
   <h1>${esc(pageTitle)}</h1>
 </section>
 <div class="prose about">${bodyHtml}</div>`;
@@ -686,7 +531,7 @@ export function aboutPage({ site, bodyHtml, canonicalPath = "/about/", pageTitle
     site,
     title: pageTitle,
     description:
-      "Joshua Durey (Josh Durey) - Applied AI Enablement Lead & Agentic Workflow Architect. 52,167 governed multi-agent runs, 30+ Python hook gates, cross-family LLM quality control, and SOP-to-SCORM compilers.",
+      "Joshua Durey (Josh Durey) tests where AI graders and practice exams break, and rewrites rubrics and quality checks so teams can trust the scores.",
     body,
     active: "about",
     canonicalPath,
@@ -695,38 +540,31 @@ export function aboutPage({ site, bodyHtml, canonicalPath = "/about/", pageTitle
 }
 
 export function offerPage({ site, offer, bodyHtml }) {
-  const mailto = `mailto:${esc(site.links.email)}?subject=${encodeURIComponent(offer.ctaSubject || "Eval sprint inquiry")}`;
-  // Booking CTA: a Cal.com link when configured (handles cross-timezone scheduling from Seoul),
-  // else fall back to email so nothing ships broken before the handle exists. Mirrors the
-  // populate-to-activate idiom used for linkedin/twitter in site.json.
+  const mailto = `mailto:${esc(site.links.email)}?subject=${encodeURIComponent(offer.ctaSubject || "AI Rubric & Exam Hardening Inquiry")}`;
   const bookHref = site.links.cal ? esc(site.links.cal) : mailto;
   const bookAttrs = site.links.cal ? ` target="_blank" rel="noopener"` : "";
-  const ctaLabel = esc(offer.ctaLabel || "Book a call");
+  const ctaLabel = esc(offer.ctaLabel || "Book a 20-minute call");
   const body = `
 <section class="hero offer-hero">
   <div class="hero-copy">
-    <p class="eyebrow">Full-Time Remote · Fractional Lead · Fixed-Scope Sprint</p>
+    <p class="eyebrow">$4,500 Fixed-Price Sprint · Full-Time or Part-Time Leadership</p>
     <h1>${esc(offer.title)}</h1>
     <p class="lede">${esc(offer.subtitle || offer.summary)}</p>
     <div class="cta">
-      <a class="btn btn-primary" href="#commission-prototype" data-funnel-cta="hire_prototype">Get a Free Day-1 Prototype</a>
-      <a class="btn" href="${bookHref}"${bookAttrs} data-funnel-cta="hire_cal">${ctaLabel}</a>
-      <a class="btn" href="/interview/" data-funnel-cta="hire_interview">Interview AI Josh (3m)</a>
-      <a class="btn" href="/work/">See 56 Case Studies</a>
+      <a class="btn btn-primary" href="${bookHref}"${bookAttrs}>${ctaLabel}</a>
+      <a class="btn" href="${mailto}">Email ${esc(site.links.email)}</a>
+      <a class="btn" href="/about/">About Joshua Durey</a>
     </div>
   </div>
 </section>
 ${proofStrip()}
-${funnelWorkbench(site)}
-${selfServeB2bKitsSection(site)}
 <div class="prose offer-body">
 ${bodyHtml}
   <div class="cta cta-foot">
     <a class="btn btn-primary" href="${bookHref}"${bookAttrs}>${ctaLabel}</a>
-    <a class="btn" href="#commission-prototype">Request Free Team Prototype</a>
+    <a class="btn" href="${mailto}">Email ${esc(site.links.email)}</a>
   </div>
-</div>
-${funnelArchitectureSection()}`;
+</div>`;
   return layout({ site, title: offer.title, description: offer.description || offer.summary, body, active: "hire", canonicalPath: site.offerUrl || "/hire/" });
 }
 
